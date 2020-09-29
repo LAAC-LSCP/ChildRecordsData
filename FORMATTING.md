@@ -24,19 +24,19 @@ Can be either `children.csv`, `children.xls` or `children.xslx`.
 | **child_id** | unique child ID -- unique within the experiment (Id could be repeated across experiments to refer to different children) | **required** | - |
 | **child_dob** | child's date of birth | **required** | `%Y-%m-%d` (date/time) |
 | **location_id** | Unique location ID -- only specify here if children never change locations in this culture; otherwise, specify in the recordings metadata | optional | - |
-| **child_sex** | f= female, m=male | optional | `(m\|f\|M\|F)` (regex) |
+| **child_sex** | f= female, m=male | optional | `(m|f|M|F)` (regex) |
 | **language** | language the child is exposed to if child is monolingual; small caps, indicate dialect by name or location if available; eg "france french"; "paris french" | optional | - |
 | **languages** | list languages child is exposed to separating them with ; and indicating the percentage if one is available; eg: "french 35%; english 65%" | optional | - |
 | **mat_ed** | maternal years of education | optional | - |
 | **fat_ed** | paternal years of education | optional | - |
 | **car_ed** | years of education of main caregiver (if not mother or father) | optional | - |
-| **monoling** | whether the child is monolingual (Y) or not (N) | optional | `(Y\|N)` (regex) |
+| **monoling** | whether the child is monolingual (Y) or not (N) | optional | `(Y|N)` (regex) |
 | **monoling_criterion** | how monoling was decided; eg "we asked families which languages they spoke in the home" | optional | - |
-| **normative** | whether the child is normative (Y) or not (N) | optional | `(Y\|N)` (regex) |
+| **normative** | whether the child is normative (Y) or not (N) | optional | `(Y|N)` (regex) |
 | **normative_criterion** | how normative was decided; eg "unless the caregivers volunteered information whereby the child had a problem, we consider them normative by default" | optional | - |
 | **mother_id** | unique ID of the mother | optional | - |
 | **father_id** | unique ID of the father | optional | - |
-| **daytime** | yes (Y) means recording launched such that most or all of the audiorecording happens during daytime; no (N) means at least 30% of the recording may happen at night | optional | `(Y\|N)` (regex) |
+| **daytime** | yes (Y) means recording launched such that most or all of the audiorecording happens during daytime; no (N) means at least 30% of the recording may happen at night | optional | `(Y|N)` (regex) |
 
 
 
