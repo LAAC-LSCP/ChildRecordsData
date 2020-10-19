@@ -27,6 +27,8 @@ If you want to import ChildProject modules into your code, you should install th
 pip install git+https://github.com/LAAC-LSCP/ChildRecordsData.git
 ```
 
+## Usage
+
 ### Validate raw data
 
 ```
