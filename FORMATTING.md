@@ -1,5 +1,7 @@
 
 
+# Source data formatting guidelines
+
 ## Raw data tree
 
 ```
@@ -61,3 +63,19 @@ Can be either `recordings/recordings.csv`, `recordings/recordings.xls` or `recor
 | **lena_id** |  | optional | - |
 | **age** | age in months (rounded) | optional | `^[0-9]+$` (regex) |
 | **notes** | free-style notes about individual recordings (avoid tabs and newlines) | optional | - |
+
+
+# Annotations formatting
+
+Dataframes passed to the importation script must have the following format :
+
+| Name | Description | Required ? | Format |
+|------|-------------|------------|--------|
+| **set** | name of the annotation set (e.g. VTC, annotator1, etc.) | **required** | - |
+| **recording_filename** | recording filename as specified in the recordings index | **required** | - |
+| **time_seek** | reference time in seconds, e.g: 3600, or 3600.500. All times expressed in the annotations are relative to this time. | **required** | `[0-9]{1,}(\.[0-9]{3})?` (regex) |
+| **range_onset** | covered range start time in seconds, measured since `time_seek` | **required** | `[0-9]{1,}(\.[0-9]{3})?` (regex) |
+| **range_offset** | covered range end time in seconds, measured since `time_seek` | **required** | `[0-9]{1,}(\.[0-9]{3})?` (regex) |
+| **raw_filename** | annotation input filename location (relative to raw_annotations/) | **required** | filename |
+| **format** | input annotation format | **required** | `(TextGrid|eaf|rttm)` (regex) |
+| **filter** | source file to filter in (for rttm only) | optional | - |
