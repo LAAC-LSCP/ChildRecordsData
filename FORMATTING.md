@@ -81,5 +81,5 @@ Dataframes passed to the importation script must have the following format :
 | **range_onset** | covered range start time in seconds, measured since `time_seek` | **required** | `[0-9]{1,}(\.[0-9]{3})?` (regex) |
 | **range_offset** | covered range end time in seconds, measured since `time_seek` | **required** | `[0-9]{1,}(\.[0-9]{3})?` (regex) |
 | **raw_filename** | annotation input filename location (relative to raw_annotations/) | **required** | filename |
-| **format** | input annotation format | **required** | `(TextGrid|eaf|rttm)` (regex) |
+| **format** | input annotation format | **required** | `(TextGrid|eaf|vtc_rttm)` (regex) |
 | **filter** | source file to filter in (for rttm only) | optional | - |
