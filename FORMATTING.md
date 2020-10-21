@@ -100,3 +100,20 @@ Annotations are converted to the following format :
 | **mwu_type** | M if multiword, 1 if single word -- only filled if lex_type==W | `(M|1|NA)` (regex) |
 | **addresseee** | T if target-child-directed, C if other-child-directed, A if adult-directed, U if uncertain or other | `(T|C|A|U|NA)` (regex) |
 | **transcription** | orthographic transcription of the speach | - |
+
+
+Annotations are indexed in one unique dataframe located at `annotations/annotations.csv`, with the following format :
+
+Annotations are converted to the following format :
+
+| Name | Description | Format |
+|------|-------------|--------|
+| **set** | name of the annotation set (e.g. VTC, annotator1, etc.) | - |
+| **recording_filename** | recording filename as specified in the recordings index | - |
+| **time_seek** | reference time in seconds, e.g: 3600, or 3600.500. All times expressed in the annotations are relative to this time. | `[0-9]{1,}(\.[0-9]{3})?` (regex) |
+| **range_onset** | covered range start time in seconds, measured since `time_seek` | `[0-9]{1,}(\.[0-9]{3})?` (regex) |
+| **range_offset** | covered range end time in seconds, measured since `time_seek` | `[0-9]{1,}(\.[0-9]{3})?` (regex) |
+| **raw_filename** | annotation input filename location (relative to raw_annotations/) | filename |
+| **format** | input annotation format | `(TextGrid|eaf|vtc_rttm)` (regex) |
+| **annotation_filename** | output formatted annotation location (automatic column, don't specify) | filename |
+| **imported_at** | importation date (automatic column, don't specify) | `%Y-%m-%d %H:%M:%S` (date/time) |
