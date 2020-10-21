@@ -83,3 +83,20 @@ Dataframes passed to the importation script must have the following format :
 | **raw_filename** | annotation input filename location (relative to raw_annotations/) | **required** | filename |
 | **format** | input annotation format | **required** | `(TextGrid|eaf|vtc_rttm)` (regex) |
 | **filter** | source file to filter in (for rttm only) | optional | - |
+
+
+Annotations are converted to the following format :
+
+| Name | Description | Format |
+|------|-------------|--------|
+| **annotation_file** | raw annotation path relative to /raw_annotations/ | - |
+| **segment_onset** | segment start time in seconds | `(\d+(\.\d+)?)` (regex) |
+| **segment_offset** | segment end time in seconds | `(\d+(\.\d+)?)` (regex) |
+| **speaker_id** | identity of speaker in the annotation | - |
+| **speaker_type** | class of speaker (FEM, MAL, CHI, OCH) | `(FEM|MAL|CHI|OCH|SPEECH|NA)` (regex) |
+| **ling_type** | 1 if the vocalization contains at least a vowel (ie canonical or non-canonical), 0 if crying or laughing | `(1|0|NA)` (regex) |
+| **vcm_type** | vocal maturity defined as: C (canonical), N (non-canonical), Y (crying) L (laughing), J (junk) | `(C|N|Y|L|J|NA)` (regex) |
+| **lex_type** | W if meaningful, 0 otherwise | `(W|0|NA)` (regex) |
+| **mwu_type** | M if multiword, 1 if single word -- only filled if lex_type==W | `(M|1|NA)` (regex) |
+| **addresseee** | T if target-child-directed, C if other-child-directed, A if adult-directed, U if uncertain or other | `(T|C|A|U|NA)` (regex) |
+| **transcription** | orthographic transcription of the speach | - |
