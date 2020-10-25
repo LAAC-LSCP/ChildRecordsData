@@ -115,3 +115,4 @@ Annotations are indexed in one unique dataframe located at `annotations/annotati
 | **format** | input annotation format | `(TextGrid|eaf|vtc_rttm)` (regex) |
 | **annotation_filename** | output formatted annotation location (automatic column, don't specify) | filename |
 | **imported_at** | importation date (automatic column, don't specify) | `%Y-%m-%d %H:%M:%S` (date/time) |
+| **error** | error message in case the annotation could not be imported | - |
