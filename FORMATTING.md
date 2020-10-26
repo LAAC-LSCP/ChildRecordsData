@@ -5,6 +5,9 @@
   - [children notebook](#children-notebook)
   - [recording notebook](#recording-notebook)
 - [Annotations formatting](#annotations-formatting)
+  - [Annotations format](#annotations-format)
+  - [Annotations index](#annotations-index)
+  - [Annotation importation input format](#annotation-importation-input-format)
 
 # Source data formatting guidelines
 
@@ -80,21 +83,9 @@ Can be either `recordings/recordings.csv`, `recordings/recordings.xls` or `recor
 
 # Annotations formatting
 
-Dataframes passed to the importation script must have the following format :
+## Annotations format
 
-| Name | Description | Required ? | Format |
-|------|-------------|------------|--------|
-| **set** | name of the annotation set (e.g. VTC, annotator1, etc.) | **required** | - |
-| **recording_filename** | recording filename as specified in the recordings index | **required** | - |
-| **time_seek** | reference time in seconds, e.g: 3600, or 3600.500. All times expressed in the annotations are relative to this time. | **required** | `[0-9]{1,}(\.[0-9]{3})?` (regex) |
-| **range_onset** | covered range start time in seconds, measured since `time_seek` | **required** | `[0-9]{1,}(\.[0-9]{3})?` (regex) |
-| **range_offset** | covered range end time in seconds, measured since `time_seek` | **required** | `[0-9]{1,}(\.[0-9]{3})?` (regex) |
-| **raw_filename** | annotation input filename location (relative to raw_annotations/) | **required** | filename |
-| **format** | input annotation format | **required** | `(TextGrid|eaf|vtc_rttm)` (regex) |
-| **filter** | source file to filter in (for rttm only) | optional | - |
-
-
-Annotations are converted to the following format :
+The package provides functions to convert any annotation into the following csv format, with one row per segment :
 
 | Name | Description | Format |
 |------|-------------|--------|
@@ -111,7 +102,9 @@ Annotations are converted to the following format :
 | **transcription** | orthographic transcription of the speach | - |
 
 
-Annotations are indexed in one unique dataframe located at `annotations/annotations.csv`, with the following format :
+## Annotations index
+
+Annotations are indexed in one unique dataframe located at `/annotations/annotations.csv`, with the following format :
 
 | Name | Description | Format |
 |------|-------------|--------|
@@ -125,3 +118,20 @@ Annotations are indexed in one unique dataframe located at `annotations/annotati
 | **annotation_filename** | output formatted annotation location (automatic column, don't specify) | filename |
 | **imported_at** | importation date (automatic column, don't specify) | `%Y-%m-%d %H:%M:%S` (date/time) |
 | **error** | error message in case the annotation could not be imported | - |
+
+
+## Annotation importation input format
+
+The annotations importation script and function take a dataframe of the following format as an input :
+
+| Name | Description | Required ? | Format |
+|------|-------------|------------|--------|
+| **set** | name of the annotation set (e.g. VTC, annotator1, etc.) | **required** | - |
+| **recording_filename** | recording filename as specified in the recordings index | **required** | - |
+| **time_seek** | reference time in seconds, e.g: 3600, or 3600.500. All times expressed in the annotations are relative to this time. | **required** | `[0-9]{1,}(\.[0-9]{3})?` (regex) |
+| **range_onset** | covered range start time in seconds, measured since `time_seek` | **required** | `[0-9]{1,}(\.[0-9]{3})?` (regex) |
+| **range_offset** | covered range end time in seconds, measured since `time_seek` | **required** | `[0-9]{1,}(\.[0-9]{3})?` (regex) |
+| **raw_filename** | annotation input filename location (relative to raw_annotations/) | **required** | filename |
+| **format** | input annotation format | **required** | `(TextGrid|eaf|vtc_rttm)` (regex) |
+| **filter** | source file to filter in (for rttm only) | optional | - |
+
