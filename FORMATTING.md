@@ -61,7 +61,10 @@ Located in the `metadata` folder. Can be named either `children.csv`, `children.
 | **normative_criterion** | how normative was decided; eg "unless the caregivers volunteered information whereby the child had a problem, we consider them normative by default" | optional | - |
 | **mother_id** | unique ID of the mother | optional | - |
 | **father_id** | unique ID of the father | optional | - |
-| **daytime** | yes (Y) means recording launched such that most or all of the audiorecording happens during daytime; no (N) means at least 30% of the recording may happen at night | optional | `(Y|N)` (regex) |
+| **order_of_birth** | child order of birth | optional | `([0-9]+|NA)` (regex) |
+| **n_of_siblings** | amount of siblings | optional | `([0-9]+|NA)` (regex) |
+| **household_size** | number of people living in the household (adults+children) | optional | `([0-9]+|NA)` (regex) |
+| **dob_criterion** | determines whether the date of birth is known exactly or extrapolated e.g. from the age. Dates of birth are assumed to be known exactly if this column is NA or unspecified. | optional | `(extrapolated|exact|NA)` (regex) |
 
 
 ## recording notebook
@@ -82,7 +85,6 @@ Located in the `metadata` folder.  Can be named either `recordings.csv`, `record
 | **its_filename** | its_filename | optional | filename |
 | **upl_filename** | upl_filename | optional | filename |
 | **lena_id** |  | optional | - |
-| **age** | age in months (rounded) | optional | `^[0-9]+$` (regex) |
 | **notes** | free-style notes about individual recordings (avoid tabs and newlines) | optional | - |
 
 
