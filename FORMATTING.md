@@ -84,6 +84,7 @@ Located in the `metadata` folder.  Can be named either `recordings.csv`, `record
 | **location_id** | unique location ID -- can be specified at the level of the child (if children do not change locations) | optional | - |
 | **its_filename** | its_filename | optional | filename |
 | **upl_filename** | upl_filename | optional | filename |
+| **trs_filename** | trs_filename | optional | filename |
 | **lena_id** |  | optional | - |
 | **notes** | free-style notes about individual recordings (avoid tabs and newlines) | optional | - |
 
