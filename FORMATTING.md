@@ -61,9 +61,9 @@ Located in the `metadata` folder. Can be named either `children.csv`, `children.
 | **normative_criterion** | how normative was decided; eg "unless the caregivers volunteered information whereby the child had a problem, we consider them normative by default" | optional | - |
 | **mother_id** | unique ID of the mother | optional | - |
 | **father_id** | unique ID of the father | optional | - |
-| **order_of_birth** | child order of birth | optional | `([0-9]+|NA)` (regex) |
-| **n_of_siblings** | amount of siblings | optional | `([0-9]+|NA)` (regex) |
-| **household_size** | number of people living in the household (adults+children) | optional | `([0-9]+|NA)` (regex) |
+| **order_of_birth** | child order of birth | optional | `(\d+(\.\d+)?)` (regex) |
+| **n_of_siblings** | amount of siblings | optional | `(\d+(\.\d+)?)` (regex) |
+| **household_size** | number of people living in the household (adults+children) | optional | `(\d+(\.\d+)?)` (regex) |
 | **dob_criterion** | determines whether the date of birth is known exactly or extrapolated e.g. from the age. Dates of birth are assumed to be known exactly if this column is NA or unspecified. | optional | `(extrapolated|exact|NA)` (regex) |
 
 
