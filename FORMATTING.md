@@ -84,6 +84,7 @@ Located in the `metadata` folder.  Can be named either `recordings.csv`, `record
 | **start_time** | local time in which recording was started in format 24-hour (H)H:MM; if minutes are unknown, use 00. Set as ‘NA’ if unknown. | **required** | `%H:%M` (date/time) |
 | **recording_device_type** | lena, usb, olympus, babylogger (lowercase) | **required** | lena, usb, olympus, babylogger |
 | **filename** | the path to the file from the root of “recordings”), set to ‘NA’ if no valid recording available. It is unique (two recordings cannot point towards the same file). | **required** | filename |
+| **duration** | duration of the audio | optional | `(\d+(\.\d+)?)` (regex) |
 | **recording_device_id** | unique ID of the recording device | optional | - |
 | **experimenter** | who collected the data (could be anonymized ID) | optional | - |
 | **location_id** | unique location ID -- can be specified at the level of the child (if children do not change locations) | optional | - |
