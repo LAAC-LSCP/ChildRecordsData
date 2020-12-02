@@ -70,6 +70,7 @@ Located in the `metadata` folder. Can be named either `children.csv`, `children.
 | **n_of_siblings** | amount of siblings | optional | `(\d+(\.\d+)?)` (regex) |
 | **household_size** | number of people living in the household (adults+children) | optional | `(\d+(\.\d+)?)` (regex) |
 | **dob_criterion** | determines whether the date of birth is known exactly or extrapolated e.g. from the age. Dates of birth are assumed to be known exactly if this column is NA or unspecified. | optional | extrapolated, exact |
+| **dob_accuracy** | date of birth accuracy | optional | extact, week, month, year, other |
 
 
 ### recording notebook
