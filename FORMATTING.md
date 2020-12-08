@@ -115,7 +115,7 @@ The package provides functions to convert any annotation into the following csv 
 | **ling_type** | 1 if the vocalization contains at least a vowel (ie canonical or non-canonical), 0 if crying or laughing | 1, 0, NA |
 | **vcm_type** | vocal maturity defined as: C (canonical), N (non-canonical), Y (crying) L (laughing), J (junk) | C, N, Y, L, J, NA |
 | **lex_type** | W if meaningful, 0 otherwise | W, 0, NA |
-| **mwu_type** | M if multiword, 1 if single word -- only filled if lex_type==W | (, M, |, 1, |, N, A, ) |
+| **mwu_type** | M if multiword, 1 if single word -- only filled if lex_type==W | M, 1, NA |
 | **addresseee** | T if target-child-directed, C if other-child-directed, A if adult-directed, U if uncertain or other | T, C, A, U, NA |
 | **transcription** | orthographic transcription of the speach | - |
 
