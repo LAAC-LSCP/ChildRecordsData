@@ -118,6 +118,9 @@ The package provides functions to convert any annotation into the following csv 
 | **mwu_type** | M if multiword, 1 if single word -- only filled if lex_type==W | M, 1, NA |
 | **addresseee** | T if target-child-directed, C if other-child-directed, A if adult-directed, U if uncertain or other | T, C, A, U, NA |
 | **transcription** | orthographic transcription of the speach | - |
+| **phonemes** | amount of phonemes | `(\d+(\.\d+)?)` (regex) |
+| **syllables** | amount of syllables | `(\d+(\.\d+)?)` (regex) |
+| **words** | amount of words | `(\d+(\.\d+)?)` (regex) |
 
 
 ## Annotations index
@@ -132,7 +135,7 @@ Annotations are indexed in one unique dataframe located at `/metadata/annotation
 | **range_onset** | covered range start time in seconds, measured since `time_seek` | `[0-9]{1,}(\.[0-9]{3})?` (regex) |
 | **range_offset** | covered range end time in seconds, measured since `time_seek` | `[0-9]{1,}(\.[0-9]{3})?` (regex) |
 | **raw_filename** | annotation input filename location (relative to raw_annotations/) | filename |
-| **format** | input annotation format | TextGrid, eaf, vtc_rttm |
+| **format** | input annotation format | TextGrid, eaf, vtc_rttm, alice |
 | **annotation_filename** | output formatted annotation location (automatic column, don't specify) | filename |
 | **imported_at** | importation date (automatic column, don't specify) | `%Y-%m-%d %H:%M:%S` (date/time) |
 | **error** | error message in case the annotation could not be imported | - |
@@ -150,6 +153,6 @@ The annotations importation script and function take a dataframe of the followin
 | **range_onset** | covered range start time in seconds, measured since `time_seek` | **required** | `[0-9]{1,}(\.[0-9]{3})?` (regex) |
 | **range_offset** | covered range end time in seconds, measured since `time_seek` | **required** | `[0-9]{1,}(\.[0-9]{3})?` (regex) |
 | **raw_filename** | annotation input filename location (relative to raw_annotations/) | **required** | filename |
-| **format** | input annotation format | **required** | TextGrid, eaf, vtc_rttm |
-| **filter** | source file to filter in (for rttm only) | optional | - |
+| **format** | input annotation format | **required** | TextGrid, eaf, vtc_rttm, alice |
+| **filter** | source file to filter in (for rttm and alice only) | optional | - |
 
