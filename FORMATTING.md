@@ -132,8 +132,8 @@ Annotations are indexed in one unique dataframe located at `/metadata/annotation
 | **set** | name of the annotation set (e.g. VTC, annotator1, etc.) | - |
 | **recording_filename** | recording filename as specified in the recordings index | - |
 | **time_seek** | reference time in seconds, e.g: 3600, or 3600.500. All times expressed in the annotations are relative to this time. | `[0-9]{1,}(\.[0-9]{3})?` (regex) |
-| **range_onset** | covered range start time in seconds, measured since `time_seek` | `[0-9]{1,}(\.[0-9]{3})?` (regex) |
-| **range_offset** | covered range end time in seconds, measured since `time_seek` | `[0-9]{1,}(\.[0-9]{3})?` (regex) |
+| **range_onset** | covered range start time in seconds, measured since `time_seek` | `(\d+(\.\d+)?)` (regex) |
+| **range_offset** | covered range end time in seconds, measured since `time_seek` | `(\d+(\.\d+)?)` (regex) |
 | **raw_filename** | annotation input filename location (relative to raw_annotations/) | filename |
 | **format** | input annotation format | TextGrid, eaf, vtc_rttm, alice |
 | **annotation_filename** | output formatted annotation location (automatic column, don't specify) | filename |
@@ -150,8 +150,8 @@ The annotations importation script and function take a dataframe of the followin
 | **set** | name of the annotation set (e.g. VTC, annotator1, etc.) | **required** | - |
 | **recording_filename** | recording filename as specified in the recordings index | **required** | - |
 | **time_seek** | reference time in seconds, e.g: 3600, or 3600.500. All times expressed in the annotations are relative to this time. | **required** | `[0-9]{1,}(\.[0-9]{3})?` (regex) |
-| **range_onset** | covered range start time in seconds, measured since `time_seek` | **required** | `[0-9]{1,}(\.[0-9]{3})?` (regex) |
-| **range_offset** | covered range end time in seconds, measured since `time_seek` | **required** | `[0-9]{1,}(\.[0-9]{3})?` (regex) |
+| **range_onset** | covered range start time in seconds, measured since `time_seek` | **required** | `(\d+(\.\d+)?)` (regex) |
+| **range_offset** | covered range end time in seconds, measured since `time_seek` | **required** | `(\d+(\.\d+)?)` (regex) |
 | **raw_filename** | annotation input filename location (relative to raw_annotations/) | **required** | filename |
 | **format** | input annotation format | **required** | TextGrid, eaf, vtc_rttm, alice |
 | **filter** | source file to filter in (for rttm and alice only) | optional | - |
