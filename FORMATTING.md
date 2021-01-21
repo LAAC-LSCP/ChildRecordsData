@@ -30,12 +30,16 @@ project
 │   │   annotations.csv
 |
 └───recordings
-│   │   recordings.csv
-│   │   recording1.wav
+│   └───raw
+│   │   │   recording1.wav
 │
-└───raw_annotations
-│   │   child1.rttm
-│   │   child1_3600.TextGrid
+└───annotations
+│   └───vtc
+│   │   └───raw
+│   │   │   │   child1.rttm
+│   └───annotator1
+│   │   └───raw
+│   │   │   │   child1_3600.TextGrid
 │
 └───extra
     │   notes.txt
@@ -109,7 +113,7 @@ The package provides functions to convert any annotation into the following csv 
 
 | Name | Description | Format |
 |------|-------------|--------|
-| **annotation_file** | raw annotation path relative to /raw_annotations/ | - |
+| **annotation_file** | raw annotation path relative, relative to `annotations/<set>/raw` | - |
 | **segment_onset** | segment start time in seconds | `(\d+(\.\d+)?)` (regex) |
 | **segment_offset** | segment end time in seconds | `(\d+(\.\d+)?)` (regex) |
 | **speaker_id** | identity of speaker in the annotation | - |
@@ -136,7 +140,7 @@ Annotations are indexed in one unique dataframe located at `/metadata/annotation
 | **time_seek** | reference time in seconds, e.g: 3600, or 3600.500. All times expressed in the annotations are relative to this time. | `[0-9]{1,}(\.[0-9]{3})?` (regex) |
 | **range_onset** | covered range start time in seconds, measured since `time_seek` | `(\d+(\.\d+)?)` (regex) |
 | **range_offset** | covered range end time in seconds, measured since `time_seek` | `(\d+(\.\d+)?)` (regex) |
-| **raw_filename** | annotation input filename location (relative to raw_annotations/) | filename |
+| **raw_filename** | annotation input filename location, relative to `annotations/<set>/raw` | filename |
 | **format** | input annotation format | TextGrid, eaf, vtc_rttm, alice |
 | **annotation_filename** | output formatted annotation location (automatic column, don't specify) | filename |
 | **imported_at** | importation date (automatic column, don't specify) | `%Y-%m-%d %H:%M:%S` (date/time) |
@@ -154,7 +158,7 @@ The annotations importation script and function take a dataframe of the followin
 | **time_seek** | reference time in seconds, e.g: 3600, or 3600.500. All times expressed in the annotations are relative to this time. | **required** | `[0-9]{1,}(\.[0-9]{3})?` (regex) |
 | **range_onset** | covered range start time in seconds, measured since `time_seek` | **required** | `(\d+(\.\d+)?)` (regex) |
 | **range_offset** | covered range end time in seconds, measured since `time_seek` | **required** | `(\d+(\.\d+)?)` (regex) |
-| **raw_filename** | annotation input filename location (relative to raw_annotations/) | **required** | filename |
+| **raw_filename** | annotation input filename location, relative to `annotations/<set>/raw` | **required** | filename |
 | **format** | input annotation format | **required** | TextGrid, eaf, vtc_rttm, alice |
 | **filter** | source file to filter in (for rttm and alice only) | optional | - |
 
