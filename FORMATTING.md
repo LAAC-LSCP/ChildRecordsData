@@ -117,7 +117,7 @@ The package provides functions to convert any annotation into the following csv 
 | **segment_onset** | segment start time in seconds | `(\d+(\.\d+)?)` (regex) |
 | **segment_offset** | segment end time in seconds | `(\d+(\.\d+)?)` (regex) |
 | **speaker_id** | identity of speaker in the annotation | - |
-| **speaker_type** | class of speaker (FEM, MAL, CHI, OCH) | FEM, MAL, CHI, OCH, SPEECH, NA |
+| **speaker_type** | class of speaker (FEM, MAL, CHI, OCH) | FEM, MAL, CHI, OCH, SPEECH, TVN, TVF, FUZ, FEF, MAF, SIL, CXF, NON, OLN, OLF, CHF, NA |
 | **ling_type** | 1 if the vocalization contains at least a vowel (ie canonical or non-canonical), 0 if crying or laughing | 1, 0, NA |
 | **vcm_type** | vocal maturity defined as: C (canonical), N (non-canonical), Y (crying) L (laughing), J (junk) | C, N, Y, L, J, NA |
 | **lex_type** | W if meaningful, 0 otherwise | W, 0, NA |
@@ -127,6 +127,21 @@ The package provides functions to convert any annotation into the following csv 
 | **phonemes** | amount of phonemes | `(\d+(\.\d+)?)` (regex) |
 | **syllables** | amount of syllables | `(\d+(\.\d+)?)` (regex) |
 | **words** | amount of words | `(\d+(\.\d+)?)` (regex) |
+| **lena_block_type** | whether regarded as part as a pause or a conversation by LENA | pause, CM, CIC, CIOCX, CIOCAX, AMF, AICF, AIOCF, AIOCCXF, AMM, AICM, AIOCM, AIOCCXM, XM, XIOCC, XIOCA, XIC, XIOCAC |
+| **lena_block_number** | number of the LENA pause/conversation the segment belongs to | `(\d+(\.\d+)?)` (regex) |
+| **lena_conv_status** | LENA conversation status | BC, RC, EC |
+| **lena_response_count** | LENA turn count within block | `(\d+(\.\d+)?)` (regex) |
+| **lena_conv_floor_type** | (FI): Floor Initiation, (FH): Floor Holding | FI, FH |
+| **lena_conv_turn_type** | LENA turn type | TIFI, TIMI, TIFR, TIMR, TIFE, TIME, NT |
+| **utterances_count** | utterances count | `(\d+(\.\d+)?)` (regex) |
+| **utterances_length** | utterances length | `(\d+(\.\d+)?)` (regex) |
+| **non_speech_length** | non-speech length | `(\d+(\.\d+)?)` (regex) |
+| **average_db** | average dB level | `(\-?)(\d+(\.\d+)?)` (regex) |
+| **peak_db** | peak dB level | `(\-?)(\d+(\.\d+)?)` (regex) |
+| **child_cry_vfx_len** | childCryVfxLen | `(\d+(\.\d+)?)` (regex) |
+| **utterances** | LENA utterances details (json) | - |
+| **cries** | cries (json) | - |
+| **vfxs** | Vfx (json) | - |
 
 
 ## Annotations index
@@ -141,7 +156,7 @@ Annotations are indexed in one unique dataframe located at `/metadata/annotation
 | **range_onset** | covered range start time in seconds, measured since `time_seek` | `(\d+(\.\d+)?)` (regex) |
 | **range_offset** | covered range end time in seconds, measured since `time_seek` | `(\d+(\.\d+)?)` (regex) |
 | **raw_filename** | annotation input filename location, relative to `annotations/<set>/raw` | filename |
-| **format** | input annotation format | TextGrid, eaf, vtc_rttm, alice |
+| **format** | input annotation format | TextGrid, eaf, vtc_rttm, alice, its |
 | **annotation_filename** | output formatted annotation location (automatic column, don't specify) | filename |
 | **imported_at** | importation date (automatic column, don't specify) | `%Y-%m-%d %H:%M:%S` (date/time) |
 | **error** | error message in case the annotation could not be imported | - |
@@ -159,6 +174,6 @@ The annotations importation script and function take a dataframe of the followin
 | **range_onset** | covered range start time in seconds, measured since `time_seek` | **required** | `(\d+(\.\d+)?)` (regex) |
 | **range_offset** | covered range end time in seconds, measured since `time_seek` | **required** | `(\d+(\.\d+)?)` (regex) |
 | **raw_filename** | annotation input filename location, relative to `annotations/<set>/raw` | **required** | filename |
-| **format** | input annotation format | **required** | TextGrid, eaf, vtc_rttm, alice |
+| **format** | input annotation format | **required** | TextGrid, eaf, vtc_rttm, alice, its |
 | **filter** | source file to filter in (for rttm and alice only) | optional | - |
 
