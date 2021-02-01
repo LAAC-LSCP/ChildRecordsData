@@ -156,7 +156,6 @@ Annotations are indexed in one unique dataframe located at `/metadata/annotation
 | **range_onset** | covered range start time in seconds, measured since `time_seek` | `(\d+(\.\d+)?)` (regex) |
 | **range_offset** | covered range end time in seconds, measured since `time_seek` | `(\d+(\.\d+)?)` (regex) |
 | **raw_filename** | annotation input filename location, relative to `annotations/<set>/raw` | filename |
-| **format** | input annotation format | TextGrid, eaf, vtc_rttm, alice, its |
 | **annotation_filename** | output formatted annotation location (automatic column, don't specify) | filename |
 | **imported_at** | importation date (automatic column, don't specify) | `%Y-%m-%d %H:%M:%S` (date/time) |
 | **error** | error message in case the annotation could not be imported | - |
@@ -174,6 +173,6 @@ The annotations importation script and function take a dataframe of the followin
 | **range_onset** | covered range start time in seconds, measured since `time_seek` | **required** | `(\d+(\.\d+)?)` (regex) |
 | **range_offset** | covered range end time in seconds, measured since `time_seek` | **required** | `(\d+(\.\d+)?)` (regex) |
 | **raw_filename** | annotation input filename location, relative to `annotations/<set>/raw` | **required** | filename |
-| **format** | input annotation format | **required** | TextGrid, eaf, vtc_rttm, alice, its |
+| **format** | input annotation format | optional | TextGrid, eaf, vtc_rttm, alice, its |
 | **filter** | source file to filter in (for rttm and alice only) | optional | - |
 
