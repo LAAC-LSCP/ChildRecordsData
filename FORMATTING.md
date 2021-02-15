@@ -92,6 +92,8 @@ The recordings dataframe needs to be saved at `metadata/recordings.csv`.
 | **recording_device_type** | lena, usb, olympus, babylogger (lowercase) | **required** | lena, usb, olympus, babylogger |
 | **filename** | the path to the file from the root of “recordings”), set to ‘NA’ if no valid recording available. It is unique (two recordings cannot point towards the same file). | **required** | filename |
 | **duration** | duration of the audio | optional | `(\d+(\.\d+)?)` (regex) |
+| **session_id** | identifier of the recording session. | optional | - |
+| **session_offset** | offset (in seconds) of the recording with respect to other recordings that are part of the same session. Each recording session is identified by their `session_id`. | optional | `(\d+(\.\d+)?)` (regex) |
 | **recording_device_id** | unique ID of the recording device | optional | - |
 | **experimenter** | who collected the data (could be anonymized ID) | optional | - |
 | **location_id** | unique location ID -- can be specified at the level of the child (if children do not change locations) | optional | - |
