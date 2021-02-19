@@ -45,37 +45,16 @@ Example:
 child-project validate /path/to/dataset
 ```
 
+
 ## Convert recordings
 
 Converts all recordings in a dataset to a given encoding. Converted audios are stored into `recordings/converted/<profile-name>`.
 
-```bash
-$ child-project convert --help
-usage: child-project convert [-h] --name NAME --format FORMAT --codec CODEC
-                             --sampling SAMPLING [--split SPLIT]
-                             [--skip-existing] [--threads THREADS]
-                             path
-
-positional arguments:
-  path                 project path
-
-optional arguments:
-  -h, --help           show this help message and exit
-  --name NAME          profile name
-  --format FORMAT      audio format (e.g. wav)
-  --codec CODEC        audio codec (e.g. pcm_s16le)
-  --sampling SAMPLING  sampling frequency (e.g. 16000)
-  --split SPLIT        split duration (e.g. 15:00:00)
-  --skip-existing
-  --threads THREADS    amount of threads running conversions in parallel (0 =
-                       uses all available cores)
-```
-
-Example:
 
 ```
 child-project convert /path/to/dataset --name=16kHz --format=wav --sampling=16000 --codec=pcm_s16le
 ```
+
 
 We typically run the following, to split long sound files every 15 hours, because the software we use for human annotation (ELAN, Praat) works better with audio that is maximally 15h long:
 
@@ -96,22 +75,9 @@ sbatch --mem=64G --time=5:00:00 --cpus-per-task=4 --ntasks=1 -o namibia.txt chil
 
 Compute recordings duration and store in into a column named 'duration' in the metadata.
 
-```bash
-$ child-project compute-durations --help
-usage: child-project compute-durations [-h] [--profile PROFILE] [--force]
-                                       source
-
-creates a 'duration' column into metadata/recordings
-
-positional arguments:
-  source             source data path
-
-optional arguments:
-  -h, --help         show this help message and exit
-  --profile PROFILE  which audio profile to use
-  --force            overwrite if column exists
 ```
-
+child-project compute-durations [--force] /path/to/dataset
+```
 
 ## Import annotations
 
@@ -125,7 +91,6 @@ Annotations can be imported one by one or in bulk. Annotation importation does t
 Use `child-project import-annotations` to import a single annotation file.
 
 ```bash
-$ child-project import-annotations --help
 usage: child-project import-annotations [-h] [--annotations ANNOTATIONS]
                                         [--threads THREADS] [--set SET]
                                         [--recording_filename RECORDING_FILENAME]
@@ -168,6 +133,7 @@ optional arguments:
   --filter FILTER       source file to filter in (for rttm and alice only)
 ```
 
+
 Example:
 
 ```
@@ -197,13 +163,9 @@ child-project merge-annotations /path/to/dataset --left-set vtc --right-set alic
 Rename a set of annotations. This will move the annotations themselves, and update the index (`metadata/annotations.csv`) accordingly.
 
 ```bash
-$ child-project rename-annotations --help
 usage: child-project rename-annotations [-h] --set SET --new-set NEW_SET
                                         [--recursive] [--ignore-errors]
                                         source
-
-rename a set of annotations by moving the files and updating the index
-accordingly
 
 positional arguments:
   source             project path
@@ -227,10 +189,7 @@ child-project rename-annotations /path/to/dataset --set vtc --new-set vtc_1
 This will deleted converted annotations associated to a given set and remove them from the index.
 
 ```bash
-$ child-project remove-annotations --help
 usage: child-project remove-annotations [-h] --set SET [--recursive] source
-
-remove converted annotations of a given set and their entries in the index
 
 positional arguments:
   source       project path

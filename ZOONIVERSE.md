@@ -1,8 +1,6 @@
-- [Introduction](#introduction)
-  - [Overview](#overview)
-  - [Chunk extraction](#chunk-extraction)
-  - [Chunk upload](#chunk-upload)
-  - [Classifications retrieval](#classifications-retrieval)
+- [Chunk extraction](#chunk-extraction)
+- [Chunk upload](#chunk-upload)
+- [Classifications retrieval](#classifications-retrieval)
 
 ## Introduction
 
@@ -21,59 +19,16 @@ If you would like your data labeled with this project, here is what you'd need t
 
 You can also use this code and your own knowledge to set up a new project of your own. 
 
-### Overview
-
-```bash
-$ child-project zooniverse --help
-usage: child-project zooniverse [-h]
-                                {extract-chunks,upload-chunks,retrieve-classifications}
-                                ...
-
-positional arguments:
-  {extract-chunks,upload-chunks,retrieve-classifications}
-                        action
-    extract-chunks      extract chunks and store metadata in
-                        DESTINATION/chunks.csv
-    upload-chunks       upload chunks and updates DESTINATION/chunks.csv
-    retrieve-classifications
-                        retrieve classifications and save them into
-                        DESTINATION/classifications.csv
-
-optional arguments:
-  -h, --help            show this help message and exit
-```
-
-
 ### Chunk extraction
 
 ```bash
-$ child-project zooniverse extract-chunks --help
-usage: child-project zooniverse extract-chunks [-h] --keyword KEYWORD
-                                               --destination DESTINATION
-                                               --sample-size SAMPLE_SIZE
-                                               [--annotation-set ANNOTATION_SET]
-                                               [--target-speaker-type {CHI,OCH,FEM,MAL} [{CHI,OCH,FEM,MAL} ...]]
-                                               [--batch-size BATCH_SIZE]
-                                               [--threads THREADS]
-                                               path
-
-positional arguments:
-  path                  path to the dataset
-
-optional arguments:
-  -h, --help            show this help message and exit
-  --keyword KEYWORD     export keyword
-  --destination DESTINATION
-                        destination
-  --sample-size SAMPLE_SIZE
-                        how many samples per recording
-  --annotation-set ANNOTATION_SET
-                        annotation set
-  --target-speaker-type {CHI,OCH,FEM,MAL} [{CHI,OCH,FEM,MAL} ...]
-                        speaker type to get chunks from
-  --batch-size BATCH_SIZE
-                        batch size
-  --threads THREADS     how many threads to run on
+child-project zooniverse extract-chunks [-h] --destination DESTINATION
+                                    --sample-size SAMPLE_SIZE
+                                    [--annotation-set ANNOTATION_SET]
+                                    [--target-speaker-type {CHI,OCH,FEM,MAL}]
+                                    [--batch-size BATCH_SIZE]
+                                    [--threads THREADS]
+                                    path
 ```
 
 If it does not exist, DESTINATION is created.
@@ -125,29 +80,13 @@ Metadata is stored in a file named `DESTINATION/chunks.csv`.
 
 ### Chunk upload
 
-```bash
-$ child-project zooniverse upload-chunks --help
-usage: child-project zooniverse upload-chunks [-h] --destination DESTINATION
-                                              --zooniverse-login
-                                              ZOONIVERSE_LOGIN
-                                              --zooniverse-pwd ZOONIVERSE_PWD
-                                              --project-slug PROJECT_SLUG
-                                              --set-prefix SET_PREFIX
-                                              [--batches BATCHES]
 
-optional arguments:
-  -h, --help            show this help message and exit
-  --destination DESTINATION
-                        destination
-  --zooniverse-login ZOONIVERSE_LOGIN
-                        zooniverse login
-  --zooniverse-pwd ZOONIVERSE_PWD
-                        zooniverse password
-  --project-slug PROJECT_SLUG
-                        zooniverse project name
-  --set-prefix SET_PREFIX
-                        subject prefix
-  --batches BATCHES     amount of batches to upload
+```bash
+child-project zooniverse upload-chunks [-h] --destination DESTINATION
+                                   --zooniverse-login ZOONIVERSE_LOGIN
+                                   --zooniverse-pwd ZOONIVERSE_PWD
+                                   --project-slug PROJECT_SLUG --set-prefix
+                                   SET_PREFIX [--batches BATCHES]
 ```
 
 Uploads as many batches of audio chunks as specified to Zooniverse, and updates `chunks.csv` accordingly.
@@ -193,8 +132,7 @@ Uploads as many batches of audio chunks as specified to Zooniverse, and updates 
 ### Classifications retrieval
 
 ```bash
-$ child-project zooniverse retrieve-classifications --help
-usage: child-project zooniverse retrieve-classifications [-h] --destination
+child-project zooniverse retrieve-classifications [-h] --destination
                                                          DESTINATION
                                                          --zooniverse-login
                                                          ZOONIVERSE_LOGIN
@@ -202,17 +140,6 @@ usage: child-project zooniverse retrieve-classifications [-h] --destination
                                                          ZOONIVERSE_PWD
                                                          --project-id
                                                          PROJECT_ID
-
-optional arguments:
-  -h, --help            show this help message and exit
-  --destination DESTINATION
-                        destination
-  --zooniverse-login ZOONIVERSE_LOGIN
-                        zooniverse login
-  --zooniverse-pwd ZOONIVERSE_PWD
-                        zooniverse password
-  --project-id PROJECT_ID
-                        zooniverse project id
 ```
 
 Retrieve classifications and save them into `DESTINATION/classifications.csv`.
