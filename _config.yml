@@ -4,8 +4,8 @@ relative_links:
   enabled: true
   collections: true
 include:
-  - python/*
+  - python/_static
 keep_files:
-  - python/*
+  - python/_static
 exclude: [templates]
 theme: jekyll-theme-cayman
