@@ -5,5 +5,7 @@ relative_links:
   collections: true
 include:
   - python/*
+keep_files:
+  - python/*
 exclude: [templates]
 theme: jekyll-theme-cayman
