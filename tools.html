@@ -206,14 +206,13 @@ cluster</a></p></li>
 </li>
 </ul>
 <div class="section" id="data-validation">
-<h2>Data validation<a class="headerlink" href="#data-validation" title="Permalink to this headline">¶</a></h2>
+<span id="tools-data-validation"></span><h2>Data validation<a class="headerlink" href="#data-validation" title="Permalink to this headline">¶</a></h2>
 <p>This is typically done (repeatedly!) in the process of importing your
 data into our format for the first time, but you should also do this
 whenever you make a change to the dataset.</p>
 <p>Looks for errors and inconsistency in the metadata, or for missing
-audios. The validation will pass if the <a class="reference external" href="http://laac-lscp.github.io/ChildRecordsData/FORMATTING.html">formatting
-instructions</a>
-are met.</p>
+audios. The validation will pass if formatting instructions are met
+(see <a class="reference internal" href="format.html#format"><span class="std std-ref">Datasets structure</span></a>).</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ child-project validate /path/to/dataset --help
 usage: child-project validate <span class="o">[</span>-h<span class="o">]</span> <span class="o">[</span>--ignore-files<span class="o">]</span> <span class="o">[</span>--check-annotations<span class="o">]</span>
                               <span class="o">[</span>--threads THREADS<span class="o">]</span>
@@ -310,8 +309,7 @@ optional arguments:
 importation does the following :</p>
 <ol class="arabic simple">
 <li><p>Convert all input annotations from their original format (e.g. rttm,
-eaf, textgrid..) into the CSV format defined
-<a class="reference external" href="https://laac-lscp.github.io/ChildRecordsData/FORMATTING.html#annotations-format">here</a>
+eaf, textgrid..) into the CSV format defined at <a class="reference internal" href="format.html#format-input-annotations"><span class="std std-ref">Annotation importation input format</span></a>
 and stores them into <code class="docutils literal notranslate"><span class="pre">annotations/</span></code>.</p></li>
 <li><p>Registers them to the annotation index at
 <code class="docutils literal notranslate"><span class="pre">metadata/annotations.csv</span></code></p></li>
@@ -367,8 +365,7 @@ optional arguments:
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">child</span><span class="o">-</span><span class="n">project</span> <span class="n">import</span><span class="o">-</span><span class="n">annotations</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">dataset</span> <span class="o">--</span><span class="nb">set</span> <span class="n">eaf</span> <span class="o">--</span><span class="n">recording_filename</span> <span class="n">sound</span><span class="o">.</span><span class="n">wav</span> <span class="o">--</span><span class="n">time_seek</span> <span class="mi">0</span> <span class="o">--</span><span class="n">raw_filename</span> <span class="n">example</span><span class="o">.</span><span class="n">eaf</span> <span class="o">--</span><span class="n">range_onset</span> <span class="mi">0</span> <span class="o">--</span><span class="n">range_offset</span> <span class="mi">300</span> <span class="o">--</span><span class="nb">format</span> <span class="n">eaf</span>
 </pre></div>
 </div>
-<p>Find more information about the allowed values for each parameter
-<a class="reference external" href="http://laac-lscp.github.io/ChildRecordsData/FORMATTING.html#annotation-importation-input-format">here</a>.</p>
+<p>Find more information about the allowed values for each parameter, see <a class="reference internal" href="format.html#format-input-annotations"><span class="std std-ref">Annotation importation input format</span></a>.</p>
 </div>
 <div class="section" id="bulk-importation">
 <h3>Bulk importation<a class="headerlink" href="#bulk-importation" title="Permalink to this headline">¶</a></h3>
@@ -377,8 +374,7 @@ optional arguments:
 </pre></div>
 </div>
 <p>The input dataframe <code class="docutils literal notranslate"><span class="pre">/path/to/dataframe.csv</span></code> must have one entry per
-annotation to import, according to the format specified
-<a class="reference external" href="http://laac-lscp.github.io/ChildRecordsData/FORMATTING.html#annotation-importation-input-format">here</a>.</p>
+annotation to import, according to the format specified at <a class="reference internal" href="format.html#format-input-annotations"><span class="std std-ref">Annotation importation input format</span></a>.</p>
 </div>
 <div class="section" id="merge-annotation-sets">
 <h3>Merge annotation sets<a class="headerlink" href="#merge-annotation-sets" title="Permalink to this headline">¶</a></h3>

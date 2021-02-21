@@ -183,7 +183,7 @@
            <div itemprop="articleBody">
             
   <div class="section" id="datasets-structure">
-<h1>Datasets structure<a class="headerlink" href="#datasets-structure" title="Permalink to this headline">¶</a></h1>
+<span id="format"></span><h1>Datasets structure<a class="headerlink" href="#datasets-structure" title="Permalink to this headline">¶</a></h1>
 <p>ChildRecordsData assumes your data is structured in a specific way
 before it is imported. This structure is necessary to check, for
 instance, that there are no unreferenced files, and no referenced files
@@ -191,8 +191,8 @@ that are actually missing. The data curator therefore needs to organize
 their data in a specific way (respecting the dataset tree, with all
 specified metadata files, and all specified columns within the metadata
 files) before their data can be imported.</p>
-<p>To be imported, datasets must pass the <a class="reference external" href="https://laac-lscp.github.io/ChildRecordsData/#validate-raw-data">the validation
-routine</a>
+<p>To be imported, datasets must pass the the validation
+routine (see <a class="reference internal" href="tools.html#tools-data-validation"><span class="std std-ref">Data validation</span></a>).
 with no error. We also recommend you pay attention to the warnings, and
 try to sort as many of those out as possible before submission.</p>
 <div class="section" id="dataset-tree">
@@ -227,7 +227,7 @@ organize your files into this structure):</p>
 the standards detailed right below.</p>
 </div>
 <div class="section" id="metadata">
-<h2>Metadata<a class="headerlink" href="#metadata" title="Permalink to this headline">¶</a></h2>
+<span id="format-metadata"></span><h2>Metadata<a class="headerlink" href="#metadata" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="children-notebook">
 <h3>children notebook<a class="headerlink" href="#children-notebook" title="Permalink to this headline">¶</a></h3>
 <p>The children dataframe needs to be saved at <code class="docutils literal notranslate"><span class="pre">metadata/children.csv</span></code>.</p>
@@ -1098,7 +1098,7 @@ following csv format, with one row per segment :</p>
 </table>
 </div>
 <div class="section" id="annotation-importation-input-format">
-<h3>Annotation importation input format<a class="headerlink" href="#annotation-importation-input-format" title="Permalink to this headline">¶</a></h3>
+<span id="format-input-annotations"></span><h3>Annotation importation input format<a class="headerlink" href="#annotation-importation-input-format" title="Permalink to this headline">¶</a></h3>
 <p>The annotations importation script and function take a dataframe of the
 following format as an input :</p>
 <table class="colwidths-given docutils align-default" id="id5">
