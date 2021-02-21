@@ -99,8 +99,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#installing-a-dataset">Installing a dataset</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#setting-up-your-ssh-access-to-github">Setting up your ssh access to GitHub</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#setting-up-your-ssh-access-to-oberon">Setting up your ssh access to Oberon</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#quick-way-using-child-project">Quick way (using child-project)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#datalad-way-using-only-datalad">Datalad way (using only datalad)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cloning-the-dataset">Cloning the dataset</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#downloading-large-files">Downloading large files</a></li>
@@ -200,10 +199,7 @@ datasets</a></p>
 GitHub</a></p></li>
 <li><p><a class="reference external" href="#setting-up-your-ssh-access-to-oberon">Setting up your ssh access to
 Oberon</a></p></li>
-<li><p><a class="reference external" href="#quick-way-using-child-project">Quick way (using
-child-project)</a></p></li>
-<li><p><a class="reference external" href="#datalad-way-using-only-datalad">Datalad way (using only
-datalad)</a></p></li>
+<li><p><a class="reference external" href="#datalad-way-using-only-datalad">Cloning the dataset</a></p></li>
 </ul>
 </li>
 <li><p><a class="reference external" href="#downloading-large-files">Downloading large files</a></p></li>
@@ -230,10 +226,10 @@ flexibility.</p>
 <p>Our dataset are distributed on two “siblings”. Siblings are analogous to
 git and git-annex remotes. The github remote doesn’t include large
 files, only pointers refering to them. The large files are stored in a
-sibling hosted on Oberon</p>
+sibling hosted on Oberon, our lab cluster:</p>
 <div class="figure align-default" id="id1">
 <img alt="Dataset infrastructure" src="_images/infrastructure.png" />
-<p class="caption"><span class="caption-text">structure</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">LAAC datasets storage infrastructure</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
 </div>
 </div>
 <div class="section" id="installing-datalad">
@@ -302,14 +298,8 @@ follow these instructions to setup ssh properly:</p>
 prompted for your credentials.</p></li>
 </ol>
 </div>
-<div class="section" id="quick-way-using-child-project">
-<h3>Quick way (using child-project)<a class="headerlink" href="#quick-way-using-child-project" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">child</span><span class="o">-</span><span class="n">project</span> <span class="n">import</span><span class="o">-</span><span class="n">data</span> <span class="n">git</span><span class="nd">@github</span><span class="o">.</span><span class="n">com</span><span class="p">:</span><span class="n">LAAC</span><span class="o">-</span><span class="n">LSCP</span><span class="o">/</span><span class="n">namibia</span><span class="o">-</span><span class="n">data</span><span class="o">.</span><span class="n">git</span> <span class="o">--</span><span class="n">destination</span> <span class="n">namibia</span><span class="o">-</span><span class="n">data</span> <span class="o">--</span><span class="n">storage</span><span class="o">-</span><span class="n">hostname</span> <span class="n">foberon</span>
-</pre></div>
-</div>
-</div>
-<div class="section" id="datalad-way-using-only-datalad">
-<h3>Datalad way (using only datalad)<a class="headerlink" href="#datalad-way-using-only-datalad" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="cloning-the-dataset">
+<h3>Cloning the dataset<a class="headerlink" href="#cloning-the-dataset" title="Permalink to this headline">¶</a></h3>
 <ol class="arabic simple">
 <li><p>The first step is to clone the dataset from github, for instance :</p></li>
 </ol>
