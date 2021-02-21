@@ -231,71 +231,408 @@ the standards detailed right below.</p>
 <div class="section" id="children-notebook">
 <h3>children notebook<a class="headerlink" href="#children-notebook" title="Permalink to this headline">¶</a></h3>
 <p>The children dataframe needs to be saved at <code class="docutils literal notranslate"><span class="pre">metadata/children.csv</span></code>.</p>
-<table class="docutils align-default">
+<table class="docutils align-default" id="id1">
+<caption><span class="caption-text">Children metadata</span><a class="headerlink" href="#id1" title="Permalink to this table">¶</a></caption>
 <colgroup>
-<col style="width: 15%" />
-<col style="width: 33%" />
-<col style="width: 31%" />
-<col style="width: 21%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
 </colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p>Name</p></th>
-<th class="head"><p>Description</p></th>
-<th class="head"><p>Required ?</p></th>
-<th class="head"><p>Format</p></th>
-</tr>
-</thead>
 <tbody>
-<tr class="row-even"><td></td>
+<tr class="row-odd"><td><p>Name</p></td>
+<td><p>Description</p></td>
+<td><p>Required?</p></td>
+<td><p>Format</p></td>
+</tr>
+<tr class="row-even"><td><p>experiment</p></td>
+<td><div class="line-block">
+<div class="line">one word to capture the unique ID of the data</div>
+<div class="line">collection effort; for instance Tsimane_2018,</div>
+<div class="line">solis-intervention-pre</div>
+</div>
+</td>
+<td><p><strong>required</strong></p></td>
 <td></td>
+</tr>
+<tr class="row-odd"><td><p>child_id</p></td>
+<td><div class="line-block">
+<div class="line">unique child ID – unique within the experiment</div>
+<div class="line">(Id could be repeated across experiments to refer</div>
+<div class="line">to different children)</div>
+</div>
+</td>
+<td><p><strong>required</strong></p></td>
 <td></td>
+</tr>
+<tr class="row-even"><td><p>child_dob</p></td>
+<td><div class="line-block">
+<div class="line">child’s date of birth</div>
+</div>
+</td>
+<td><p><strong>required</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">%Y-%m-%d</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>location_id</p></td>
+<td><div class="line-block">
+<div class="line">Unique location ID – only specify here if</div>
+<div class="line">children never change locations in this culture;</div>
+<div class="line">otherwise, specify in the recordings metadata</div>
+</div>
+</td>
+<td><p>optional</p></td>
 <td></td>
+</tr>
+<tr class="row-even"><td><p>child_sex</p></td>
+<td><div class="line-block">
+<div class="line">f= female, m=male</div>
+</div>
+</td>
+<td><p>optional</p></td>
+<td><p>m, M, f, F</p></td>
+</tr>
+<tr class="row-odd"><td><p>language</p></td>
+<td><div class="line-block">
+<div class="line">language the child is exposed to if child is</div>
+<div class="line">monolingual; small caps, indicate dialect by name</div>
+<div class="line">or location if available; eg “france french”;</div>
+<div class="line">“paris french”</div>
+</div>
+</td>
+<td><p>optional</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>languages</p></td>
+<td><div class="line-block">
+<div class="line">list languages child is exposed to separating them</div>
+<div class="line">with ; and indicating the percentage if one is</div>
+<div class="line">available; eg: “french 35%; english 65%”</div>
+</div>
+</td>
+<td><p>optional</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>mat_ed</p></td>
+<td><div class="line-block">
+<div class="line">maternal years of education</div>
+</div>
+</td>
+<td><p>optional</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>fat_ed</p></td>
+<td><div class="line-block">
+<div class="line">paternal years of education</div>
+</div>
+</td>
+<td><p>optional</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>car_ed</p></td>
+<td><div class="line-block">
+<div class="line">years of education of main caregiver (if not</div>
+<div class="line">mother or father)</div>
+</div>
+</td>
+<td><p>optional</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>monoling</p></td>
+<td><div class="line-block">
+<div class="line">whether the child is monolingual (Y) or not (N)</div>
+</div>
+</td>
+<td><p>optional</p></td>
+<td><p>Y, N</p></td>
+</tr>
+<tr class="row-odd"><td><p>monoling_criterion</p></td>
+<td><div class="line-block">
+<div class="line">how monoling was decided; eg “we asked families</div>
+<div class="line">which languages they spoke in the home”</div>
+</div>
+</td>
+<td><p>optional</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>normative</p></td>
+<td><div class="line-block">
+<div class="line">whether the child is normative (Y) or not (N)</div>
+</div>
+</td>
+<td><p>optional</p></td>
+<td><p>Y, N</p></td>
+</tr>
+<tr class="row-odd"><td><p>normative_criterion</p></td>
+<td><div class="line-block">
+<div class="line">how normative was decided; eg “unless the</div>
+<div class="line">caregivers volunteered information whereby the</div>
+<div class="line">child had a problem, we consider them normative by</div>
+<div class="line">default”</div>
+</div>
+</td>
+<td><p>optional</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>mother_id</p></td>
+<td><div class="line-block">
+<div class="line">unique ID of the mother</div>
+</div>
+</td>
+<td><p>optional</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>father_id</p></td>
+<td><div class="line-block">
+<div class="line">unique ID of the father</div>
+</div>
+</td>
+<td><p>optional</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>order_of_birth</p></td>
+<td><div class="line-block">
+<div class="line">child order of birth</div>
+</div>
+</td>
+<td><p>optional</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">(\d+(\.\d+)?)</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>n_of_siblings</p></td>
+<td><div class="line-block">
+<div class="line">amount of siblings</div>
+</div>
+</td>
+<td><p>optional</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">(\d+(\.\d+)?)</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>household_size</p></td>
+<td><div class="line-block">
+<div class="line">number of people living in the household</div>
+<div class="line">(adults+children)</div>
+</div>
+</td>
+<td><p>optional</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">(\d+(\.\d+)?)</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>dob_criterion</p></td>
+<td><div class="line-block">
+<div class="line">determines whether the date of birth is known</div>
+<div class="line">exactly or extrapolated e.g. from the age. Dates</div>
+<div class="line">of birth are assumed to be known exactly if this</div>
+<div class="line">column is NA or unspecified.</div>
+</div>
+</td>
+<td><p>optional</p></td>
+<td><p>extrapolated, exact</p></td>
+</tr>
+<tr class="row-even"><td><p>dob_accuracy</p></td>
+<td><div class="line-block">
+<div class="line">date of birth accuracy</div>
+</div>
+</td>
+<td><p>optional</p></td>
+<td><p>extact, week, month, year, other</p></td>
 </tr>
 </tbody>
 </table>
-<p>{% for column in children -%} | <strong>{{column.name}}</strong> |
-{{column.description}} | {{‘<strong>required</strong>’ if column.required else
-‘optional’}} {%- if column.datetime %} | <code class="docutils literal notranslate"><span class="pre">{{column.datetime}}</span></code>
-(date/time) | {%- elif column.regex %} | <code class="docutils literal notranslate"><span class="pre">{{column.regex}}</span></code> (regex)
-| {%- elif column.function %} | {{column.function.__name__}}
-(function) | {%- elif column.choices %} | {{column.choices|join(“,”)}}
-| {%- elif column.filename %} | filename | {%- else %} | - | {%-
-endif %} {% endfor %}</p>
 </div>
 <div class="section" id="recording-notebook">
 <h3>recording notebook<a class="headerlink" href="#recording-notebook" title="Permalink to this headline">¶</a></h3>
 <p>The recordings dataframe needs to be saved at
 <code class="docutils literal notranslate"><span class="pre">metadata/recordings.csv</span></code>.</p>
-<table class="docutils align-default">
+<table class="docutils align-default" id="id2">
+<caption><span class="caption-text">Recordings metadata</span><a class="headerlink" href="#id2" title="Permalink to this table">¶</a></caption>
 <colgroup>
-<col style="width: 15%" />
-<col style="width: 33%" />
-<col style="width: 31%" />
-<col style="width: 21%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
 </colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p>Name</p></th>
-<th class="head"><p>Description</p></th>
-<th class="head"><p>Required ?</p></th>
-<th class="head"><p>Format</p></th>
-</tr>
-</thead>
 <tbody>
-<tr class="row-even"><td></td>
+<tr class="row-odd"><td><p>Name</p></td>
+<td><p>Description</p></td>
+<td><p>Required?</p></td>
+<td><p>Format</p></td>
+</tr>
+<tr class="row-even"><td><p>experiment</p></td>
+<td><div class="line-block">
+<div class="line">one word to capture the unique ID of the data</div>
+<div class="line">collection effort; for instance Tsimane_2018,</div>
+<div class="line">solis-intervention-pre</div>
+</div>
+</td>
+<td><p><strong>required</strong></p></td>
 <td></td>
+</tr>
+<tr class="row-odd"><td><p>child_id</p></td>
+<td><div class="line-block">
+<div class="line">unique child ID – unique within the experiment</div>
+<div class="line">(Id could be repeated across experiments to refer</div>
+<div class="line">to different children)</div>
+</div>
+</td>
+<td><p><strong>required</strong></p></td>
 <td></td>
+</tr>
+<tr class="row-even"><td><p>date_iso</p></td>
+<td><div class="line-block">
+<div class="line">date in which recording was started in ISO (eg</div>
+<div class="line">2020-09-17)</div>
+</div>
+</td>
+<td><p><strong>required</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">%Y-%m-%d</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>start_time</p></td>
+<td><div class="line-block">
+<div class="line">local time in which recording was started in</div>
+<div class="line">format 24-hour (H)H:MM; if minutes are unknown,</div>
+<div class="line">use 00. Set as ‘NA’ if unknown.</div>
+</div>
+</td>
+<td><p><strong>required</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">%H:%M</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>recording_device_type</p></td>
+<td><div class="line-block">
+<div class="line">lena, usb, olympus, babylogger (lowercase)</div>
+</div>
+</td>
+<td><p><strong>required</strong></p></td>
+<td><p>lena, usb, olympus, babylogger</p></td>
+</tr>
+<tr class="row-odd"><td><p>filename</p></td>
+<td><div class="line-block">
+<div class="line">the path to the file from the root of</div>
+<div class="line">“recordings”), set to ‘NA’ if no valid recording</div>
+<div class="line">available. It is unique (two recordings cannot</div>
+<div class="line">point towards the same file).</div>
+</div>
+</td>
+<td><p><strong>required</strong></p></td>
+<td><p>True</p></td>
+</tr>
+<tr class="row-even"><td><p>duration</p></td>
+<td><div class="line-block">
+<div class="line">duration of the audio</div>
+</div>
+</td>
+<td><p>optional</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">(\d+(\.\d+)?)</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>session_id</p></td>
+<td><div class="line-block">
+<div class="line">identifier of the recording session.</div>
+</div>
+</td>
+<td><p>optional</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>session_offset</p></td>
+<td><div class="line-block">
+<div class="line">offset (in seconds) of the recording with respect</div>
+<div class="line">to other recordings that are part of the same</div>
+<div class="line">session. Each recording session is identified by</div>
+<div class="line">their <cite>session_id</cite>.</div>
+</div>
+</td>
+<td><p>optional</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">(\d+(\.\d+)?)</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>recording_device_id</p></td>
+<td><div class="line-block">
+<div class="line">unique ID of the recording device</div>
+</div>
+</td>
+<td><p>optional</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>experimenter</p></td>
+<td><div class="line-block">
+<div class="line">who collected the data (could be anonymized ID)</div>
+</div>
+</td>
+<td><p>optional</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>location_id</p></td>
+<td><div class="line-block">
+<div class="line">unique location ID – can be specified at the</div>
+<div class="line">level of the child (if children do not change</div>
+<div class="line">locations)</div>
+</div>
+</td>
+<td><p>optional</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>its_filename</p></td>
+<td><div class="line-block">
+<div class="line">its_filename</div>
+</div>
+</td>
+<td><p>optional</p></td>
+<td><p>True</p></td>
+</tr>
+<tr class="row-odd"><td><p>upl_filename</p></td>
+<td><div class="line-block">
+<div class="line">upl_filename</div>
+</div>
+</td>
+<td><p>optional</p></td>
+<td><p>True</p></td>
+</tr>
+<tr class="row-even"><td><p>trs_filename</p></td>
+<td><div class="line-block">
+<div class="line">trs_filename</div>
+</div>
+</td>
+<td><p>optional</p></td>
+<td><p>True</p></td>
+</tr>
+<tr class="row-odd"><td><p>lena_id</p></td>
+<td></td>
+<td><p>optional</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>might_feature_gaps</p></td>
+<td><div class="line-block">
+<div class="line">1 if the audio cannot be guaranteed to be a</div>
+<div class="line">continuous block with no time jumps, 0 or NA or</div>
+<div class="line">undefined otherwise.</div>
+</div>
+</td>
+<td><p>optional</p></td>
+<td><p>is_boolean</p></td>
+</tr>
+<tr class="row-odd"><td><p>start_time_accuracy</p></td>
+<td><div class="line-block">
+<div class="line">Accuracy of start_time for this recording. If not</div>
+<div class="line">specified, assumes minute-accuray.</div>
+</div>
+</td>
+<td><p>optional</p></td>
+<td><p>minute, hour, reliable</p></td>
+</tr>
+<tr class="row-even"><td><p>noisy_setting</p></td>
+<td><div class="line-block">
+<div class="line">1 if the audio may be noisier than the childs</div>
+<div class="line">usual day, 0 or undefined otherwise</div>
+</div>
+</td>
+<td><p>optional</p></td>
+<td><p>is_boolean</p></td>
+</tr>
+<tr class="row-odd"><td><p>notes</p></td>
+<td><div class="line-block">
+<div class="line">free-style notes about individual recordings</div>
+<div class="line">(avoid tabs and newlines)</div>
+</div>
+</td>
+<td><p>optional</p></td>
 <td></td>
 </tr>
 </tbody>
 </table>
-<p>{% for column in recordings -%} | <strong>{{column.name}}</strong> |
-{{column.description}} | {{‘<strong>required</strong>’ if column.required else
-‘optional’}} {%- if column.datetime %} | <code class="docutils literal notranslate"><span class="pre">{{column.datetime}}</span></code>
-(date/time) | {%- elif column.regex %} | <code class="docutils literal notranslate"><span class="pre">{{column.regex}}</span></code> (regex)
-| {%- elif column.function %} | {{column.function.__name__}}
-(function) | {%- elif column.choices %} | {{column.choices|join(“,”)}}
-| {%- elif column.filename %} | filename | {%- else %} | - | {%-
-endif %} {% endfor %}</p>
 </div>
 </div>
 <div class="section" id="annotations">
@@ -304,98 +641,457 @@ endif %} {% endfor %}</p>
 <h3>Annotations format<a class="headerlink" href="#annotations-format" title="Permalink to this headline">¶</a></h3>
 <p>The package provides functions to convert any annotation into the
 following csv format, with one row per segment :</p>
-<table class="docutils align-default">
+<table class="docutils align-default" id="id3">
+<caption><span class="caption-text">Annotations format</span><a class="headerlink" href="#id3" title="Permalink to this table">¶</a></caption>
 <colgroup>
-<col style="width: 22%" />
-<col style="width: 48%" />
-<col style="width: 30%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
 </colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p>Name</p></th>
-<th class="head"><p>Description</p></th>
-<th class="head"><p>Format</p></th>
-</tr>
-</thead>
 <tbody>
-<tr class="row-even"><td></td>
+<tr class="row-odd"><td><p>Name</p></td>
+<td><p>Description</p></td>
+<td><p>Required?</p></td>
+<td><p>Format</p></td>
+</tr>
+<tr class="row-even"><td><p>annotation_file</p></td>
+<td><div class="line-block">
+<div class="line">raw annotation path relative, relative to</div>
+<div class="line"><cite>annotations/&lt;set&gt;/raw</cite></div>
+</div>
+</td>
+<td><p><strong>required</strong></p></td>
 <td></td>
+</tr>
+<tr class="row-odd"><td><p>segment_onset</p></td>
+<td><div class="line-block">
+<div class="line">segment start time in seconds</div>
+</div>
+</td>
+<td><p><strong>required</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">(\d+(\.\d+)?)</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>segment_offset</p></td>
+<td><div class="line-block">
+<div class="line">segment end time in seconds</div>
+</div>
+</td>
+<td><p><strong>required</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">(\d+(\.\d+)?)</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>speaker_id</p></td>
+<td><div class="line-block">
+<div class="line">identity of speaker in the annotation</div>
+</div>
+</td>
+<td><p><strong>required</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>speaker_type</p></td>
+<td><div class="line-block">
+<div class="line">class of speaker (FEM, MAL, CHI, OCH)</div>
+</div>
+</td>
+<td><p><strong>required</strong></p></td>
+<td><p>FEM, MAL, CHI, OCH, SPEECH, TVN, TVF, FUZ, FEF, MAF, SIL, CXF, NON, OLN, OLF, CHF, NA</p></td>
+</tr>
+<tr class="row-odd"><td><p>ling_type</p></td>
+<td><div class="line-block">
+<div class="line">1 if the vocalization contains at least a vowel</div>
+<div class="line">(ie canonical or non-canonical), 0 if crying or</div>
+<div class="line">laughing</div>
+</div>
+</td>
+<td><p><strong>required</strong></p></td>
+<td><p>1, 0, NA</p></td>
+</tr>
+<tr class="row-even"><td><p>vcm_type</p></td>
+<td><div class="line-block">
+<div class="line">vocal maturity defined as: C (canonical), N (non-</div>
+<div class="line">canonical), Y (crying) L (laughing), J (junk)</div>
+</div>
+</td>
+<td><p><strong>required</strong></p></td>
+<td><p>C, N, Y, L, J, NA</p></td>
+</tr>
+<tr class="row-odd"><td><p>lex_type</p></td>
+<td><div class="line-block">
+<div class="line">W if meaningful, 0 otherwise</div>
+</div>
+</td>
+<td><p><strong>required</strong></p></td>
+<td><p>W, 0, NA</p></td>
+</tr>
+<tr class="row-even"><td><p>mwu_type</p></td>
+<td><div class="line-block">
+<div class="line">M if multiword, 1 if single word – only filled if</div>
+<div class="line">lex_type==W</div>
+</div>
+</td>
+<td><p><strong>required</strong></p></td>
+<td><p>M, 1, NA</p></td>
+</tr>
+<tr class="row-odd"><td><p>addresseee</p></td>
+<td><div class="line-block">
+<div class="line">T if target-child-directed, C if other-child-</div>
+<div class="line">directed, A if adult-directed, U if uncertain or</div>
+<div class="line">other</div>
+</div>
+</td>
+<td><p><strong>required</strong></p></td>
+<td><p>T, C, A, U, NA</p></td>
+</tr>
+<tr class="row-even"><td><p>transcription</p></td>
+<td><div class="line-block">
+<div class="line">orthographic transcription of the speach</div>
+</div>
+</td>
+<td><p><strong>required</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>phonemes</p></td>
+<td><div class="line-block">
+<div class="line">amount of phonemes</div>
+</div>
+</td>
+<td><p>optional</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">(\d+(\.\d+)?)</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>syllables</p></td>
+<td><div class="line-block">
+<div class="line">amount of syllables</div>
+</div>
+</td>
+<td><p>optional</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">(\d+(\.\d+)?)</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>words</p></td>
+<td><div class="line-block">
+<div class="line">amount of words</div>
+</div>
+</td>
+<td><p>optional</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">(\d+(\.\d+)?)</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>lena_block_type</p></td>
+<td><div class="line-block">
+<div class="line">whether regarded as part as a pause or a</div>
+<div class="line">conversation by LENA</div>
+</div>
+</td>
+<td><p>optional</p></td>
+<td><p>pause, CM, CIC, CIOCX, CIOCAX, AMF, AICF, AIOCF, AIOCCXF, AMM, AICM, AIOCM, AIOCCXM, XM, XIOCC, XIOCA, XIC, XIOCAC</p></td>
+</tr>
+<tr class="row-odd"><td><p>lena_block_number</p></td>
+<td><div class="line-block">
+<div class="line">number of the LENA pause/conversation the segment</div>
+<div class="line">belongs to</div>
+</div>
+</td>
+<td><p>optional</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">(\d+(\.\d+)?)</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>lena_conv_status</p></td>
+<td><div class="line-block">
+<div class="line">LENA conversation status</div>
+</div>
+</td>
+<td><p>optional</p></td>
+<td><p>BC, RC, EC</p></td>
+</tr>
+<tr class="row-odd"><td><p>lena_response_count</p></td>
+<td><div class="line-block">
+<div class="line">LENA turn count within block</div>
+</div>
+</td>
+<td><p>optional</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">(\d+(\.\d+)?)</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>lena_conv_floor_type</p></td>
+<td><div class="line-block">
+<div class="line">(FI): Floor Initiation, (FH): Floor Holding</div>
+</div>
+</td>
+<td><p>optional</p></td>
+<td><p>FI, FH</p></td>
+</tr>
+<tr class="row-odd"><td><p>lena_conv_turn_type</p></td>
+<td><div class="line-block">
+<div class="line">LENA turn type</div>
+</div>
+</td>
+<td><p>optional</p></td>
+<td><p>TIFI, TIMI, TIFR, TIMR, TIFE, TIME, NT</p></td>
+</tr>
+<tr class="row-even"><td><p>utterances_count</p></td>
+<td><div class="line-block">
+<div class="line">utterances count</div>
+</div>
+</td>
+<td><p>optional</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">(\d+(\.\d+)?)</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>utterances_length</p></td>
+<td><div class="line-block">
+<div class="line">utterances length</div>
+</div>
+</td>
+<td><p>optional</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">(\d+(\.\d+)?)</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>non_speech_length</p></td>
+<td><div class="line-block">
+<div class="line">non-speech length</div>
+</div>
+</td>
+<td><p>optional</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">(\d+(\.\d+)?)</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>average_db</p></td>
+<td><div class="line-block">
+<div class="line">average dB level</div>
+</div>
+</td>
+<td><p>optional</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">(\-?)(\d+(\.\d+)?)</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>peak_db</p></td>
+<td><div class="line-block">
+<div class="line">peak dB level</div>
+</div>
+</td>
+<td><p>optional</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">(\-?)(\d+(\.\d+)?)</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>child_cry_vfx_len</p></td>
+<td><div class="line-block">
+<div class="line">childCryVfxLen</div>
+</div>
+</td>
+<td><p>optional</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">(\d+(\.\d+)?)</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>utterances</p></td>
+<td><div class="line-block">
+<div class="line">LENA utterances details (json)</div>
+</div>
+</td>
+<td><p>optional</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>cries</p></td>
+<td><div class="line-block">
+<div class="line">cries (json)</div>
+</div>
+</td>
+<td><p>optional</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>vfxs</p></td>
+<td><div class="line-block">
+<div class="line">Vfx (json)</div>
+</div>
+</td>
+<td><p>optional</p></td>
 <td></td>
 </tr>
 </tbody>
 </table>
-<p>{% for column in annotation_segments -%} | <strong>{{column.name}}</strong> |
-{{column.description}} {%- if column.datetime %} |
-<code class="docutils literal notranslate"><span class="pre">{{column.datetime}}</span></code> (date/time) | {%- elif column.regex %} |
-<code class="docutils literal notranslate"><span class="pre">{{column.regex}}</span></code> (regex) | {%- elif column.function %} |
-{{column.function.__name__}} (function) | {%- elif column.choices %} |
-{{column.choices|join(“,”)}} | {%- elif column.filename %} | filename
-| {%- else %} | - | {%- endif %} {% endfor %}</p>
 </div>
 <div class="section" id="annotations-index">
 <h3>Annotations index<a class="headerlink" href="#annotations-index" title="Permalink to this headline">¶</a></h3>
 <p>Annotations are indexed in one unique dataframe located at
 <code class="docutils literal notranslate"><span class="pre">/metadata/annotations.csv</span></code>, with the following format :</p>
-<table class="docutils align-default">
+<table class="docutils align-default" id="id4">
+<caption><span class="caption-text">Annotations metadata</span><a class="headerlink" href="#id4" title="Permalink to this table">¶</a></caption>
 <colgroup>
-<col style="width: 22%" />
-<col style="width: 48%" />
-<col style="width: 30%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
 </colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p>Name</p></th>
-<th class="head"><p>Description</p></th>
-<th class="head"><p>Format</p></th>
-</tr>
-</thead>
 <tbody>
-<tr class="row-even"><td></td>
+<tr class="row-odd"><td><p>Name</p></td>
+<td><p>Description</p></td>
+<td><p>Required?</p></td>
+<td><p>Format</p></td>
+</tr>
+<tr class="row-even"><td><p>set</p></td>
+<td><div class="line-block">
+<div class="line">name of the annotation set (e.g. VTC, annotator1,</div>
+<div class="line">etc.)</div>
+</div>
+</td>
+<td><p><strong>required</strong></p></td>
 <td></td>
+</tr>
+<tr class="row-odd"><td><p>recording_filename</p></td>
+<td><div class="line-block">
+<div class="line">recording filename as specified in the recordings</div>
+<div class="line">index</div>
+</div>
+</td>
+<td><p><strong>required</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>time_seek</p></td>
+<td><div class="line-block">
+<div class="line">reference time in seconds, e.g: 3600, or 3600.500.</div>
+<div class="line">All times expressed in the annotations are</div>
+<div class="line">relative to this time.</div>
+</div>
+</td>
+<td><p><strong>required</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">(\-?)(\d+(\.\d+)?)</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>range_onset</p></td>
+<td><div class="line-block">
+<div class="line">covered range start time in seconds, measured</div>
+<div class="line">since <cite>time_seek</cite></div>
+</div>
+</td>
+<td><p><strong>required</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">(\d+(\.\d+)?)</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>range_offset</p></td>
+<td><div class="line-block">
+<div class="line">covered range end time in seconds, measured since</div>
+<div class="line"><cite>time_seek</cite></div>
+</div>
+</td>
+<td><p><strong>required</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">(\d+(\.\d+)?)</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>raw_filename</p></td>
+<td><div class="line-block">
+<div class="line">annotation input filename location, relative to</div>
+<div class="line"><cite>annotations/&lt;set&gt;/raw</cite></div>
+</div>
+</td>
+<td><p><strong>required</strong></p></td>
+<td><p>True</p></td>
+</tr>
+<tr class="row-even"><td><p>annotation_filename</p></td>
+<td><div class="line-block">
+<div class="line">output formatted annotation location (automatic</div>
+<div class="line">column, don’t specify)</div>
+</div>
+</td>
+<td><p>optional</p></td>
+<td><p>True</p></td>
+</tr>
+<tr class="row-odd"><td><p>imported_at</p></td>
+<td><div class="line-block">
+<div class="line">importation date (automatic column, don’t specify)</div>
+</div>
+</td>
+<td><p>optional</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">%Y-%m-%d</span> <span class="pre">%H:%M:%S</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>error</p></td>
+<td><div class="line-block">
+<div class="line">error message in case the annotation could not be</div>
+<div class="line">imported</div>
+</div>
+</td>
+<td><p>optional</p></td>
 <td></td>
 </tr>
 </tbody>
 </table>
-<p>{% for column in annotations -%} | <strong>{{column.name}}</strong> |
-{{column.description}} {%- if column.datetime %} |
-<code class="docutils literal notranslate"><span class="pre">{{column.datetime}}</span></code> (date/time) | {%- elif column.regex %} |
-<code class="docutils literal notranslate"><span class="pre">{{column.regex}}</span></code> (regex) | {%- elif column.function %} |
-{{column.function.__name__}} (function) | {%- elif column.choices %} |
-{{column.choices|join(“,”)}} | {%- elif column.filename %} | filename
-| {%- else %} | - | {%- endif %} {% endfor %}</p>
 </div>
 <div class="section" id="annotation-importation-input-format">
 <h3>Annotation importation input format<a class="headerlink" href="#annotation-importation-input-format" title="Permalink to this headline">¶</a></h3>
 <p>The annotations importation script and function take a dataframe of the
 following format as an input :</p>
-<table class="docutils align-default">
+<table class="docutils align-default" id="id5">
+<caption><span class="caption-text">Input annotations</span><a class="headerlink" href="#id5" title="Permalink to this table">¶</a></caption>
 <colgroup>
-<col style="width: 15%" />
-<col style="width: 33%" />
-<col style="width: 31%" />
-<col style="width: 21%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
 </colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p>Name</p></th>
-<th class="head"><p>Description</p></th>
-<th class="head"><p>Required ?</p></th>
-<th class="head"><p>Format</p></th>
-</tr>
-</thead>
 <tbody>
-<tr class="row-even"><td></td>
+<tr class="row-odd"><td><p>Name</p></td>
+<td><p>Description</p></td>
+<td><p>Required?</p></td>
+<td><p>Format</p></td>
+</tr>
+<tr class="row-even"><td><p>set</p></td>
+<td><div class="line-block">
+<div class="line">name of the annotation set (e.g. VTC, annotator1,</div>
+<div class="line">etc.)</div>
+</div>
+</td>
+<td><p><strong>required</strong></p></td>
 <td></td>
+</tr>
+<tr class="row-odd"><td><p>recording_filename</p></td>
+<td><div class="line-block">
+<div class="line">recording filename as specified in the recordings</div>
+<div class="line">index</div>
+</div>
+</td>
+<td><p><strong>required</strong></p></td>
 <td></td>
+</tr>
+<tr class="row-even"><td><p>time_seek</p></td>
+<td><div class="line-block">
+<div class="line">reference time in seconds, e.g: 3600, or 3600.500.</div>
+<div class="line">All times expressed in the annotations are</div>
+<div class="line">relative to this time.</div>
+</div>
+</td>
+<td><p><strong>required</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">(\-?)(\d+(\.\d+)?)</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>range_onset</p></td>
+<td><div class="line-block">
+<div class="line">covered range start time in seconds, measured</div>
+<div class="line">since <cite>time_seek</cite></div>
+</div>
+</td>
+<td><p><strong>required</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">(\d+(\.\d+)?)</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>range_offset</p></td>
+<td><div class="line-block">
+<div class="line">covered range end time in seconds, measured since</div>
+<div class="line"><cite>time_seek</cite></div>
+</div>
+</td>
+<td><p><strong>required</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">(\d+(\.\d+)?)</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>raw_filename</p></td>
+<td><div class="line-block">
+<div class="line">annotation input filename location, relative to</div>
+<div class="line"><cite>annotations/&lt;set&gt;/raw</cite></div>
+</div>
+</td>
+<td><p><strong>required</strong></p></td>
+<td><p>True</p></td>
+</tr>
+<tr class="row-even"><td><p>format</p></td>
+<td><div class="line-block">
+<div class="line">input annotation format</div>
+</div>
+</td>
+<td><p>optional</p></td>
+<td><p>TextGrid, eaf, vtc_rttm, alice, its</p></td>
+</tr>
+<tr class="row-odd"><td><p>filter</p></td>
+<td><div class="line-block">
+<div class="line">source file to filter in (for rttm and alice only)</div>
+</div>
+</td>
+<td><p>optional</p></td>
 <td></td>
 </tr>
 </tbody>
 </table>
-<p>{% for column in input_annotations -%} | <strong>{{column.name}}</strong> |
-{{column.description}} | {{‘<strong>required</strong>’ if column.required else
-‘optional’}} {%- if column.datetime %} | <code class="docutils literal notranslate"><span class="pre">{{column.datetime}}</span></code>
-(date/time) | {%- elif column.regex %} | <code class="docutils literal notranslate"><span class="pre">{{column.regex}}</span></code> (regex)
-| {%- elif column.function %} | {{column.function.__name__}}
-(function) | {%- elif column.choices %} | {{column.choices|join(“,”)}}
-| {%- elif column.filename %} | filename | {%- else %} | - | {%-
-endif %} {% endfor %}</p>
 </div>
 </div>
 </div>
