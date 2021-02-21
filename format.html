@@ -1,0 +1,451 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Datasets structure &mdash; ChildRecordsData 0.0.1 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="How to reuse extant LAAC datasets" href="reuse.html" />
+    <link rel="prev" title="Getting some data" href="getting-data.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> ChildRecordsData
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting-started</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting-data.html">Getting some data</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Datasets structure</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#dataset-tree">Dataset tree</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#metadata">Metadata</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#children-notebook">children notebook</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#recording-notebook">recording notebook</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#annotations">Annotations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#annotations-format">Annotations format</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#annotations-index">Annotations index</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#annotation-importation-input-format">Annotation importation input format</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="reuse.html">How to reuse extant LAAC datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vandam.html">Converting a dataset</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Command-line tools</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="tools.html">Basic tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="zooniverse.html">Zooniverse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cheatsheet.html">Cheatsheet</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">ChildRecordsData</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Datasets structure</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/format.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="datasets-structure">
+<h1>Datasets structure<a class="headerlink" href="#datasets-structure" title="Permalink to this headline">¶</a></h1>
+<p>ChildRecordsData assumes your data is structured in a specific way
+before it is imported. This structure is necessary to check, for
+instance, that there are no unreferenced files, and no referenced files
+that are actually missing. The data curator therefore needs to organize
+their data in a specific way (respecting the dataset tree, with all
+specified metadata files, and all specified columns within the metadata
+files) before their data can be imported.</p>
+<p>To be imported, datasets must pass the <a class="reference external" href="https://laac-lscp.github.io/ChildRecordsData/#validate-raw-data">the validation
+routine</a>
+with no error. We also recommend you pay attention to the warnings, and
+try to sort as many of those out as possible before submission.</p>
+<div class="section" id="dataset-tree">
+<h2>Dataset tree<a class="headerlink" href="#dataset-tree" title="Permalink to this headline">¶</a></h2>
+<p>All datasets should have this structure before import (so you need to
+organize your files into this structure):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>project
+│
+│
+└───metadata
+│   │   children.csv
+│   │   recordings.csv
+│   │   annotations.csv
+|
+└───recordings
+│   └───raw
+│   │   │   recording1.wav
+│
+└───annotations
+│   └───vtc
+│   │   └───raw
+│   │   │   │   child1.rttm
+│   └───annotator1
+│   │   └───raw
+│   │   │   │   child1_3600.TextGrid
+│
+└───extra
+    │   notes.txt
+</pre></div>
+</div>
+<p>The children and recordings notebooks should be formatted according to
+the standards detailed right below.</p>
+</div>
+<div class="section" id="metadata">
+<h2>Metadata<a class="headerlink" href="#metadata" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="children-notebook">
+<h3>children notebook<a class="headerlink" href="#children-notebook" title="Permalink to this headline">¶</a></h3>
+<p>The children dataframe needs to be saved at <code class="docutils literal notranslate"><span class="pre">metadata/children.csv</span></code>.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 15%" />
+<col style="width: 33%" />
+<col style="width: 31%" />
+<col style="width: 21%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Required ?</p></th>
+<th class="head"><p>Format</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>{% for column in children -%} | <strong>{{column.name}}</strong> |
+{{column.description}} | {{‘<strong>required</strong>’ if column.required else
+‘optional’}} {%- if column.datetime %} | <code class="docutils literal notranslate"><span class="pre">{{column.datetime}}</span></code>
+(date/time) | {%- elif column.regex %} | <code class="docutils literal notranslate"><span class="pre">{{column.regex}}</span></code> (regex)
+| {%- elif column.function %} | {{column.function.__name__}}
+(function) | {%- elif column.choices %} | {{column.choices|join(“,”)}}
+| {%- elif column.filename %} | filename | {%- else %} | - | {%-
+endif %} {% endfor %}</p>
+</div>
+<div class="section" id="recording-notebook">
+<h3>recording notebook<a class="headerlink" href="#recording-notebook" title="Permalink to this headline">¶</a></h3>
+<p>The recordings dataframe needs to be saved at
+<code class="docutils literal notranslate"><span class="pre">metadata/recordings.csv</span></code>.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 15%" />
+<col style="width: 33%" />
+<col style="width: 31%" />
+<col style="width: 21%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Required ?</p></th>
+<th class="head"><p>Format</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>{% for column in recordings -%} | <strong>{{column.name}}</strong> |
+{{column.description}} | {{‘<strong>required</strong>’ if column.required else
+‘optional’}} {%- if column.datetime %} | <code class="docutils literal notranslate"><span class="pre">{{column.datetime}}</span></code>
+(date/time) | {%- elif column.regex %} | <code class="docutils literal notranslate"><span class="pre">{{column.regex}}</span></code> (regex)
+| {%- elif column.function %} | {{column.function.__name__}}
+(function) | {%- elif column.choices %} | {{column.choices|join(“,”)}}
+| {%- elif column.filename %} | filename | {%- else %} | - | {%-
+endif %} {% endfor %}</p>
+</div>
+</div>
+<div class="section" id="annotations">
+<h2>Annotations<a class="headerlink" href="#annotations" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="annotations-format">
+<h3>Annotations format<a class="headerlink" href="#annotations-format" title="Permalink to this headline">¶</a></h3>
+<p>The package provides functions to convert any annotation into the
+following csv format, with one row per segment :</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 48%" />
+<col style="width: 30%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Format</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>{% for column in annotation_segments -%} | <strong>{{column.name}}</strong> |
+{{column.description}} {%- if column.datetime %} |
+<code class="docutils literal notranslate"><span class="pre">{{column.datetime}}</span></code> (date/time) | {%- elif column.regex %} |
+<code class="docutils literal notranslate"><span class="pre">{{column.regex}}</span></code> (regex) | {%- elif column.function %} |
+{{column.function.__name__}} (function) | {%- elif column.choices %} |
+{{column.choices|join(“,”)}} | {%- elif column.filename %} | filename
+| {%- else %} | - | {%- endif %} {% endfor %}</p>
+</div>
+<div class="section" id="annotations-index">
+<h3>Annotations index<a class="headerlink" href="#annotations-index" title="Permalink to this headline">¶</a></h3>
+<p>Annotations are indexed in one unique dataframe located at
+<code class="docutils literal notranslate"><span class="pre">/metadata/annotations.csv</span></code>, with the following format :</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 48%" />
+<col style="width: 30%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Format</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>{% for column in annotations -%} | <strong>{{column.name}}</strong> |
+{{column.description}} {%- if column.datetime %} |
+<code class="docutils literal notranslate"><span class="pre">{{column.datetime}}</span></code> (date/time) | {%- elif column.regex %} |
+<code class="docutils literal notranslate"><span class="pre">{{column.regex}}</span></code> (regex) | {%- elif column.function %} |
+{{column.function.__name__}} (function) | {%- elif column.choices %} |
+{{column.choices|join(“,”)}} | {%- elif column.filename %} | filename
+| {%- else %} | - | {%- endif %} {% endfor %}</p>
+</div>
+<div class="section" id="annotation-importation-input-format">
+<h3>Annotation importation input format<a class="headerlink" href="#annotation-importation-input-format" title="Permalink to this headline">¶</a></h3>
+<p>The annotations importation script and function take a dataframe of the
+following format as an input :</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 15%" />
+<col style="width: 33%" />
+<col style="width: 31%" />
+<col style="width: 21%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Required ?</p></th>
+<th class="head"><p>Format</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>{% for column in input_annotations -%} | <strong>{{column.name}}</strong> |
+{{column.description}} | {{‘<strong>required</strong>’ if column.required else
+‘optional’}} {%- if column.datetime %} | <code class="docutils literal notranslate"><span class="pre">{{column.datetime}}</span></code>
+(date/time) | {%- elif column.regex %} | <code class="docutils literal notranslate"><span class="pre">{{column.regex}}</span></code> (regex)
+| {%- elif column.function %} | {{column.function.__name__}}
+(function) | {%- elif column.choices %} | {{column.choices|join(“,”)}}
+| {%- elif column.filename %} | filename | {%- else %} | - | {%-
+endif %} {% endfor %}</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="reuse.html" class="btn btn-neutral float-right" title="How to reuse extant LAAC datasets" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="getting-data.html" class="btn btn-neutral float-left" title="Getting some data" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Lucas Gautheron.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

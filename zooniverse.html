@@ -1,0 +1,382 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Zooniverse &mdash; ChildRecordsData 0.0.1 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Cheatsheet" href="cheatsheet.html" />
+    <link rel="prev" title="Basic tools" href="tools.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> ChildRecordsData
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting-started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting-data.html">Getting some data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="format.html">Datasets structure</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="reuse.html">How to reuse extant LAAC datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vandam.html">Converting a dataset</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Command-line tools</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="tools.html">Basic tools</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Zooniverse</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#chunk-extraction">Chunk extraction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#chunk-upload">Chunk upload</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#classifications-retrieval">Classifications retrieval</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cheatsheet.html">Cheatsheet</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">ChildRecordsData</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Zooniverse</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/zooniverse.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="zooniverse">
+<h1>Zooniverse<a class="headerlink" href="#zooniverse" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><p><a class="reference external" href="#introduction">Introduction</a></p>
+<ul>
+<li><p><a class="reference external" href="#overview">Overview</a></p></li>
+<li><p><a class="reference external" href="#chunk-extraction">Chunk extraction</a></p></li>
+<li><p><a class="reference external" href="#chunk-upload">Chunk upload</a></p></li>
+<li><p><a class="reference external" href="#classifications-retrieval">Classifications retrieval</a></p></li>
+</ul>
+</li>
+</ul>
+<div class="section" id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>We are providing here a pipeline to create, upload and analyse long
+format recordings using the Zooniverse citizen science platform.</p>
+<p>We have an open project aimed at adding vocal maturity labels to
+segments LENA labeled as being key child in Zooniverse
+(<a class="reference external" href="https://www.zooniverse.org/projects/chiarasemenzin/maturity-of-baby-sounds">https://www.zooniverse.org/projects/chiarasemenzin/maturity-of-baby-sounds</a>).</p>
+<p>If you would like your data labeled with this project, here is what
+you’d need to do. 1. Get in touch with us, so we know you are
+interested! 2. Have someone trustworthy &amp; with some coding skills
+(henceforth, the RA) create a database using the <a class="reference external" href="http://laac-lscp.github.io/ChildRecordsData/FORMATTING.html">formatting
+instructions and
+specifications</a>.
+4. Have the RA create an account on Zooniverse (top right of
+zooniverse.org) for them and yourself, &amp; provide us with both handles.
+The RA should first update the team section to add you (have ready a
+picture and a blurb). The RA can also add your institution’s logo if
+you’d like. Both of these are done in the <a class="reference external" href="https://www.zooniverse.org/lab/10073">lab
+section</a> 5. The RA will then
+follow the instructions in the present README to create subjects and
+push up your data – see below. 6. We also ask the RA to pitch in and
+help answer questions in the
+<a class="reference external" href="https://www.zooniverse.org/projects/chiarasemenzin/maturity-of-baby-sounds/talk">forum</a>,
+at least one comment a day. 7. You can visit the <a class="reference external" href="https://www.zooniverse.org/projects/chiarasemenzin/maturity-of-baby-sounds/stats">stats
+section</a>
+to look at how many annotations are being done.</p>
+<p>You can also use this code and your own knowledge to set up a new
+project of your own.</p>
+</div>
+<div class="section" id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ child-project zooniverse --help
+usage: child-project zooniverse <span class="o">[</span>-h<span class="o">]</span>
+                                <span class="o">{</span>extract-chunks,upload-chunks,retrieve-classifications<span class="o">}</span>
+                                ...
+
+positional arguments:
+  <span class="o">{</span>extract-chunks,upload-chunks,retrieve-classifications<span class="o">}</span>
+                        action
+    extract-chunks      extract chunks and store metadata <span class="k">in</span>
+                        DESTINATION/chunks.csv
+    upload-chunks       upload chunks and updates DESTINATION/chunks.csv
+    retrieve-classifications
+                        retrieve classifications and save them into
+                        DESTINATION/classifications.csv
+
+optional arguments:
+  -h, --help            show this <span class="nb">help</span> message and <span class="nb">exit</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="chunk-extraction">
+<h2>Chunk extraction<a class="headerlink" href="#chunk-extraction" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ child-project zooniverse extract-chunks /path/to/dataset --help
+usage: child-project zooniverse extract-chunks <span class="o">[</span>-h<span class="o">]</span> --keyword KEYWORD
+                                               --destination DESTINATION
+                                               --sample-size SAMPLE_SIZE
+                                               <span class="o">[</span>--annotation-set ANNOTATION_SET<span class="o">]</span>
+                                               <span class="o">[</span>--target-speaker-type <span class="o">{</span>CHI,OCH,FEM,MAL<span class="o">}</span> <span class="o">[{</span>CHI,OCH,FEM,MAL<span class="o">}</span> ...<span class="o">]]</span>
+                                               <span class="o">[</span>--batch-size BATCH_SIZE<span class="o">]</span>
+                                               <span class="o">[</span>--threads THREADS<span class="o">]</span>
+                                               path
+
+positional arguments:
+  path                  path to the dataset
+
+optional arguments:
+  -h, --help            show this <span class="nb">help</span> message and <span class="nb">exit</span>
+  --keyword KEYWORD     <span class="nb">export</span> keyword
+  --destination DESTINATION
+                        destination
+  --sample-size SAMPLE_SIZE
+                        how many samples per recording
+  --annotation-set ANNOTATION_SET
+                        annotation <span class="nb">set</span>
+  --target-speaker-type <span class="o">{</span>CHI,OCH,FEM,MAL<span class="o">}</span> <span class="o">[{</span>CHI,OCH,FEM,MAL<span class="o">}</span> ...<span class="o">]</span>
+                        speaker <span class="nb">type</span> to get chunks from
+  --batch-size BATCH_SIZE
+                        batch size
+  --threads THREADS     how many threads to run on
+</pre></div>
+</div>
+<p>If it does not exist, DESTINATION is created. Audio chunks are saved in
+wav and mp3 in <code class="docutils literal notranslate"><span class="pre">DESTINATION/chunks</span></code>. Metadata is stored in a file
+named <code class="docutils literal notranslate"><span class="pre">DESTINATION/chunks.csv</span></code>.</p>
+</div>
+<div class="section" id="chunk-upload">
+<h2>Chunk upload<a class="headerlink" href="#chunk-upload" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ child-project zooniverse upload-chunks /path/to/dataset --help
+usage: child-project zooniverse upload-chunks <span class="o">[</span>-h<span class="o">]</span> --destination DESTINATION
+                                              --zooniverse-login
+                                              ZOONIVERSE_LOGIN
+                                              --zooniverse-pwd ZOONIVERSE_PWD
+                                              --project-slug PROJECT_SLUG
+                                              --set-prefix SET_PREFIX
+                                              <span class="o">[</span>--batches BATCHES<span class="o">]</span>
+
+optional arguments:
+  -h, --help            show this <span class="nb">help</span> message and <span class="nb">exit</span>
+  --destination DESTINATION
+                        destination
+  --zooniverse-login ZOONIVERSE_LOGIN
+                        zooniverse login
+  --zooniverse-pwd ZOONIVERSE_PWD
+                        zooniverse password
+  --project-slug PROJECT_SLUG
+                        zooniverse project name
+  --set-prefix SET_PREFIX
+                        subject prefix
+  --batches BATCHES     amount of batches to upload
+</pre></div>
+</div>
+<p>Uploads as many batches of audio chunks as specified to Zooniverse, and
+updates <code class="docutils literal notranslate"><span class="pre">chunks.csv</span></code> accordingly.</p>
+</div>
+<div class="section" id="classifications-retrieval">
+<h2>Classifications retrieval<a class="headerlink" href="#classifications-retrieval" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ child-project zooniverse retrieve-classifications /path/to/dataset --help
+usage: child-project zooniverse retrieve-classifications <span class="o">[</span>-h<span class="o">]</span> --destination
+                                                         DESTINATION
+                                                         --zooniverse-login
+                                                         ZOONIVERSE_LOGIN
+                                                         --zooniverse-pwd
+                                                         ZOONIVERSE_PWD
+                                                         --project-id
+                                                         PROJECT_ID
+
+optional arguments:
+  -h, --help            show this <span class="nb">help</span> message and <span class="nb">exit</span>
+  --destination DESTINATION
+                        destination
+  --zooniverse-login ZOONIVERSE_LOGIN
+                        zooniverse login
+  --zooniverse-pwd ZOONIVERSE_PWD
+                        zooniverse password
+  --project-id PROJECT_ID
+                        zooniverse project id
+</pre></div>
+</div>
+<p>Retrieve classifications and save them into
+<code class="docutils literal notranslate"><span class="pre">DESTINATION/classifications.csv</span></code>.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="cheatsheet.html" class="btn btn-neutral float-right" title="Cheatsheet" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="tools.html" class="btn btn-neutral float-left" title="Basic tools" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Lucas Gautheron.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

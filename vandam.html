@@ -1,0 +1,757 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Converting a dataset &mdash; ChildRecordsData 0.0.1 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Basic tools" href="tools.html" />
+    <link rel="prev" title="How to reuse extant LAAC datasets" href="reuse.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> ChildRecordsData
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting-started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting-data.html">Getting some data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="format.html">Datasets structure</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="reuse.html">How to reuse extant LAAC datasets</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Converting a dataset</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#set-up-datalad-and-child-project">Set-up datalad and child-project</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#create-a-dataset">Create a dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#gather-and-sort-the-files">Gather and sort the files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#create-the-metadata">Create the metadata</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#save-the-changes-locally">Save the changes locally</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#processing">Processing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#publish-the-dataset">Publish the dataset</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#where-to-publish-my-dataset">Where to publish my dataset ?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#publish-to-a-ssh-server">Publish to a SSH server</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#publish-to-github">Publish to GitHub</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#github-ssh-mirror-to-store-the-large-files">GitHub + SSH mirror to store the large files</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#publish-on-s3">Publish on S3</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#publish-on-osf">Publish on OSF</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Command-line tools</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="tools.html">Basic tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="zooniverse.html">Zooniverse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cheatsheet.html">Cheatsheet</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">ChildRecordsData</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Converting a dataset</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/vandam.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="converting-a-dataset">
+<h1>Converting a dataset<a class="headerlink" href="#converting-a-dataset" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><p><a class="reference external" href="#converting-a-dataset">Converting a dataset</a></p>
+<ul>
+<li><p><a class="reference external" href="#set-up-datalad-and-child-project">Set-up datalad and
+child-project</a></p></li>
+<li><p><a class="reference external" href="#create-a-dataset">Create a dataset</a></p></li>
+<li><p><a class="reference external" href="#gather-and-sort-the-files">Gather and sort the files</a></p></li>
+<li><p><a class="reference external" href="#create-the-metadata">Create the metadata</a></p></li>
+<li><p><a class="reference external" href="#save-the-changes-locally">Save the changes locally</a></p></li>
+<li><p><a class="reference external" href="#processing">Processing</a></p></li>
+<li><p><a class="reference external" href="#publish-the-dataset">Publish the dataset</a></p>
+<ul>
+<li><p><a class="reference external" href="#where-to-publish-my-dataset-">Where to publish my dataset
+?</a></p></li>
+<li><p><a class="reference external" href="#publish-to-a-ssh-server">Publish to a SSH server</a></p></li>
+<li><p><a class="reference external" href="#publish-to-github">Publish to GitHub</a></p>
+<ul>
+<li><p><a class="reference external" href="#github--ssh-mirror-to-store-the-large-files">GitHub + SSH mirror to store the large
+files</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference external" href="#publish-on-s3">Publish on S3</a></p></li>
+<li><p><a class="reference external" href="#publish-on-osf">Publish on OSF</a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>This tutorial will guide you through the steps for the conversion of an
+existing dataset. We will use the <a class="reference external" href="https://homebank.talkbank.org/access/Public/VanDam-Daylong.html">VanDam-Daylong dataset from
+HomeBank</a>
+as an example.</p>
+<div class="section" id="set-up-datalad-and-child-project">
+<h2>Set-up datalad and child-project<a class="headerlink" href="#set-up-datalad-and-child-project" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="create-a-dataset">
+<h2>Create a dataset<a class="headerlink" href="#create-a-dataset" title="Permalink to this headline">¶</a></h2>
+<p>The first step is to create a new dataset named vandam-data :</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>datalad create vandam-data
+<span class="nb">cd</span> vandam-data
+</pre></div>
+</div>
+<p>So far, the dataset contains nothing but hidden files:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ ls -A
+.datalad    .git        .gitattributes
+</pre></div>
+</div>
+<p>Now, we would like to get the data from <a class="reference external" href="https://">https://</a>, convert it to our
+standards, and then publish it.</p>
+</div>
+<div class="section" id="gather-and-sort-the-files">
+<h2>Gather and sort the files<a class="headerlink" href="#gather-and-sort-the-files" title="Permalink to this headline">¶</a></h2>
+<p>The first step is to create the directories:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir metadata
+mkdir -p recordings/raw
+mkdir annotations
+mkdir extra
+touch extra/.gitignore <span class="c1"># Make sure the directory is present even though it&#39;s empty</span>
+</pre></div>
+</div>
+<p>Then, download the original data-set from HomeBank.</p>
+<p>The audio first:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wget https://media.talkbank.org/homebank/Public/VanDam-Daylong/BN32/BN32_010007.mp3 -O recordings/raw/BN32_010007.mp3
+</pre></div>
+</div>
+<p>Now let’s get the annotations.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wget https://homebank.talkbank.org/data/Public/VanDam-Daylong.zip -O VanDam-Daylong.zip
+unzip VanDam-Daylong.zip
+rm VanDam-Daylong.zip
+</pre></div>
+</div>
+<p>Let’s explore the content of VanDam-Daylong:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ ls -R VanDam-Daylong
+0metadata.cdc   BN32
+
+VanDam-Daylong/BN32:
+0its        BN32_010007.cha
+
+VanDam-Daylong/BN32/0its:
+e20100728_143446_003489.its
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">0metadata.cdc1</span></code> looks like some metadata file, so we will move it
+to <code class="docutils literal notranslate"><span class="pre">metadata/</span></code> :</p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mv VanDam-Daylong/0metadata.cdc metadata/
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">BN32_010007.cha</span></code> contains some transcriptions. Let’s create a set
+of annotations <code class="docutils literal notranslate"><span class="pre">cha</span></code> and move it there :</p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir -p annotations/cha/raw
+mv VanDam-Daylong/BN32/BN32_010007.cha annotations/cha/raw
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">e20100728_143446_003489.its</span></code> contains diarization and other
+information such as word counts. Let’s create another set of
+annotations for it. And for the sake of consistency, we’ll rename it
+<code class="docutils literal notranslate"><span class="pre">BN32_010007.its</span></code>.</p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir -p annotations/its/raw
+mv VanDam-Daylong/BN32/0its/e20100728_143446_003489.its annotations/its/raw/BN32_010007.its
+</pre></div>
+</div>
+<p>Now we’ve got all the files. Let’s try to run the validation on the
+dataset:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ child-project validate .
+
+Traceback <span class="o">(</span>most recent call last<span class="o">)</span>:
+  File <span class="s2">&quot;/Users/acristia/anaconda3/bin/child-project&quot;</span>, line <span class="m">8</span>, <span class="k">in</span> &lt;module&gt;
+    sys.exit<span class="o">(</span>main<span class="o">())</span>
+  File <span class="s2">&quot;/Users/acristia/anaconda3/lib/python3.7/site-packages/ChildProject/cmdline.py&quot;</span>, line <span class="m">241</span>, <span class="k">in</span> main
+    args.func<span class="o">(</span>args<span class="o">)</span>
+  File <span class="s2">&quot;/Users/acristia/anaconda3/lib/python3.7/site-packages/ChildProject/cmdline.py&quot;</span>, line <span class="m">39</span>, <span class="k">in</span> validate
+    errors, <span class="nv">warnings</span> <span class="o">=</span> project.validate<span class="o">(</span>args.ignore_files<span class="o">)</span>
+  File <span class="s2">&quot;/Users/acristia/anaconda3/lib/python3.7/site-packages/ChildProject/projects.py&quot;</span>, line <span class="m">102</span>, <span class="k">in</span> validate
+    self.read<span class="o">()</span>
+  File <span class="s2">&quot;/Users/acristia/anaconda3/lib/python3.7/site-packages/ChildProject/projects.py&quot;</span>, line <span class="m">86</span>, <span class="k">in</span> <span class="nb">read</span>
+    self.children <span class="o">=</span> self.ct.read<span class="o">(</span><span class="nv">lookup_extensions</span> <span class="o">=</span> <span class="o">[</span><span class="s1">&#39;.csv&#39;</span>, <span class="s1">&#39;.xls&#39;</span>, <span class="s1">&#39;.xlsx&#39;</span><span class="o">])</span>
+  File <span class="s2">&quot;/Users/acristia/anaconda3/lib/python3.7/site-packages/ChildProject/tables.py&quot;</span>, line <span class="m">65</span>, <span class="k">in</span> <span class="nb">read</span>
+    raise Exception<span class="o">(</span><span class="s2">&quot;could not find table &#39;{}&#39;&quot;</span>.format<span class="o">(</span>self.path<span class="o">))</span>
+Exception: could not find table <span class="s1">&#39;./metadata/children&#39;</span>
+</pre></div>
+</div>
+<p>The validation fails, because the metadata is missing. We need to store
+the metadata about the children and the recordings according as
+specified in the
+<a class="reference external" href="https://laac-lscp.github.io/ChildRecordsData/FORMATTING.html#metadata">documentation</a>.</p>
+</div>
+<div class="section" id="create-the-metadata">
+<h2>Create the metadata<a class="headerlink" href="#create-the-metadata" title="Permalink to this headline">¶</a></h2>
+<p>Let’s start with the recordings metadata. <code class="docutils literal notranslate"><span class="pre">metadata/recordings.csv</span></code>
+should at least have the following columns: experiment, child_id,
+date_iso, start_time, recording_device_type, filename. The .its file
+contains (<code class="docutils literal notranslate"><span class="pre">annotations/its/raw/BN32_010007.its</span></code>) precious information
+about when the recording started:</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;Recording</span> <span class="na">num=</span><span class="s">&quot;1&quot;</span> <span class="na">startClockTime=</span><span class="s">&quot;2010-07-24T11:58:16Z&quot;</span> <span class="na">endClockTime=</span><span class="s">&quot;2010-07-25T01:59:20Z&quot;</span> <span class="na">startTime=</span><span class="s">&quot;PT0.00S&quot;</span> <span class="na">endTime=</span><span class="s">&quot;PT50464.24S&quot;</span><span class="nt">&gt;</span>
+</pre></div>
+</div>
+<p>Make sure that <code class="docutils literal notranslate"><span class="pre">metadata/recordings.csv</span></code> contains the following text:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">experiment</span><span class="p">,</span><span class="n">child_id</span><span class="p">,</span><span class="n">date_iso</span><span class="p">,</span><span class="n">start_time</span><span class="p">,</span><span class="n">recording_device_type</span><span class="p">,</span><span class="n">filename</span>
+<span class="n">vandam</span><span class="o">-</span><span class="n">daylong</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2010</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">24</span><span class="p">,</span><span class="mi">11</span><span class="p">:</span><span class="mi">58</span><span class="p">,</span><span class="n">lena</span><span class="p">,</span><span class="n">BN32_010007</span><span class="o">.</span><span class="n">mp3</span>
+</pre></div>
+</div>
+<p>(we have decided that the only child of the dataset should have ID ‘1’)</p>
+<p>Now the children metadata. The only fields that are required are:
+experiment, child_id and child_dob. The .its file also contains some
+information about the child:</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;ChildInfo</span> <span class="na">algorithmAge=</span><span class="s">&quot;P12M&quot;</span> <span class="na">gender=</span><span class="s">&quot;F&quot;</span> <span class="nt">/&gt;</span>
+</pre></div>
+</div>
+<p>She was a 12 month old girl at the time of the recording. We can thus
+assign her a calculated date of birth: 2009-07-24. We will set
+<code class="docutils literal notranslate"><span class="pre">dob_criterion</span></code> to “extrapolated” to keep track of the fact that the
+date of birth was calculated from the approximate age at recording. We
+will also set <code class="docutils literal notranslate"><span class="pre">dob_accuracy</span></code> to ‘month’ for that child.</p>
+<p>This is what <code class="docutils literal notranslate"><span class="pre">metadata/children.csv</span></code> should look like:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">experiment</span><span class="p">,</span><span class="n">child_id</span><span class="p">,</span><span class="n">child_dob</span><span class="p">,</span><span class="n">dob_criterion</span><span class="p">,</span><span class="n">dob_accuracy</span>
+<span class="n">vandam</span><span class="o">-</span><span class="n">daylong</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2009</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">24</span><span class="p">,</span><span class="n">extrapolated</span><span class="p">,</span><span class="n">month</span>
+</pre></div>
+</div>
+<p>We can now make sure that they are no errors by running the validation
+command again:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>child-project validate .
+</pre></div>
+</div>
+<p>No error occurs.</p>
+</div>
+<div class="section" id="save-the-changes-locally">
+<h2>Save the changes locally<a class="headerlink" href="#save-the-changes-locally" title="Permalink to this headline">¶</a></h2>
+<p>A DataLad dataset is essentially a git repository, with the large files
+being handled by git-annex. Some of the files (usually the small, text
+files such as metadata and scripts) ought to be versionned with git, and
+the larger files or binary files should be stored in the <em>annex</em>.</p>
+<p>The rules to decide what files should be stored which way can be set in
+the <code class="docutils literal notranslate"><span class="pre">.gitattributes</span></code> file. You should fill it will the following
+content:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">*</span> <span class="n">annex</span><span class="o">.</span><span class="n">backend</span><span class="o">=</span><span class="n">MD5E</span>
+<span class="o">**/.</span><span class="n">git</span><span class="o">*</span> <span class="n">annex</span><span class="o">.</span><span class="n">largefiles</span><span class="o">=</span><span class="n">nothing</span>
+<span class="n">scripts</span><span class="o">/*</span> <span class="n">annex</span><span class="o">.</span><span class="n">largefiles</span><span class="o">=</span><span class="n">nothing</span>
+<span class="n">metadata</span><span class="o">/*</span> <span class="n">annex</span><span class="o">.</span><span class="n">largefiles</span><span class="o">=</span><span class="n">nothing</span>
+<span class="n">recordings</span><span class="o">/</span><span class="n">converted</span><span class="o">/*</span> <span class="n">annex</span><span class="o">.</span><span class="n">largefiles</span><span class="o">=</span><span class="p">((</span><span class="n">mimeencoding</span><span class="o">=</span><span class="n">binary</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>These rules will version all the files under <code class="docutils literal notranslate"><span class="pre">scripts/</span></code> and
+<code class="docutils literal notranslate"><span class="pre">metadata/</span></code>, as well as the text files inside of
+<code class="docutils literal notranslate"><span class="pre">recordings/converted/</span></code>. By default, the other files will be put in
+the annex.</p>
+<p>The changes can now be saved. This can be done with <a class="reference external" href="http://docs.datalad.org/en/stable/generated/man/datalad-save.html">datalad
+save</a>.
+<code class="docutils literal notranslate"><span class="pre">datalad</span> <span class="pre">save</span></code> is equivalent to a combination of <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">add</span></code> and
+<code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">commit</span></code> in one go. It decides, based on the rules in
+<code class="docutils literal notranslate"><span class="pre">.gitattributes</span></code>, whether to store files with git or git-annex.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">datalad</span> <span class="n">save</span> <span class="o">.</span> <span class="o">-</span><span class="n">m</span> <span class="s2">&quot;first commit&quot;</span>
+</pre></div>
+</div>
+<p>However, so far, your changes remain local, and your dataset still needs
+to be published into a <em>sibling</em> to be shared with others.</p>
+</div>
+<div class="section" id="processing">
+<h2>Processing<a class="headerlink" href="#processing" title="Permalink to this headline">¶</a></h2>
+<p>You can do some processing on the dataset. For instance, you can compute
+the duration of the recording, and update the metadata with this
+information. This is easily done with:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>child-project compute-durations .
+</pre></div>
+</div>
+<p>Now <code class="docutils literal notranslate"><span class="pre">metadata/recordings.csv</span></code> became:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ cat metadata/recordings.csv
+experiment,child_id,date_iso,start_time,recording_device_type,filename,duration
+vandam-daylong,1,2010-07-24,11:58,lena,BN32_010007.mp3,50464.512
+</pre></div>
+</div>
+<p>You can also convert and index the its annotation:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>child-project import-annotations . --set its <span class="se">\</span>
+  --recording_filename BN32_010007.mp3 <span class="se">\</span>
+  --time_seek <span class="m">0</span> <span class="se">\</span>
+  --range_onset <span class="m">0</span> <span class="se">\</span>
+  --range_offset <span class="m">50464</span>.512 <span class="se">\</span>
+  --raw_filename BN32_010007.its <span class="se">\</span>
+  --format its
+</pre></div>
+</div>
+<p>And save the changes again:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>datalad save . -m <span class="s2">&quot;its&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="publish-the-dataset">
+<h2>Publish the dataset<a class="headerlink" href="#publish-the-dataset" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="where-to-publish-my-dataset">
+<h3>Where to publish my dataset ?<a class="headerlink" href="#where-to-publish-my-dataset" title="Permalink to this headline">¶</a></h3>
+<p>DataLad allows you to publish your datasets on a very wide range of
+platforms, each having their own advantages and limitations. It is also
+possible to publish to several platforms, as we do with our own
+datasets.</p>
+<p>The table below summarises the features of a few storage supports. The
+solutions described here are by no mean exhaustive, but they are easy to
+generalize.</p>
+<ul class="simple">
+<li><p>Platforms that support Git store the .git files and will allow you to
+clone the datasets from them with <code class="docutils literal notranslate"><span class="pre">datalad</span> <span class="pre">install</span></code></p></li>
+<li><p>Platforms that support Large Files will allow you to store and
+distribute the large or binary files that are stored with git-annex
+instead of the regular git files (such as scripts and metadata)</p></li>
+</ul>
+<p>It is necessary to use a platform or a combination of platforms that
+supports both.</p>
+<table class="tg"><thead><tr><th class="tg-0lax"></th><th class="tg-amwm" colspan="3"><p>Supports</p>
+</th></tr></thead><tbody><tr><td class="tg-fymr"><p>Host</p>
+</td><td class="tg-7btt"><p>Git</p>
+</td><td class="tg-7btt"><p>Large Files</p>
+</td><td class="tg-7btt"><p>Encryption</p>
+</td></tr><tr><td class="tg-0pky"><p>SSH server</p>
+</td><td class="tg-0pky"><p>Yes</p>
+</td><td class="tg-0pky"><p>Yes</p>
+</td><td class="tg-0pky"><p>No ?</p>
+</td></tr><tr><td class="tg-0pky"><p>GitHub</p>
+</td><td class="tg-0pky"><p>Yes</p>
+</td><td class="tg-0pky"><p>No</p>
+</td><td class="tg-0pky"><p>No</p>
+</td></tr><tr><td class="tg-0pky"><p>Amazon S3</p>
+</td><td class="tg-0pky"><p>No</p>
+</td><td class="tg-0pky"><p>Yes</p>
+</td><td class="tg-0pky"><p>Yes</p>
+</td></tr><tr><td class="tg-0lax"><p>OSF.io</p>
+</td><td class="tg-0lax"><p>Yes</p>
+</td><td class="tg-0lax"><p>No*</p>
+</td><td class="tg-0lax"><p>No</p>
+</td></tr></tbody></table></div>
+<div class="section" id="publish-to-a-ssh-server">
+<h3>Publish to a SSH server<a class="headerlink" href="#publish-to-a-ssh-server" title="Permalink to this headline">¶</a></h3>
+<p>If you have access to a SSH server with enough storage capacity, you can
+use it to store and share the dataset. This is done with the <a class="reference external" href="http://docs.datalad.org/en/stable/generated/man/datalad-create-sibling.html">datalad
+create-sibling</a>
+command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>datalad create-sibling <span class="o">[</span>-h<span class="o">]</span> <span class="o">[</span>-s <span class="o">[</span>NAME<span class="o">]]</span> <span class="o">[</span>--target-dir PATH<span class="o">]</span> <span class="o">[</span>--target-url URL<span class="o">]</span> <span class="o">[</span>--target-pushurl URL<span class="o">]</span> <span class="o">[</span>--dataset DATASET<span class="o">]</span> <span class="o">[</span>-r<span class="o">]</span> <span class="o">[</span>-R LEVELS<span class="o">]</span> <span class="o">[</span>--existing MODE<span class="o">]</span> <span class="o">[</span>--shared <span class="o">{</span>false<span class="p">|</span>true<span class="p">|</span>umask<span class="p">|</span>group<span class="p">|</span>all<span class="p">|</span>world<span class="p">|</span>everybody<span class="p">|</span>0xxx<span class="o">}]</span> <span class="o">[</span>--group GROUP<span class="o">]</span> <span class="o">[</span>--ui <span class="o">{</span>false<span class="p">|</span>true<span class="p">|</span>html_filename<span class="o">}]</span> <span class="o">[</span>--as-common-datasrc NAME<span class="o">]</span> <span class="o">[</span>--publish-by-default REFSPEC<span class="o">]</span> <span class="o">[</span>--publish-depends SIBLINGNAME<span class="o">]</span> <span class="o">[</span>--annex-wanted EXPR<span class="o">]</span> <span class="o">[</span>--annex-group EXPR<span class="o">]</span> <span class="o">[</span>--annex-groupwanted EXPR<span class="o">]</span> <span class="o">[</span>--inherit<span class="o">]</span> <span class="o">[</span>--since SINCE<span class="o">]</span> <span class="o">[</span>SSHURL<span class="o">]</span>
+</pre></div>
+</div>
+<p>For instance, you can create it (this is only to be done once) by
+issuing:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>datalad create-sibling -s cluster --annex-wanted <span class="s1">&#39;include=*&#39;</span> &lt;ssh-server&gt;:/remote/path/to/the/dataset
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">cluster</span></code> is the name of the sibling, and
+<code class="docutils literal notranslate"><span class="pre">&lt;ssh-server&gt;:/remote/path/to/the/dataset</span></code> is the SSH url of its
+destination. <code class="docutils literal notranslate"><span class="pre">--annex-wanted</span> <span class="pre">'include=*'</span></code> implies that all large files
+will be published to this sibling by default.</p>
+<p>Once the sibling has been created, the changes can be published:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>datalad push --to cluster
+</pre></div>
+</div>
+<p>That’s it! People can now get your data from:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>datalad install &lt;ssh-server&gt;:/remote/path/to/the/dataset
+</pre></div>
+</div>
+<p>If <code class="docutils literal notranslate"><span class="pre">--annex-wanted</span></code> had not been set to <code class="docutils literal notranslate"><span class="pre">'include=*'</span></code>, the large
+files (i.e. annexed files) would not be published unless you asked for
+it explicitly with the <code class="docutils literal notranslate"><span class="pre">--data</span></code> flag:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>datalad push --to cluster --data anything
+</pre></div>
+</div>
+</div>
+<div class="section" id="publish-to-github">
+<h3>Publish to GitHub<a class="headerlink" href="#publish-to-github" title="Permalink to this headline">¶</a></h3>
+<p>You first need to create the repository, which can be done in a
+straightforward way from the command line with <a class="reference external" href="http://docs.datalad.org/en/stable/generated/man/datalad-create-sibling-github.html">datalad
+create-sibling-github</a>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>datalad create-sibling-github <span class="o">[</span>-h<span class="o">]</span> <span class="o">[</span>--dataset DATASET<span class="o">]</span> <span class="o">[</span>-r<span class="o">]</span> <span class="o">[</span>-R LEVELS<span class="o">]</span> <span class="o">[</span>-s NAME<span class="o">]</span> <span class="o">[</span>--existing MODE<span class="o">]</span> <span class="o">[</span>--github-login NAME<span class="o">]</span> <span class="o">[</span>--github-organization NAME<span class="o">]</span> <span class="o">[</span>--access-protocol <span class="o">{</span>https<span class="p">|</span>ssh<span class="o">}]</span> <span class="o">[</span>--publish-depends SIBLINGNAME<span class="o">]</span> <span class="o">[</span>--private<span class="o">]</span> <span class="o">[</span>--dryrun<span class="o">]</span> REPONAME
+</pre></div>
+</div>
+<p>For instance:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">datalad</span> <span class="n">create</span><span class="o">-</span><span class="n">sibling</span><span class="o">-</span><span class="n">github</span> <span class="o">-</span><span class="n">s</span> <span class="n">origin</span> <span class="o">--</span><span class="n">access</span><span class="o">-</span><span class="n">protocol</span> <span class="n">ssh</span> <span class="n">vandam</span><span class="o">-</span><span class="n">daylong</span><span class="o">-</span><span class="n">demo</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">origin</span></code> will be the local name of the sibling, and
+<code class="docutils literal notranslate"><span class="pre">vandam-daylong-demo</span></code> the name of the GitHub repository. Once the
+sibling has been created, you can publish the changes with <a class="reference external" href="http://docs.datalad.org/en/stable/generated/man/datalad-push.html">datalad
+push</a>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>datalad push --to origin
+</pre></div>
+</div>
+<p>You should get a repository identical to <a class="reference external" href="https://github.com/LAAC-LSCP/vandam-daylong-demo">this
+one</a>.</p>
+<p>Users can now install your dataset from GitHub:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">datalad</span> <span class="n">install</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">LAAC</span><span class="o">-</span><span class="n">LSCP</span><span class="o">/</span><span class="n">vandam</span><span class="o">-</span><span class="n">daylong</span><span class="o">-</span><span class="n">demo</span><span class="o">.</span><span class="n">git</span>
+</pre></div>
+</div>
+<p>PS: we recommand that you do <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">push</span> <span class="pre">--set-upstream</span> <span class="pre">origin</span></code> to set
+upstream to the GitHub sibling. Users who install your dataset will not
+need to do this.</p>
+<div class="section" id="github-ssh-mirror-to-store-the-large-files">
+<h4>GitHub + SSH mirror to store the large files<a class="headerlink" href="#github-ssh-mirror-to-store-the-large-files" title="Permalink to this headline">¶</a></h4>
+<p>Now, let’s assume you have already created a SSH sibling as well for
+your dataset, and that it is named <code class="docutils literal notranslate"><span class="pre">cluster</span></code>. You can make sure that
+all changes to <code class="docutils literal notranslate"><span class="pre">github</span></code> are published to <code class="docutils literal notranslate"><span class="pre">cluster</span></code> as well, by
+setting the <code class="docutils literal notranslate"><span class="pre">publish-depends</span></code> property of the github sibling:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>datalad siblings configure -s origin --publish-depends cluster
+</pre></div>
+</div>
+<p>Now, <code class="docutils literal notranslate"><span class="pre">datalad</span> <span class="pre">push</span> <span class="pre">--to</span> <span class="pre">origin</span></code> will publish the changes to both
+<code class="docutils literal notranslate"><span class="pre">cluster</span></code> and <code class="docutils literal notranslate"><span class="pre">github</span></code>.</p>
+<p>However, when the users install your dataset from GitHub, they will not
+have access to the <code class="docutils literal notranslate"><span class="pre">cluster</span></code> sibling unless you make it available to
+them, which can be done this way :</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git annex
+git annex initremote cluster <span class="nv">type</span><span class="o">=</span>git <span class="nv">location</span><span class="o">=</span>ssh://cluster.com/path/to/the/repository <span class="nv">autoenable</span><span class="o">=</span><span class="nb">true</span>
+git annex enableremote cluster
+git remote add origin git@github.com:LAAC-LSCP/vandam-daylong-demo.git
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="publish-on-s3">
+<h3>Publish on S3<a class="headerlink" href="#publish-on-s3" title="Permalink to this headline">¶</a></h3>
+<p>You might not have access to a SSH server with enough storage capacity,
+or you might just not want to setup SSH keys to every user of your
+dataset. Fortunately, DataLad supports a <a class="reference external" href="https://git-annex.branchable.com/special_remotes/">large number of storage
+providers</a> such
+as: Amazon S3, Dropbox, Google Cloud Storage, Microsoft Azure Blob
+Storage, as well as any FTP/SFTP server. Here, we will give instructions
+for Amazon S3.</p>
+<p>Like other <em>git annex special remotes</em>, Amazon S3 will not support the
+git files, only the large files. But you can use it along with GitHub or
+GitLab.</p>
+<p><em>For the sake of simplicity, we will not use encryption here, but git
+annex implements several</em><a class="reference external" href="https://git-annex.branchable.com/encryption/">encryption
+schemes</a><em>which are
+easy to use.</em></p>
+<p>First, store your AWS credentiels into your environment variables, like
+this:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span> <span class="nv">AWS_ACCESS_KEY_ID</span><span class="o">=</span><span class="s2">&quot;08TJMT99S3511WOZEP91&quot;</span>
+<span class="nb">export</span> <span class="nv">AWS_SECRET_ACCESS_KEY</span><span class="o">=</span><span class="s2">&quot;s3kr1t&quot;</span>
+</pre></div>
+</div>
+<p>You are now readyto create the s3 sibling. This is done directly through
+git-annex this time:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git annex initremote s3 <span class="nv">chunk</span><span class="o">=</span>100MiB <span class="nv">type</span><span class="o">=</span>S3 <span class="nv">encryption</span><span class="o">=</span>none <span class="nv">datacenter</span><span class="o">=</span>eu-west-3 <span class="nv">embedcreds</span><span class="o">=</span>no <span class="nv">signature</span><span class="o">=</span>v4
+</pre></div>
+</div>
+<p>You can now publish the data with:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>datalad push --to s3 --data anything
+</pre></div>
+</div>
+<p>(Optional) You can set the S3 sibling to require that all large files
+should be stored on it:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>datalad siblings configure -s s3 --annex-wanted <span class="s1">&#39;include=*&#39;</span>
+</pre></div>
+</div>
+<p>This will let DataLad publish all the large files automatically without
+setting <code class="docutils literal notranslate"><span class="pre">--data</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>datalad push --to s3
+</pre></div>
+</div>
+<p>Let’s assume your users will install the dataset from a GitHub
+repository. You should publish the information about the newly created
+S3 sibling on GitHub, which can be done with (provided you have set up
+your GitHub repository as described in the previous section):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>datalad push --to github
+</pre></div>
+</div>
+<p>Now, users will be able to get the data by issuing the following
+commands:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>datalad install git@github.com:&lt;your-username&gt;/vandam-daylong-demo.git
+git annex enableremote s3
+datalad get *
+</pre></div>
+</div>
+<p>With this configuration, they will need to setup their AWS credentials
+as you did. <a class="reference external" href="https://git-annex.branchable.com/tips/using_Amazon_S3/">But it is possible to configure the sibling so that the
+credentials are
+encrypted</a>
+and stored in the repository, so all users with authorized private keys
+will be able to get the data without this step.</p>
+</div>
+<div class="section" id="publish-on-osf">
+<h3>Publish on OSF<a class="headerlink" href="#publish-on-osf" title="Permalink to this headline">¶</a></h3>
+<p>DataLad has an
+<a class="reference external" href="http://docs.datalad.org/projects/osf/en/latest/generated/man/datalad-create-sibling-osf.html">extension</a>
+to publish data on the <a class="reference external" href="https://osf.io/">Open Science Framework</a>.</p>
+<p>This extension supports the following modes:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 17%" />
+<col style="width: 17%" />
+<col style="width: 17%" />
+<col style="width: 17%" />
+<col style="width: 17%" />
+<col style="width: 17%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Mode</strong></p></th>
+<th class="head"><p><strong>datalad
+install</strong></p></th>
+<th class="head"><p><strong>large
+files</strong></p></th>
+<th class="head"><p><a href="#id1"><span class="problematic" id="id2">**</span></a>history
+**</p></th>
+<th class="head"><p><strong>older
+files</strong></p></th>
+<th class="head"><p><strong>human-r
+eadable
+project</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">annex</span></code></p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>No</p></td>
+</tr>
+<tr class="row-odd"><td><p><a href="#id3"><span class="problematic" id="id4">``</span></a>export`
+`</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>No</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-even"><td><p><a href="#id5"><span class="problematic" id="id6">``</span></a>gitonly
+``</p></td>
+<td><p>Yes</p></td>
+<td><p>No</p></td>
+<td><p>Yes</p></td>
+<td><p>No</p></td>
+<td><p>No</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">exporto</span>
+<span class="pre">nly</span></code></p></td>
+<td><p>No</p></td>
+<td><p>Yes</p></td>
+<td><p>No</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+</tbody>
+</table>
+<p>The first step is to install the extension:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">datalad</span><span class="o">-</span><span class="n">osf</span> <span class="o">--</span><span class="n">upgrade</span>
+</pre></div>
+</div>
+<p>We decide to use the <code class="docutils literal notranslate"><span class="pre">export</span></code> mode - but you can decide which best
+suits your needs from the table above. We can now create the sibling:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">datalad</span> <span class="n">create</span><span class="o">-</span><span class="n">sibling</span><span class="o">-</span><span class="n">osf</span> <span class="o">--</span><span class="n">title</span> <span class="s2">&quot;VanDam Demo&quot;</span> \
+  <span class="o">--</span><span class="n">mode</span> <span class="n">export</span> \
+  <span class="o">-</span><span class="n">s</span> <span class="n">osf</span> \
+  <span class="o">--</span><span class="n">category</span> <span class="n">data</span> \
+  <span class="o">--</span><span class="n">tag</span> <span class="n">reproducibility</span> \
+  <span class="o">--</span><span class="n">public</span>
+</pre></div>
+</div>
+<p>You will be prompted your credentials in the process, which will require
+access tokens to be created <a class="reference external" href="https://osf.io/settings/tokens">from your osf.io
+account</a>.</p>
+<p>And finally we can push the data. This is done in two steps:</p>
+<ol class="arabic simple">
+<li><p>publishing the .git files so people can clone the dataset directly
+from OSF</p></li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">datalad</span> <span class="n">push</span> <span class="o">--</span><span class="n">to</span> <span class="n">osf</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>exporting a human-readable snapshot of the files to OSF</p></li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span><span class="o">-</span><span class="n">annex</span> <span class="n">export</span> <span class="n">HEAD</span> <span class="o">--</span><span class="n">to</span> <span class="n">osf</span><span class="o">-</span><span class="n">storage</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="tools.html" class="btn btn-neutral float-right" title="Basic tools" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="reuse.html" class="btn btn-neutral float-left" title="How to reuse extant LAAC datasets" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Lucas Gautheron.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
