@@ -108,9 +108,9 @@
 <li class="toctree-l2"><a class="reference internal" href="#import-annotations">Import annotations</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#single-file-importation">Single file importation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#bulk-importation">Bulk importation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#merge-annotation-sets">Merge annotation sets</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#rename-a-set-of-annotations">Rename a set of annotations</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#remove-a-set-of-annotations">Remove a set of annotations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#merge-annotation-sets">Merge annotation sets</a></li>
 </ul>
 </li>
 </ul>
@@ -369,25 +369,26 @@ optional arguments:
 </pre></div>
 </div>
 <p>Example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">child</span><span class="o">-</span><span class="n">project</span> <span class="n">import</span><span class="o">-</span><span class="n">annotations</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">dataset</span> <span class="o">--</span><span class="nb">set</span> <span class="n">eaf</span> <span class="o">--</span><span class="n">recording_filename</span> <span class="n">sound</span><span class="o">.</span><span class="n">wav</span> <span class="o">--</span><span class="n">time_seek</span> <span class="mi">0</span> <span class="o">--</span><span class="n">raw_filename</span> <span class="n">example</span><span class="o">.</span><span class="n">eaf</span> <span class="o">--</span><span class="n">range_onset</span> <span class="mi">0</span> <span class="o">--</span><span class="n">range_offset</span> <span class="mi">300</span> <span class="o">--</span><span class="nb">format</span> <span class="n">eaf</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">child</span><span class="o">-</span><span class="n">project</span> <span class="n">import</span><span class="o">-</span><span class="n">annotations</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">dataset</span> \
+   <span class="o">--</span><span class="nb">set</span> <span class="n">eaf</span> \
+   <span class="o">--</span><span class="n">recording_filename</span> <span class="n">sound</span><span class="o">.</span><span class="n">wav</span> \
+   <span class="o">--</span><span class="n">time_seek</span> <span class="mi">0</span> \
+   <span class="o">--</span><span class="n">raw_filename</span> <span class="n">example</span><span class="o">.</span><span class="n">eaf</span> \
+   <span class="o">--</span><span class="n">range_onset</span> <span class="mi">0</span> \
+   <span class="o">--</span><span class="n">range_offset</span> <span class="mi">300</span> \
+   <span class="o">--</span><span class="nb">format</span> <span class="n">eaf</span>
 </pre></div>
 </div>
 <p>Find more information about the allowed values for each parameter, see <a class="reference internal" href="format.html#format-input-annotations"><span class="std std-ref">Annotation importation input format</span></a>.</p>
 </div>
 <div class="section" id="bulk-importation">
-<h3>Bulk importation<a class="headerlink" href="#bulk-importation" title="Permalink to this headline">¶</a></h3>
+<span id="tools-annotations-bulk-importation"></span><h3>Bulk importation<a class="headerlink" href="#bulk-importation" title="Permalink to this headline">¶</a></h3>
 <p>Use this to do bulk importation of many annotation files.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">child</span><span class="o">-</span><span class="n">project</span> <span class="n">import</span><span class="o">-</span><span class="n">annotations</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">dataset</span> <span class="o">--</span><span class="n">annotations</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">dataframe</span><span class="o">.</span><span class="n">csv</span>
 </pre></div>
 </div>
 <p>The input dataframe <code class="docutils literal notranslate"><span class="pre">/path/to/dataframe.csv</span></code> must have one entry per
 annotation to import, according to the format specified at <a class="reference internal" href="format.html#format-input-annotations"><span class="std std-ref">Annotation importation input format</span></a>.</p>
-</div>
-<div class="section" id="merge-annotation-sets">
-<h3>Merge annotation sets<a class="headerlink" href="#merge-annotation-sets" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">child</span><span class="o">-</span><span class="n">project</span> <span class="n">merge</span><span class="o">-</span><span class="n">annotations</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">dataset</span> <span class="o">--</span><span class="n">left</span><span class="o">-</span><span class="nb">set</span> <span class="n">vtc</span> <span class="o">--</span><span class="n">right</span><span class="o">-</span><span class="nb">set</span> <span class="n">alice</span> <span class="o">--</span><span class="n">left</span><span class="o">-</span><span class="n">columns</span> <span class="n">speaker_id</span><span class="p">,</span><span class="n">ling_type</span><span class="p">,</span><span class="n">speaker_type</span><span class="p">,</span><span class="n">vcm_type</span><span class="p">,</span><span class="n">lex_type</span><span class="p">,</span><span class="n">mwu_type</span><span class="p">,</span><span class="n">addresseee</span><span class="p">,</span><span class="n">transcription</span> <span class="o">--</span><span class="n">right</span><span class="o">-</span><span class="n">columns</span> <span class="n">phonemes</span><span class="p">,</span><span class="n">syllables</span><span class="p">,</span><span class="n">words</span> <span class="o">--</span><span class="n">output</span><span class="o">-</span><span class="nb">set</span> <span class="n">alice_vtc</span>
-</pre></div>
-</div>
 </div>
 <div class="section" id="rename-a-set-of-annotations">
 <h3>Rename a set of annotations<a class="headerlink" href="#rename-a-set-of-annotations" title="Permalink to this headline">¶</a></h3>
@@ -436,6 +437,47 @@ optional arguments:
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">child</span><span class="o">-</span><span class="n">project</span> <span class="n">remove</span><span class="o">-</span><span class="n">annotations</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">dataset</span> <span class="o">--</span><span class="nb">set</span> <span class="n">vtc</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="merge-annotation-sets">
+<h3>Merge annotation sets<a class="headerlink" href="#merge-annotation-sets" title="Permalink to this headline">¶</a></h3>
+<p>Some processing tools use pre-existing annotations as an input,
+and label the original segments with more information. This is
+typically the case of ALICE, which labels segments generated
+by the VTC. In this case, one might want to merge the ALICE
+and VTC annotations altogether. This can be done with <code class="docutils literal notranslate"><span class="pre">child-project</span> <span class="pre">merge-annotations</span></code>.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ child-project merge-annotations /path/to/dataset --help
+usage: child-project merge-annotations <span class="o">[</span>-h<span class="o">]</span> --left-set LEFT_SET --right-set
+                                       RIGHT_SET --left-columns LEFT_COLUMNS
+                                       --right-columns RIGHT_COLUMNS
+                                       --output-set OUTPUT_SET
+                                       <span class="nb">source</span>
+
+merge segments sharing identical onset and offset from two sets of annotations
+
+positional arguments:
+  <span class="nb">source</span>                project path
+
+optional arguments:
+  -h, --help            show this <span class="nb">help</span> message and <span class="nb">exit</span>
+  --left-set LEFT_SET   left <span class="nb">set</span>
+  --right-set RIGHT_SET
+                        right <span class="nb">set</span>
+  --left-columns LEFT_COLUMNS
+                        comma-separated columns to merge from the left <span class="nb">set</span>
+  --right-columns RIGHT_COLUMNS
+                        comma-separated columns to merge from the right <span class="nb">set</span>
+  --output-set OUTPUT_SET
+                        name of the output <span class="nb">set</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">child</span><span class="o">-</span><span class="n">project</span> <span class="n">merge</span><span class="o">-</span><span class="n">annotations</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">dataset</span> \
+<span class="o">--</span><span class="n">left</span><span class="o">-</span><span class="nb">set</span> <span class="n">vtc</span> \
+<span class="o">--</span><span class="n">right</span><span class="o">-</span><span class="nb">set</span> <span class="n">alice</span> \
+<span class="o">--</span><span class="n">left</span><span class="o">-</span><span class="n">columns</span> <span class="n">speaker_id</span><span class="p">,</span><span class="n">ling_type</span><span class="p">,</span><span class="n">speaker_type</span><span class="p">,</span><span class="n">vcm_type</span><span class="p">,</span><span class="n">lex_type</span><span class="p">,</span><span class="n">mwu_type</span><span class="p">,</span><span class="n">addresseee</span><span class="p">,</span><span class="n">transcription</span> \
+<span class="o">--</span><span class="n">right</span><span class="o">-</span><span class="n">columns</span> <span class="n">phonemes</span><span class="p">,</span><span class="n">syllables</span><span class="p">,</span><span class="n">words</span> \
+<span class="o">--</span><span class="n">output</span><span class="o">-</span><span class="nb">set</span> <span class="n">alice_vtc</span>
 </pre></div>
 </div>
 </div>
