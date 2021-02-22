@@ -1,0 +1,433 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>ChildProject.projects &mdash; ChildRecordsData 0.0.1 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> ChildRecordsData
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting-started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting-data.html">Getting some data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../format.html">Datasets structure</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../reuse.html">How to reuse extant LAAC datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../vandam.html">Converting a dataset</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Command-line tools</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../tools.html">Basic tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../zooniverse.html">Zooniverse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cheatsheet.html">Cheatsheet</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Package reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">ChildProject</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">ChildRecordsData</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>ChildProject.projects</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for ChildProject.projects</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">import</span> <span class="nn">glob</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">subprocess</span>
+
+<span class="kn">from</span> <span class="nn">.tables</span> <span class="kn">import</span> <span class="n">IndexTable</span><span class="p">,</span> <span class="n">IndexColumn</span><span class="p">,</span> <span class="n">is_boolean</span>
+<span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">get_audio_duration</span>
+
+<div class="viewcode-block" id="ChildProject"><a class="viewcode-back" href="../../ChildProject.html#ChildProject.projects.ChildProject">[docs]</a><span class="k">class</span> <span class="nc">ChildProject</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;This class is a representation of a ChildRecords dataset.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        :param path: path to the root of the dataset.</span>
+<span class="sd">        :type path: str</span>
+<span class="sd">        :param recordings: pandas dataframe representation of this dataset metadata/recordings.csv </span>
+<span class="sd">        :type recordings: class:`pd.DataFrame`</span>
+<span class="sd">        :param children: pandas dataframe representation of this dataset metadata/children.csv </span>
+<span class="sd">        :type children: class:`pd.DataFrame`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">REQUIRED_DIRECTORIES</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s1">&#39;recordings&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;extra&#39;</span>
+    <span class="p">]</span>
+
+    <span class="n">CHILDREN_COLUMNS</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">IndexColumn</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;experiment&#39;</span><span class="p">,</span> <span class="n">description</span> <span class="o">=</span> <span class="s1">&#39;one word to capture the unique ID of the data collection effort; for instance Tsimane_2018, solis-intervention-pre&#39;</span><span class="p">,</span> <span class="n">required</span> <span class="o">=</span> <span class="kc">True</span><span class="p">),</span>
+        <span class="n">IndexColumn</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;child_id&#39;</span><span class="p">,</span> <span class="n">description</span> <span class="o">=</span> <span class="s1">&#39;unique child ID -- unique within the experiment (Id could be repeated across experiments to refer to different children)&#39;</span><span class="p">,</span> <span class="n">unique</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">required</span> <span class="o">=</span> <span class="kc">True</span><span class="p">),</span>
+        <span class="n">IndexColumn</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;child_dob&#39;</span><span class="p">,</span> <span class="n">description</span> <span class="o">=</span> <span class="s2">&quot;child&#39;s date of birth&quot;</span><span class="p">,</span> <span class="n">required</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">datetime</span> <span class="o">=</span> <span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1">&#39;</span><span class="p">),</span>
+        <span class="n">IndexColumn</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;location_id&#39;</span><span class="p">,</span> <span class="n">description</span> <span class="o">=</span> <span class="s1">&#39;Unique location ID -- only specify here if children never change locations in this culture; otherwise, specify in the recordings metadata&#39;</span><span class="p">),</span>
+        <span class="n">IndexColumn</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;child_sex&#39;</span><span class="p">,</span> <span class="n">description</span> <span class="o">=</span> <span class="s1">&#39;f= female, m=male&#39;</span><span class="p">,</span> <span class="n">choices</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;m&#39;</span><span class="p">,</span> <span class="s1">&#39;M&#39;</span><span class="p">,</span> <span class="s1">&#39;f&#39;</span><span class="p">,</span> <span class="s1">&#39;F&#39;</span><span class="p">]),</span>
+        <span class="n">IndexColumn</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;language&#39;</span><span class="p">,</span> <span class="n">description</span> <span class="o">=</span> <span class="s1">&#39;language the child is exposed to if child is monolingual; small caps, indicate dialect by name or location if available; eg &quot;france french&quot;; &quot;paris french&quot;&#39;</span><span class="p">),</span>
+        <span class="n">IndexColumn</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;languages&#39;</span><span class="p">,</span> <span class="n">description</span> <span class="o">=</span> <span class="s1">&#39;list languages child is exposed to separating them with ; and indicating the percentage if one is available; eg: &quot;french 35%; english 65%&quot;&#39;</span><span class="p">),</span>
+        <span class="n">IndexColumn</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;mat_ed&#39;</span><span class="p">,</span> <span class="n">description</span> <span class="o">=</span> <span class="s1">&#39;maternal years of education&#39;</span><span class="p">),</span>
+        <span class="n">IndexColumn</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;fat_ed&#39;</span><span class="p">,</span> <span class="n">description</span> <span class="o">=</span> <span class="s1">&#39;paternal years of education&#39;</span><span class="p">),</span>
+        <span class="n">IndexColumn</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;car_ed&#39;</span><span class="p">,</span> <span class="n">description</span> <span class="o">=</span> <span class="s1">&#39;years of education of main caregiver (if not mother or father)&#39;</span><span class="p">),</span>
+        <span class="n">IndexColumn</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;monoling&#39;</span><span class="p">,</span> <span class="n">description</span> <span class="o">=</span> <span class="s1">&#39;whether the child is monolingual (Y) or not (N)&#39;</span><span class="p">,</span> <span class="n">choices</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Y&#39;</span><span class="p">,</span> <span class="s1">&#39;N&#39;</span><span class="p">]),</span>
+        <span class="n">IndexColumn</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;monoling_criterion&#39;</span><span class="p">,</span> <span class="n">description</span> <span class="o">=</span> <span class="s1">&#39;how monoling was decided; eg &quot;we asked families which languages they spoke in the home&quot;&#39;</span><span class="p">),</span>
+        <span class="n">IndexColumn</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;normative&#39;</span><span class="p">,</span> <span class="n">description</span> <span class="o">=</span> <span class="s1">&#39;whether the child is normative (Y) or not (N)&#39;</span><span class="p">,</span> <span class="n">choices</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Y&#39;</span><span class="p">,</span> <span class="s1">&#39;N&#39;</span><span class="p">]),</span>
+        <span class="n">IndexColumn</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;normative_criterion&#39;</span><span class="p">,</span> <span class="n">description</span> <span class="o">=</span> <span class="s1">&#39;how normative was decided; eg &quot;unless the caregivers volunteered information whereby the child had a problem, we consider them normative by default&quot;&#39;</span><span class="p">),</span>
+        <span class="n">IndexColumn</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;mother_id&#39;</span><span class="p">,</span> <span class="n">description</span> <span class="o">=</span> <span class="s1">&#39;unique ID of the mother&#39;</span><span class="p">),</span>
+        <span class="n">IndexColumn</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;father_id&#39;</span><span class="p">,</span> <span class="n">description</span> <span class="o">=</span> <span class="s1">&#39;unique ID of the father&#39;</span><span class="p">),</span>
+        <span class="n">IndexColumn</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;order_of_birth&#39;</span><span class="p">,</span> <span class="n">description</span> <span class="o">=</span> <span class="s1">&#39;child order of birth&#39;</span><span class="p">,</span> <span class="n">regex</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;(\d+(\.\d+)?)&#39;</span><span class="p">,</span> <span class="n">required</span> <span class="o">=</span> <span class="kc">False</span><span class="p">),</span>
+        <span class="n">IndexColumn</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;n_of_siblings&#39;</span><span class="p">,</span> <span class="n">description</span> <span class="o">=</span> <span class="s1">&#39;amount of siblings&#39;</span><span class="p">,</span> <span class="n">regex</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;(\d+(\.\d+)?)&#39;</span><span class="p">,</span> <span class="n">required</span> <span class="o">=</span> <span class="kc">False</span><span class="p">),</span>
+        <span class="n">IndexColumn</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;household_size&#39;</span><span class="p">,</span> <span class="n">description</span> <span class="o">=</span> <span class="s1">&#39;number of people living in the household (adults+children)&#39;</span><span class="p">,</span> <span class="n">regex</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;(\d+(\.\d+)?)&#39;</span><span class="p">,</span> <span class="n">required</span> <span class="o">=</span> <span class="kc">False</span><span class="p">),</span>
+        <span class="n">IndexColumn</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;dob_criterion&#39;</span><span class="p">,</span> <span class="n">description</span> <span class="o">=</span> <span class="s2">&quot;determines whether the date of birth is known exactly or extrapolated e.g. from the age. Dates of birth are assumed to be known exactly if this column is NA or unspecified.&quot;</span><span class="p">,</span> <span class="n">choices</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;extrapolated&#39;</span><span class="p">,</span> <span class="s1">&#39;exact&#39;</span><span class="p">],</span> <span class="n">required</span> <span class="o">=</span> <span class="kc">False</span><span class="p">),</span>
+        <span class="n">IndexColumn</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;dob_accuracy&#39;</span><span class="p">,</span> <span class="n">description</span> <span class="o">=</span> <span class="s2">&quot;date of birth accuracy&quot;</span><span class="p">,</span> <span class="n">choices</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;exact&#39;</span><span class="p">,</span> <span class="s1">&#39;week&#39;</span><span class="p">,</span> <span class="s1">&#39;month&#39;</span><span class="p">,</span> <span class="s1">&#39;year&#39;</span><span class="p">,</span> <span class="s1">&#39;other&#39;</span><span class="p">])</span>
+    <span class="p">]</span>
+
+    <span class="n">RECORDINGS_COLUMNS</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">IndexColumn</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;experiment&#39;</span><span class="p">,</span> <span class="n">description</span> <span class="o">=</span> <span class="s1">&#39;one word to capture the unique ID of the data collection effort; for instance Tsimane_2018, solis-intervention-pre&#39;</span><span class="p">,</span> <span class="n">required</span> <span class="o">=</span> <span class="kc">True</span><span class="p">),</span>
+        <span class="n">IndexColumn</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;child_id&#39;</span><span class="p">,</span> <span class="n">description</span> <span class="o">=</span> <span class="s1">&#39;unique child ID -- unique within the experiment (Id could be repeated across experiments to refer to different children)&#39;</span><span class="p">,</span> <span class="n">required</span> <span class="o">=</span> <span class="kc">True</span><span class="p">),</span>
+        <span class="n">IndexColumn</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;date_iso&#39;</span><span class="p">,</span> <span class="n">description</span> <span class="o">=</span> <span class="s1">&#39;date in which recording was started in ISO (eg 2020-09-17)&#39;</span><span class="p">,</span> <span class="n">required</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">datetime</span> <span class="o">=</span> <span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1">&#39;</span><span class="p">),</span>
+        <span class="n">IndexColumn</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;start_time&#39;</span><span class="p">,</span> <span class="n">description</span> <span class="o">=</span> <span class="s1">&#39;local time in which recording was started in format 24-hour (H)H:MM; if minutes are unknown, use 00. Set as ‘NA’ if unknown.&#39;</span><span class="p">,</span> <span class="n">required</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">datetime</span> <span class="o">=</span> <span class="s1">&#39;%H:%M&#39;</span><span class="p">),</span>
+        <span class="n">IndexColumn</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;recording_device_type&#39;</span><span class="p">,</span> <span class="n">description</span> <span class="o">=</span> <span class="s1">&#39;lena, usb, olympus, babylogger (lowercase)&#39;</span><span class="p">,</span> <span class="n">required</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">choices</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;lena&#39;</span><span class="p">,</span> <span class="s1">&#39;usb&#39;</span><span class="p">,</span> <span class="s1">&#39;olympus&#39;</span><span class="p">,</span> <span class="s1">&#39;babylogger&#39;</span><span class="p">]),</span>
+        <span class="n">IndexColumn</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;filename&#39;</span><span class="p">,</span> <span class="n">description</span> <span class="o">=</span> <span class="s1">&#39;the path to the file from the root of “recordings”), set to ‘NA’ if no valid recording available. It is unique (two recordings cannot point towards the same file).&#39;</span><span class="p">,</span> <span class="n">required</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">filename</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">unique</span> <span class="o">=</span> <span class="kc">True</span><span class="p">),</span>
+        <span class="n">IndexColumn</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;duration&#39;</span><span class="p">,</span> <span class="n">description</span> <span class="o">=</span> <span class="s1">&#39;duration of the audio&#39;</span><span class="p">,</span> <span class="n">regex</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;(\d+(\.\d+)?)&#39;</span><span class="p">),</span>
+        <span class="n">IndexColumn</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;session_id&#39;</span><span class="p">,</span> <span class="n">description</span> <span class="o">=</span> <span class="s1">&#39;identifier of the recording session.&#39;</span><span class="p">),</span>
+        <span class="n">IndexColumn</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;session_offset&#39;</span><span class="p">,</span> <span class="n">description</span> <span class="o">=</span> <span class="s1">&#39;offset (in seconds) of the recording with respect to other recordings that are part of the same session. Each recording session is identified by their `session_id`.&#39;</span><span class="p">,</span> <span class="n">regex</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;(\d+(\.\d+)?)&#39;</span><span class="p">),</span>
+        <span class="n">IndexColumn</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;recording_device_id&#39;</span><span class="p">,</span> <span class="n">description</span> <span class="o">=</span> <span class="s1">&#39;unique ID of the recording device&#39;</span><span class="p">),</span>
+        <span class="n">IndexColumn</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;experimenter&#39;</span><span class="p">,</span> <span class="n">description</span> <span class="o">=</span> <span class="s1">&#39;who collected the data (could be anonymized ID)&#39;</span><span class="p">),</span>
+        <span class="n">IndexColumn</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;location_id&#39;</span><span class="p">,</span> <span class="n">description</span> <span class="o">=</span> <span class="s1">&#39;unique location ID -- can be specified at the level of the child (if children do not change locations)&#39;</span><span class="p">),</span>
+        <span class="n">IndexColumn</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;its_filename&#39;</span><span class="p">,</span> <span class="n">description</span> <span class="o">=</span> <span class="s1">&#39;its_filename&#39;</span><span class="p">,</span> <span class="n">filename</span> <span class="o">=</span> <span class="kc">True</span><span class="p">),</span>
+        <span class="n">IndexColumn</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;upl_filename&#39;</span><span class="p">,</span> <span class="n">description</span> <span class="o">=</span> <span class="s1">&#39;upl_filename&#39;</span><span class="p">,</span> <span class="n">filename</span> <span class="o">=</span> <span class="kc">True</span><span class="p">),</span>
+        <span class="n">IndexColumn</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;trs_filename&#39;</span><span class="p">,</span> <span class="n">description</span> <span class="o">=</span> <span class="s1">&#39;trs_filename&#39;</span><span class="p">,</span> <span class="n">filename</span> <span class="o">=</span> <span class="kc">True</span><span class="p">),</span>
+        <span class="n">IndexColumn</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;lena_id&#39;</span><span class="p">,</span> <span class="n">description</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">),</span>
+        <span class="n">IndexColumn</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;might_feature_gaps&#39;</span><span class="p">,</span> <span class="n">description</span> <span class="o">=</span> <span class="s1">&#39;1 if the audio cannot be guaranteed to be a continuous block with no time jumps, 0 or NA or undefined otherwise.&#39;</span><span class="p">,</span> <span class="n">function</span> <span class="o">=</span> <span class="n">is_boolean</span><span class="p">),</span>
+        <span class="n">IndexColumn</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;start_time_accuracy&#39;</span><span class="p">,</span> <span class="n">description</span> <span class="o">=</span> <span class="s1">&#39;Accuracy of start_time for this recording. If not specified, assumes minute-accuray.&#39;</span><span class="p">,</span> <span class="n">choices</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;minute&#39;</span><span class="p">,</span> <span class="s1">&#39;hour&#39;</span><span class="p">,</span> <span class="s1">&#39;reliable&#39;</span><span class="p">]),</span>
+        <span class="n">IndexColumn</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;noisy_setting&#39;</span><span class="p">,</span> <span class="n">description</span> <span class="o">=</span> <span class="s1">&#39;1 if the audio may be noisier than the childs usual day, 0 or undefined otherwise&#39;</span><span class="p">,</span> <span class="n">function</span> <span class="o">=</span> <span class="n">is_boolean</span><span class="p">),</span>
+        <span class="n">IndexColumn</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;notes&#39;</span><span class="p">,</span> <span class="n">description</span> <span class="o">=</span> <span class="s1">&#39;free-style notes about individual recordings (avoid tabs and newlines)&#39;</span><span class="p">)</span>
+    <span class="p">]</span>
+
+    <span class="n">RAW_RECORDINGS</span> <span class="o">=</span> <span class="s1">&#39;recordings/raw&#39;</span>
+    <span class="n">CONVERTED_RECORDINGS</span> <span class="o">=</span> <span class="s1">&#39;recordings/converted&#39;</span>
+
+    <span class="n">PROJECT_FOLDERS</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s1">&#39;recordings&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;annotations&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;metadata&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;doc&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;scripts&#39;</span>
+    <span class="p">]</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Constructor</span>
+
+<span class="sd">        :param path: path to the root of the dataset.</span>
+<span class="sd">        :type path: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">path</span> <span class="o">=</span> <span class="n">path</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">errors</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">warnings</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">children</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">recordings</span> <span class="o">=</span> <span class="kc">None</span>
+    
+<div class="viewcode-block" id="ChildProject.read"><a class="viewcode-back" href="../../ChildProject.html#ChildProject.projects.ChildProject.read">[docs]</a>    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Read the metadata</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ct</span> <span class="o">=</span> <span class="n">IndexTable</span><span class="p">(</span><span class="s1">&#39;children&#39;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="s1">&#39;metadata/children.csv&#39;</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">CHILDREN_COLUMNS</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rt</span> <span class="o">=</span> <span class="n">IndexTable</span><span class="p">(</span><span class="s1">&#39;recordings&#39;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="s1">&#39;metadata/recordings.csv&#39;</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">RECORDINGS_COLUMNS</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">children</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ct</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">recordings</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rt</span><span class="o">.</span><span class="n">read</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="ChildProject.validate"><a class="viewcode-back" href="../../ChildProject.html#ChildProject.projects.ChildProject.validate">[docs]</a>    <span class="k">def</span> <span class="nf">validate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ignore_files</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Validate a dataset, returning all errors and warnings.</span>
+
+<span class="sd">        :param ignore_files: if True, no errors will be returned for missing recordings.</span>
+<span class="sd">        :type ignore_files: bool, optional</span>
+<span class="sd">        :return: A tuple containing the list of errors, and the list of warnings.</span>
+<span class="sd">        :rtype: a tuple of two lists</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">errors</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">warnings</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="n">path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">path</span>
+
+        <span class="n">directories</span> <span class="o">=</span> <span class="p">[</span><span class="n">d</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">path</span><span class="p">)]</span>
+
+        <span class="k">for</span> <span class="n">rd</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">REQUIRED_DIRECTORIES</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">rd</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">directories</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">errors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;missing directory </span><span class="si">{}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">rd</span><span class="p">))</span>
+
+        <span class="c1"># check tables</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+        
+        <span class="n">errors</span><span class="p">,</span> <span class="n">warnings</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ct</span><span class="o">.</span><span class="n">validate</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">errors</span> <span class="o">+=</span> <span class="n">errors</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">warnings</span> <span class="o">+=</span> <span class="n">warnings</span>
+
+        <span class="n">errors</span><span class="p">,</span> <span class="n">warnings</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rt</span><span class="o">.</span><span class="n">validate</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">errors</span> <span class="o">+=</span> <span class="n">errors</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">warnings</span> <span class="o">+=</span> <span class="n">warnings</span>
+
+        <span class="k">if</span> <span class="n">ignore_files</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">errors</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">warnings</span>
+
+        <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">recordings</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+            <span class="c1"># make sure that recordings exist</span>
+            <span class="k">for</span> <span class="n">column_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">recordings</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+                <span class="n">column_attr</span> <span class="o">=</span> <span class="nb">next</span><span class="p">((</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">RECORDINGS_COLUMNS</span> <span class="k">if</span> <span class="n">c</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="n">column_name</span><span class="p">),</span> <span class="kc">None</span><span class="p">)</span>
+
+                <span class="k">if</span> <span class="n">column_attr</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="k">continue</span>
+
+                <span class="k">if</span> <span class="n">column_attr</span><span class="o">.</span><span class="n">filename</span> <span class="ow">and</span> <span class="n">row</span><span class="p">[</span><span class="n">column_name</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;NA&#39;</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">RAW_RECORDINGS</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="n">column_name</span><span class="p">]))):</span>
+                    <span class="n">message</span> <span class="o">=</span> <span class="s2">&quot;cannot find recording &#39;</span><span class="si">{}</span><span class="s2">&#39;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="n">column_name</span><span class="p">]))</span>
+                    <span class="k">if</span> <span class="n">column_attr</span><span class="o">.</span><span class="n">required</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">errors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">warnings</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+
+            <span class="c1"># child id refers to an existing child in the children table</span>
+            <span class="k">if</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;child_id&#39;</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">children</span><span class="p">[</span><span class="s1">&#39;child_id&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">():</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">errors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;child_id &#39;</span><span class="si">{}</span><span class="s2">&#39; in recordings on line </span><span class="si">{}</span><span class="s2"> cannot be found in the children table.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;child_id&#39;</span><span class="p">],</span> <span class="n">index</span><span class="p">))</span>
+
+        <span class="c1"># detect un-indexed recordings and throw warnings</span>
+        <span class="n">files</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">recordings</span><span class="p">[</span><span class="n">c</span><span class="o">.</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">RECORDINGS_COLUMNS</span>
+            <span class="k">if</span> <span class="n">c</span><span class="o">.</span><span class="n">filename</span> <span class="ow">and</span> <span class="n">c</span><span class="o">.</span><span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">recordings</span><span class="o">.</span><span class="n">columns</span>
+        <span class="p">]</span>
+
+        <span class="n">indexed_files</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">RAW_RECORDINGS</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">f</span><span class="p">)))</span>
+            <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">pd</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">common</span><span class="o">.</span><span class="n">flatten</span><span class="p">(</span><span class="n">files</span><span class="p">)</span>
+        <span class="p">]</span>
+
+        <span class="n">recordings_files</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">RAW_RECORDINGS</span><span class="p">,</span> <span class="s1">&#39;**/*.*&#39;</span><span class="p">),</span> <span class="n">recursive</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">rf</span> <span class="ow">in</span> <span class="n">recordings_files</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">rf</span><span class="p">))</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">rf</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;.csv&#39;</span><span class="p">,</span> <span class="s1">&#39;.xls&#39;</span><span class="p">,</span> <span class="s1">&#39;.xlsx&#39;</span><span class="p">]:</span>
+                <span class="k">continue</span>
+
+            <span class="n">ap</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">rf</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">ap</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">indexed_files</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">warnings</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;file &#39;</span><span class="si">{}</span><span class="s2">&#39; not indexed.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">rf</span><span class="p">))</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">errors</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">warnings</span></div>
+
+<div class="viewcode-block" id="ChildProject.get_stats"><a class="viewcode-back" href="../../ChildProject.html#ChildProject.projects.ChildProject.get_stats">[docs]</a>    <span class="k">def</span> <span class="nf">get_stats</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;return statistics extracted from the dataset</span>
+
+<span class="sd">        :return: A dictionary with various statistics (total_recordings, total_children, audio_duration, etc.)</span>
+<span class="sd">        :rtype: dict</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">stats</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">recordings</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">recordings</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">compute_recordings_duration</span><span class="p">(),</span> <span class="n">left_on</span> <span class="o">=</span> <span class="s1">&#39;filename&#39;</span><span class="p">,</span> <span class="n">right_on</span> <span class="o">=</span> <span class="s1">&#39;filename&#39;</span><span class="p">)</span>
+        <span class="n">recordings</span><span class="p">[</span><span class="s1">&#39;exists&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">recordings</span><span class="p">[</span><span class="s1">&#39;filename&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">f</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">RAW_RECORDINGS</span><span class="p">,</span> <span class="n">f</span><span class="p">)))</span>
+
+        <span class="n">stats</span><span class="p">[</span><span class="s1">&#39;total_recordings&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">recordings</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">stats</span><span class="p">[</span><span class="s1">&#39;total_existing_recordings&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">recordings</span><span class="p">[</span><span class="n">recordings</span><span class="p">[</span><span class="s1">&#39;exists&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="kc">True</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">stats</span><span class="p">[</span><span class="s1">&#39;audio_duration&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">recordings</span><span class="p">[</span><span class="s1">&#39;duration&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+        <span class="n">stats</span><span class="p">[</span><span class="s1">&#39;total_children&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">children</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="k">return</span> <span class="n">stats</span></div>
+
+<div class="viewcode-block" id="ChildProject.compute_recordings_duration"><a class="viewcode-back" href="../../ChildProject.html#ChildProject.projects.ChildProject.compute_recordings_duration">[docs]</a>    <span class="k">def</span> <span class="nf">compute_recordings_duration</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">profile</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;[summary]</span>
+
+<span class="sd">        :param profile: name of the profile of recordings to compute the duration from. If None, raw recordings are used. defaults to None</span>
+<span class="sd">        :type profile: str, optional</span>
+<span class="sd">        :return: dataframe of the recordings, with an additional/updated duration columns.</span>
+<span class="sd">        :rtype: pd.DataFrame</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">recordings</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">recordings</span><span class="p">[[</span><span class="s1">&#39;filename&#39;</span><span class="p">]]</span>
+
+        <span class="n">recordings</span><span class="p">[</span><span class="s1">&#39;duration&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">recordings</span><span class="p">[</span><span class="s1">&#39;filename&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">get_audio_duration</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">CONVERTED_RECORDINGS</span><span class="p">,</span> <span class="n">profile</span><span class="p">,</span> <span class="n">f</span><span class="p">))</span> <span class="k">if</span> <span class="n">profile</span>
+            <span class="k">else</span> <span class="n">get_audio_duration</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">RAW_RECORDINGS</span><span class="p">,</span> <span class="n">f</span><span class="p">))</span>
+        <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">recordings</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Lucas Gautheron.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

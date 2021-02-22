@@ -1,0 +1,472 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>ChildProject.cmdline &mdash; ChildRecordsData 0.0.1 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> ChildRecordsData
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting-started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting-data.html">Getting some data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../format.html">Datasets structure</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../reuse.html">How to reuse extant LAAC datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../vandam.html">Converting a dataset</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Command-line tools</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../tools.html">Basic tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../zooniverse.html">Zooniverse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cheatsheet.html">Cheatsheet</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Package reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">ChildProject</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">ChildRecordsData</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>ChildProject.cmdline</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for ChildProject.cmdline</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="kn">from</span> <span class="nn">ChildProject.projects</span> <span class="kn">import</span> <span class="n">ChildProject</span>   
+<span class="kn">from</span> <span class="nn">ChildProject.annotations</span> <span class="kn">import</span> <span class="n">AnnotationManager</span>
+<span class="kn">from</span> <span class="nn">ChildProject.pipelines</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="kn">import</span> <span class="nn">argparse</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">()</span>
+<span class="n">subparsers</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">add_subparsers</span><span class="p">()</span>
+
+<div class="viewcode-block" id="arg"><a class="viewcode-back" href="../../ChildProject.html#ChildProject.cmdline.arg">[docs]</a><span class="k">def</span> <span class="nf">arg</span><span class="p">(</span><span class="o">*</span><span class="n">name_or_flags</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">name_or_flags</span><span class="p">),</span> <span class="n">kwargs</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="subcommand"><a class="viewcode-back" href="../../ChildProject.html#ChildProject.cmdline.subcommand">[docs]</a><span class="k">def</span> <span class="nf">subcommand</span><span class="p">(</span><span class="n">args</span><span class="o">=</span><span class="p">[],</span> <span class="n">parent</span> <span class="o">=</span> <span class="n">subparsers</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">decorator</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
+        <span class="n">parser</span> <span class="o">=</span> <span class="n">parent</span><span class="o">.</span><span class="n">add_parser</span><span class="p">(</span><span class="n">func</span><span class="o">.</span><span class="vm">__name__</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">,</span> <span class="s1">&#39;-&#39;</span><span class="p">),</span> <span class="n">description</span><span class="o">=</span><span class="n">func</span><span class="o">.</span><span class="vm">__doc__</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">arg</span> <span class="ow">in</span> <span class="n">args</span><span class="p">:</span>
+            <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="o">*</span><span class="n">arg</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="o">**</span><span class="n">arg</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">parser</span><span class="o">.</span><span class="n">set_defaults</span><span class="p">(</span><span class="n">func</span><span class="o">=</span><span class="n">func</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">decorator</span></div>
+
+<div class="viewcode-block" id="register_pipeline"><a class="viewcode-back" href="../../ChildProject.html#ChildProject.cmdline.register_pipeline">[docs]</a><span class="k">def</span> <span class="nf">register_pipeline</span><span class="p">(</span><span class="n">subcommand</span><span class="p">,</span> <span class="bp">cls</span><span class="p">):</span>
+    <span class="n">_parser</span> <span class="o">=</span> <span class="n">subparsers</span><span class="o">.</span><span class="n">add_parser</span><span class="p">(</span><span class="n">subcommand</span><span class="p">,</span> <span class="n">description</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="vm">__doc__</span><span class="p">)</span>
+    <span class="bp">cls</span><span class="o">.</span><span class="n">setup_parser</span><span class="p">(</span><span class="n">_parser</span><span class="p">)</span>
+    <span class="n">_parser</span><span class="o">.</span><span class="n">set_defaults</span><span class="p">(</span><span class="n">func</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">args</span><span class="p">:</span> <span class="bp">cls</span><span class="p">()</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="o">**</span><span class="nb">vars</span><span class="p">(</span><span class="n">args</span><span class="p">)))</span></div>
+
+<span class="nd">@subcommand</span><span class="p">([</span>
+    <span class="n">arg</span><span class="p">(</span><span class="s2">&quot;source&quot;</span><span class="p">,</span> <span class="n">help</span> <span class="o">=</span> <span class="s2">&quot;project path&quot;</span><span class="p">),</span>
+    <span class="n">arg</span><span class="p">(</span><span class="s1">&#39;--ignore-files&#39;</span><span class="p">,</span> <span class="n">help</span> <span class="o">=</span> <span class="s1">&#39;ignore missing audio files&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s1">&#39;ignore_files&#39;</span><span class="p">,</span> <span class="n">required</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">default</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">action</span> <span class="o">=</span> <span class="s1">&#39;store_true&#39;</span><span class="p">),</span>
+    <span class="n">arg</span><span class="p">(</span><span class="s1">&#39;--check-annotations&#39;</span><span class="p">,</span> <span class="n">help</span> <span class="o">=</span> <span class="s1">&#39;check all imported annotations for errors&#39;</span><span class="p">,</span>  <span class="n">dest</span><span class="o">=</span><span class="s1">&#39;check_annotations&#39;</span><span class="p">,</span> <span class="n">required</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">default</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">action</span> <span class="o">=</span> <span class="s1">&#39;store_true&#39;</span><span class="p">),</span>
+    <span class="n">arg</span><span class="p">(</span><span class="s2">&quot;--threads&quot;</span><span class="p">,</span> <span class="n">help</span> <span class="o">=</span> <span class="s2">&quot;amount of threads to run on (only applies to --check-annotations)&quot;</span><span class="p">,</span> <span class="nb">type</span> <span class="o">=</span> <span class="nb">int</span><span class="p">,</span> <span class="n">default</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span>
+<span class="p">])</span>
+<span class="k">def</span> <span class="nf">validate</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;validate the consistency of the dataset returning detailed errors and warnings&quot;&quot;&quot;</span>
+
+    <span class="n">project</span> <span class="o">=</span> <span class="n">ChildProject</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">source</span><span class="p">)</span>
+    <span class="n">errors</span><span class="p">,</span> <span class="n">warnings</span> <span class="o">=</span> <span class="n">project</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">ignore_files</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">check_annotations</span><span class="p">:</span>
+        <span class="n">am</span> <span class="o">=</span> <span class="n">AnnotationManager</span><span class="p">(</span><span class="n">project</span><span class="p">)</span>
+        
+        <span class="n">errors</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">am</span><span class="o">.</span><span class="n">errors</span><span class="p">)</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">am</span><span class="o">.</span><span class="n">warnings</span><span class="p">)</span>
+
+        <span class="n">annotations_errors</span><span class="p">,</span> <span class="n">annotations_warnings</span> <span class="o">=</span> <span class="n">am</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">threads</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">threads</span><span class="p">)</span>
+        <span class="n">errors</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">annotations_errors</span><span class="p">)</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">annotations_warnings</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">error</span> <span class="ow">in</span> <span class="n">errors</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;error: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">error</span><span class="p">))</span>
+
+    <span class="k">for</span> <span class="n">warning</span> <span class="ow">in</span> <span class="n">warnings</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;warning: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">warning</span><span class="p">))</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">errors</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;validation failed, </span><span class="si">{}</span><span class="s2"> error(s) occured&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">errors</span><span class="p">)))</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;validation successfully completed with </span><span class="si">{}</span><span class="s2"> warning(s).&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">warnings</span><span class="p">)))</span>
+
+<span class="nd">@subcommand</span><span class="p">([</span>
+    <span class="n">arg</span><span class="p">(</span><span class="s2">&quot;source&quot;</span><span class="p">,</span> <span class="n">help</span> <span class="o">=</span> <span class="s2">&quot;project path&quot;</span><span class="p">),</span>
+    <span class="n">arg</span><span class="p">(</span><span class="s2">&quot;--annotations&quot;</span><span class="p">,</span> <span class="n">help</span> <span class="o">=</span> <span class="s2">&quot;path to input annotations dataframe (csv) [only for bulk importation]&quot;</span><span class="p">,</span> <span class="n">default</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
+    <span class="n">arg</span><span class="p">(</span><span class="s2">&quot;--threads&quot;</span><span class="p">,</span> <span class="n">help</span> <span class="o">=</span> <span class="s2">&quot;amount of threads to run on&quot;</span><span class="p">,</span> <span class="nb">type</span> <span class="o">=</span> <span class="nb">int</span><span class="p">,</span> <span class="n">default</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span>
+<span class="p">]</span> <span class="o">+</span> <span class="p">[</span>
+    <span class="n">arg</span><span class="p">(</span>
+        <span class="s2">&quot;--</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">col</span><span class="o">.</span><span class="n">name</span><span class="p">),</span>
+        <span class="n">help</span> <span class="o">=</span> <span class="n">col</span><span class="o">.</span><span class="n">description</span><span class="p">,</span>
+        <span class="nb">type</span> <span class="o">=</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">default</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">choices</span> <span class="o">=</span> <span class="n">col</span><span class="o">.</span><span class="n">choices</span> <span class="k">if</span> <span class="n">col</span><span class="o">.</span><span class="n">choices</span> <span class="k">else</span> <span class="kc">None</span>
+    <span class="p">)</span>
+    <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">AnnotationManager</span><span class="o">.</span><span class="n">INDEX_COLUMNS</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">col</span><span class="o">.</span><span class="n">generated</span>
+<span class="p">])</span>
+<span class="k">def</span> <span class="nf">import_annotations</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;convert and import a set of annotations&quot;&quot;&quot;</span>
+
+    <span class="n">project</span> <span class="o">=</span> <span class="n">ChildProject</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">source</span><span class="p">)</span>
+    <span class="n">errors</span><span class="p">,</span> <span class="n">warnings</span> <span class="o">=</span> <span class="n">project</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">ignore_files</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">errors</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;validation failed, </span><span class="si">{}</span><span class="s2"> error(s) occured&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">errors</span><span class="p">)),</span> <span class="n">file</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">)</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">annotations</span><span class="p">:</span>
+        <span class="n">annotations</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">annotations</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">annotations</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([{</span><span class="n">col</span><span class="o">.</span><span class="n">name</span><span class="p">:</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">col</span><span class="o">.</span><span class="n">name</span><span class="p">)</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">AnnotationManager</span><span class="o">.</span><span class="n">INDEX_COLUMNS</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">col</span><span class="o">.</span><span class="n">generated</span><span class="p">}])</span>
+
+    <span class="n">am</span> <span class="o">=</span> <span class="n">AnnotationManager</span><span class="p">(</span><span class="n">project</span><span class="p">)</span>
+    <span class="n">imported</span> <span class="o">=</span> <span class="n">am</span><span class="o">.</span><span class="n">import_annotations</span><span class="p">(</span><span class="n">annotations</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">threads</span><span class="p">)</span>
+
+    <span class="n">errors</span><span class="p">,</span> <span class="n">warnings</span> <span class="o">=</span> <span class="n">am</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">annotations</span> <span class="o">=</span> <span class="n">imported</span><span class="p">,</span> <span class="n">threads</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">threads</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">am</span><span class="o">.</span><span class="n">errors</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;importation completed with </span><span class="si">{}</span><span class="s2"> errors and </span><span class="si">{}</span><span class="s2"> warnings&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">am</span><span class="o">.</span><span class="n">errors</span><span class="p">)</span><span class="o">+</span><span class="nb">len</span><span class="p">(</span><span class="n">errors</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">warnings</span><span class="p">)),</span> <span class="n">file</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">am</span><span class="o">.</span><span class="n">errors</span><span class="p">),</span> <span class="n">file</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">errors</span><span class="p">),</span> <span class="n">file</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">warnings</span><span class="p">))</span>
+
+<span class="nd">@subcommand</span><span class="p">([</span>
+    <span class="n">arg</span><span class="p">(</span><span class="s2">&quot;source&quot;</span><span class="p">,</span> <span class="n">help</span> <span class="o">=</span> <span class="s2">&quot;project path&quot;</span><span class="p">),</span>
+    <span class="n">arg</span><span class="p">(</span><span class="s2">&quot;--left-set&quot;</span><span class="p">,</span> <span class="n">help</span> <span class="o">=</span> <span class="s2">&quot;left set&quot;</span><span class="p">,</span> <span class="n">required</span> <span class="o">=</span> <span class="kc">True</span><span class="p">),</span>
+    <span class="n">arg</span><span class="p">(</span><span class="s2">&quot;--right-set&quot;</span><span class="p">,</span> <span class="n">help</span> <span class="o">=</span> <span class="s2">&quot;right set&quot;</span><span class="p">,</span> <span class="n">required</span> <span class="o">=</span> <span class="kc">True</span><span class="p">),</span>
+    <span class="n">arg</span><span class="p">(</span><span class="s2">&quot;--left-columns&quot;</span><span class="p">,</span> <span class="n">help</span> <span class="o">=</span> <span class="s2">&quot;comma-separated columns to merge from the left set&quot;</span><span class="p">,</span> <span class="n">required</span> <span class="o">=</span> <span class="kc">True</span><span class="p">),</span>
+    <span class="n">arg</span><span class="p">(</span><span class="s2">&quot;--right-columns&quot;</span><span class="p">,</span> <span class="n">help</span> <span class="o">=</span> <span class="s2">&quot;comma-separated columns to merge from the right set&quot;</span><span class="p">,</span> <span class="n">required</span> <span class="o">=</span> <span class="kc">True</span><span class="p">),</span>
+    <span class="n">arg</span><span class="p">(</span><span class="s2">&quot;--output-set&quot;</span><span class="p">,</span> <span class="n">help</span> <span class="o">=</span> <span class="s2">&quot;name of the output set&quot;</span><span class="p">,</span> <span class="n">required</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="p">])</span>
+<span class="k">def</span> <span class="nf">merge_annotations</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;merge segments sharing identical onset and offset from two sets of annotations&quot;&quot;&quot;</span>
+    <span class="n">project</span> <span class="o">=</span> <span class="n">ChildProject</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">source</span><span class="p">)</span>
+    <span class="n">errors</span><span class="p">,</span> <span class="n">warnings</span> <span class="o">=</span> <span class="n">project</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">ignore_files</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">errors</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;validation failed, </span><span class="si">{}</span><span class="s2"> error(s) occured&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">errors</span><span class="p">)),</span> <span class="n">file</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">)</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="n">am</span> <span class="o">=</span> <span class="n">AnnotationManager</span><span class="p">(</span><span class="n">project</span><span class="p">)</span>
+    <span class="n">am</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+    <span class="n">am</span><span class="o">.</span><span class="n">merge_sets</span><span class="p">(</span>
+        <span class="n">left_set</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">left_set</span><span class="p">,</span>
+        <span class="n">right_set</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">right_set</span><span class="p">,</span>
+        <span class="n">left_columns</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">left_columns</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">),</span>
+        <span class="n">right_columns</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">right_columns</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">),</span>
+        <span class="n">output_set</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">output_set</span>
+    <span class="p">)</span>
+
+<span class="nd">@subcommand</span><span class="p">([</span>
+    <span class="n">arg</span><span class="p">(</span><span class="s2">&quot;source&quot;</span><span class="p">,</span> <span class="n">help</span> <span class="o">=</span> <span class="s2">&quot;project path&quot;</span><span class="p">),</span>
+    <span class="n">arg</span><span class="p">(</span><span class="s2">&quot;--set&quot;</span><span class="p">,</span> <span class="n">help</span> <span class="o">=</span> <span class="s2">&quot;set to remove&quot;</span><span class="p">,</span> <span class="n">required</span> <span class="o">=</span> <span class="kc">True</span><span class="p">),</span>
+    <span class="n">arg</span><span class="p">(</span><span class="s2">&quot;--recursive&quot;</span><span class="p">,</span> <span class="n">help</span> <span class="o">=</span> <span class="s2">&quot;enable recursive mode&quot;</span><span class="p">,</span> <span class="n">action</span> <span class="o">=</span> <span class="s1">&#39;store_true&#39;</span><span class="p">),</span>
+<span class="p">])</span>
+<span class="k">def</span> <span class="nf">remove_annotations</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;remove converted annotations of a given set and their entries in the index&quot;&quot;&quot;</span>
+    <span class="n">project</span> <span class="o">=</span> <span class="n">ChildProject</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">source</span><span class="p">)</span>
+    <span class="n">errors</span><span class="p">,</span> <span class="n">warnings</span> <span class="o">=</span> <span class="n">project</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">ignore_files</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">errors</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;validation failed, </span><span class="si">{}</span><span class="s2"> error(s) occured&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">errors</span><span class="p">)),</span> <span class="n">file</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">)</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="n">am</span> <span class="o">=</span> <span class="n">AnnotationManager</span><span class="p">(</span><span class="n">project</span><span class="p">)</span>
+    <span class="n">am</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+    <span class="n">am</span><span class="o">.</span><span class="n">remove_set</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">set</span><span class="p">,</span> <span class="n">recursive</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">recursive</span><span class="p">)</span>
+
+<span class="nd">@subcommand</span><span class="p">([</span>
+    <span class="n">arg</span><span class="p">(</span><span class="s2">&quot;source&quot;</span><span class="p">,</span> <span class="n">help</span> <span class="o">=</span> <span class="s2">&quot;project path&quot;</span><span class="p">),</span>
+    <span class="n">arg</span><span class="p">(</span><span class="s2">&quot;--set&quot;</span><span class="p">,</span> <span class="n">help</span> <span class="o">=</span> <span class="s2">&quot;set to rename&quot;</span><span class="p">,</span> <span class="n">required</span> <span class="o">=</span> <span class="kc">True</span><span class="p">),</span>
+    <span class="n">arg</span><span class="p">(</span><span class="s2">&quot;--new-set&quot;</span><span class="p">,</span> <span class="n">help</span> <span class="o">=</span> <span class="s2">&quot;new name for the set&quot;</span><span class="p">,</span> <span class="n">required</span> <span class="o">=</span> <span class="kc">True</span><span class="p">),</span>
+    <span class="n">arg</span><span class="p">(</span><span class="s2">&quot;--recursive&quot;</span><span class="p">,</span> <span class="n">help</span> <span class="o">=</span> <span class="s2">&quot;enable recursive mode&quot;</span><span class="p">,</span> <span class="n">action</span> <span class="o">=</span> <span class="s1">&#39;store_true&#39;</span><span class="p">),</span>
+    <span class="n">arg</span><span class="p">(</span><span class="s2">&quot;--ignore-errors&quot;</span><span class="p">,</span> <span class="n">help</span> <span class="o">=</span> <span class="s2">&quot;proceed despite errors&quot;</span><span class="p">,</span> <span class="n">action</span> <span class="o">=</span> <span class="s1">&#39;store_true&#39;</span><span class="p">)</span>
+<span class="p">])</span>
+<span class="k">def</span> <span class="nf">rename_annotations</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;rename a set of annotations by moving the files and updating the index accordingly&quot;&quot;&quot;</span>
+
+    <span class="n">project</span> <span class="o">=</span> <span class="n">ChildProject</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">source</span><span class="p">)</span>
+    <span class="n">errors</span><span class="p">,</span> <span class="n">warnings</span> <span class="o">=</span> <span class="n">project</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">ignore_files</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">errors</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;validation failed, </span><span class="si">{}</span><span class="s2"> error(s) occured&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">errors</span><span class="p">)),</span> <span class="n">file</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">)</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="n">am</span> <span class="o">=</span> <span class="n">AnnotationManager</span><span class="p">(</span><span class="n">project</span><span class="p">)</span>
+    <span class="n">am</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+    <span class="n">am</span><span class="o">.</span><span class="n">rename_set</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">set</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">new_set</span><span class="p">,</span> <span class="n">recursive</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">recursive</span><span class="p">,</span> <span class="n">ignore_errors</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">ignore_errors</span><span class="p">)</span>
+
+<span class="nd">@subcommand</span><span class="p">([</span>
+    <span class="n">arg</span><span class="p">(</span><span class="s2">&quot;dataset&quot;</span><span class="p">,</span> <span class="n">help</span> <span class="o">=</span> <span class="s2">&quot;dataset to install. Should be a valid repository name at https://github.com/LAAC-LSCP. (e.g.: solomon-data)&quot;</span><span class="p">),</span>
+    <span class="n">arg</span><span class="p">(</span><span class="s2">&quot;--destination&quot;</span><span class="p">,</span> <span class="n">help</span> <span class="o">=</span> <span class="s2">&quot;destination path&quot;</span><span class="p">,</span> <span class="n">required</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">default</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
+    <span class="n">arg</span><span class="p">(</span><span class="s2">&quot;--storage-hostname&quot;</span><span class="p">,</span> <span class="n">dest</span> <span class="o">=</span> <span class="s2">&quot;storage_hostname&quot;</span><span class="p">,</span> <span class="n">help</span> <span class="o">=</span> <span class="s2">&quot;ssh storage hostname (e.g. &#39;foberon&#39;)&quot;</span><span class="p">,</span> <span class="n">required</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">default</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="p">])</span>
+<span class="k">def</span> <span class="nf">import_data</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;import and configures a datalad dataset&quot;&quot;&quot;</span>
+
+    <span class="kn">import</span> <span class="nn">datalad.api</span>
+    <span class="kn">import</span> <span class="nn">datalad.distribution.dataset</span>
+
+    <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">destination</span><span class="p">:</span>
+        <span class="n">destination</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">destination</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">destination</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">dataset</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="n">datalad</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">install</span><span class="p">(</span><span class="n">source</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">dataset</span><span class="p">,</span> <span class="n">path</span> <span class="o">=</span> <span class="n">destination</span><span class="p">)</span>
+
+    <span class="n">ds</span> <span class="o">=</span> <span class="n">datalad</span><span class="o">.</span><span class="n">distribution</span><span class="o">.</span><span class="n">dataset</span><span class="o">.</span><span class="n">require_dataset</span><span class="p">(</span>
+        <span class="n">destination</span><span class="p">,</span>
+        <span class="n">check_installed</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">purpose</span> <span class="o">=</span> <span class="s1">&#39;configuration&#39;</span>
+    <span class="p">)</span>
+
+    <span class="n">cmd</span> <span class="o">=</span> <span class="s1">&#39;setup&#39;</span>
+    <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">storage_hostname</span><span class="p">:</span>
+        <span class="n">cmd</span> <span class="o">+=</span> <span class="s1">&#39; &quot;</span><span class="si">{}</span><span class="s1">&quot;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">storage_hostname</span><span class="p">)</span>
+
+    <span class="n">datalad</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">run_procedure</span><span class="p">(</span><span class="n">spec</span> <span class="o">=</span> <span class="n">cmd</span><span class="p">,</span> <span class="n">dataset</span> <span class="o">=</span> <span class="n">ds</span><span class="p">)</span>
+
+<span class="nd">@subcommand</span><span class="p">([</span>
+    <span class="n">arg</span><span class="p">(</span><span class="s2">&quot;source&quot;</span><span class="p">,</span> <span class="n">help</span> <span class="o">=</span> <span class="s2">&quot;source data path&quot;</span><span class="p">),</span>
+    <span class="n">arg</span><span class="p">(</span><span class="s2">&quot;--stats&quot;</span><span class="p">,</span> <span class="n">help</span> <span class="o">=</span> <span class="s2">&quot;stats to retrieve (comma-separated)&quot;</span><span class="p">,</span> <span class="n">required</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">default</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="p">])</span>
+<span class="k">def</span> <span class="nf">stats</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;print statistics about a given dataset&quot;&quot;&quot;</span>
+    
+    <span class="n">project</span> <span class="o">=</span> <span class="n">ChildProject</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">source</span><span class="p">)</span>
+
+    <span class="n">errors</span><span class="p">,</span> <span class="n">warnings</span> <span class="o">=</span> <span class="n">project</span><span class="o">.</span><span class="n">validate</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">errors</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;validation failed, </span><span class="si">{}</span><span class="s2"> error(s) occured&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">errors</span><span class="p">)),</span> <span class="n">file</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">)</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="n">stats</span> <span class="o">=</span> <span class="n">project</span><span class="o">.</span><span class="n">get_stats</span><span class="p">()</span>
+    <span class="n">args</span><span class="o">.</span><span class="n">stats</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span> <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">stats</span> <span class="k">else</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">stat</span> <span class="ow">in</span> <span class="n">stats</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">args</span><span class="o">.</span><span class="n">stats</span> <span class="ow">or</span> <span class="n">stat</span> <span class="ow">in</span> <span class="n">args</span><span class="o">.</span><span class="n">stats</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">stat</span><span class="p">,</span> <span class="n">stats</span><span class="p">[</span><span class="n">stat</span><span class="p">]))</span>
+
+<span class="nd">@subcommand</span><span class="p">([</span>
+    <span class="n">arg</span><span class="p">(</span><span class="s2">&quot;source&quot;</span><span class="p">,</span> <span class="n">help</span> <span class="o">=</span> <span class="s2">&quot;source data path&quot;</span><span class="p">),</span>
+    <span class="n">arg</span><span class="p">(</span><span class="s2">&quot;--profile&quot;</span><span class="p">,</span> <span class="n">help</span> <span class="o">=</span> <span class="s2">&quot;which audio profile to use&quot;</span><span class="p">,</span> <span class="n">default</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
+    <span class="n">arg</span><span class="p">(</span><span class="s2">&quot;--force&quot;</span><span class="p">,</span> <span class="n">help</span> <span class="o">=</span> <span class="s2">&quot;overwrite if column exists&quot;</span><span class="p">,</span> <span class="n">action</span> <span class="o">=</span> <span class="s1">&#39;store_true&#39;</span><span class="p">)</span>
+<span class="p">])</span>
+<span class="k">def</span> <span class="nf">compute_durations</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;creates a &#39;duration&#39; column into metadata/recordings&quot;&quot;&quot;</span>
+    <span class="n">project</span> <span class="o">=</span> <span class="n">ChildProject</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">source</span><span class="p">)</span>
+
+    <span class="n">errors</span><span class="p">,</span> <span class="n">warnings</span> <span class="o">=</span> <span class="n">project</span><span class="o">.</span><span class="n">validate</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">errors</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;validation failed, </span><span class="si">{}</span><span class="s2"> error(s) occured&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">errors</span><span class="p">)),</span> <span class="n">file</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">)</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="s1">&#39;duration&#39;</span> <span class="ow">in</span> <span class="n">project</span><span class="o">.</span><span class="n">recordings</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">args</span><span class="o">.</span><span class="n">force</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;duration exists, aborting&quot;</span><span class="p">)</span>
+            <span class="k">return</span>
+        
+        <span class="n">project</span><span class="o">.</span><span class="n">recordings</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;duration&#39;</span><span class="p">],</span> <span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+
+    <span class="n">durations</span> <span class="o">=</span> <span class="n">project</span><span class="o">.</span><span class="n">compute_recordings_duration</span><span class="p">(</span><span class="n">profile</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">profile</span><span class="p">)</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+
+    <span class="n">recordings</span> <span class="o">=</span> <span class="n">project</span><span class="o">.</span><span class="n">recordings</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">durations</span><span class="p">[</span><span class="n">durations</span><span class="p">[</span><span class="s1">&#39;filename&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;NA&#39;</span><span class="p">],</span> <span class="n">how</span> <span class="o">=</span> <span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="n">left_on</span> <span class="o">=</span> <span class="s1">&#39;filename&#39;</span><span class="p">,</span> <span class="n">right_on</span> <span class="o">=</span> <span class="s1">&#39;filename&#39;</span><span class="p">)</span>
+    <span class="n">recordings</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">project</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="s1">&#39;metadata/recordings.csv&#39;</span><span class="p">),</span> <span class="n">index</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
+
+<div class="viewcode-block" id="main"><a class="viewcode-back" href="../../ChildProject.html#ChildProject.cmdline.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">register_pipeline</span><span class="p">(</span><span class="s1">&#39;zooniverse&#39;</span><span class="p">,</span> <span class="n">ZooniversePipeline</span><span class="p">)</span>
+    <span class="n">register_pipeline</span><span class="p">(</span><span class="s1">&#39;convert&#39;</span><span class="p">,</span> <span class="n">ConversionPipeline</span><span class="p">)</span>
+
+    <span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+    <span class="n">args</span><span class="o">.</span><span class="n">func</span><span class="p">(</span><span class="n">args</span><span class="p">)</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Lucas Gautheron.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
