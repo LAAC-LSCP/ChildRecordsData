@@ -194,7 +194,7 @@
     <span class="k">return</span> <span class="n">decorator</span></div>
 
 <div class="viewcode-block" id="register_pipeline"><a class="viewcode-back" href="../../ChildProject.html#ChildProject.cmdline.register_pipeline">[docs]</a><span class="k">def</span> <span class="nf">register_pipeline</span><span class="p">(</span><span class="n">subcommand</span><span class="p">,</span> <span class="bp">cls</span><span class="p">):</span>
-    <span class="n">_parser</span> <span class="o">=</span> <span class="n">subparsers</span><span class="o">.</span><span class="n">add_parser</span><span class="p">(</span><span class="n">subcommand</span><span class="p">,</span> <span class="n">description</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="vm">__doc__</span><span class="p">)</span>
+    <span class="n">_parser</span> <span class="o">=</span> <span class="n">subparsers</span><span class="o">.</span><span class="n">add_parser</span><span class="p">(</span><span class="n">subcommand</span><span class="p">,</span> <span class="n">description</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">run</span><span class="o">.</span><span class="vm">__doc__</span><span class="p">)</span>
     <span class="bp">cls</span><span class="o">.</span><span class="n">setup_parser</span><span class="p">(</span><span class="n">_parser</span><span class="p">)</span>
     <span class="n">_parser</span><span class="o">.</span><span class="n">set_defaults</span><span class="p">(</span><span class="n">func</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">args</span><span class="p">:</span> <span class="bp">cls</span><span class="p">()</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="o">**</span><span class="nb">vars</span><span class="p">(</span><span class="n">args</span><span class="p">)))</span></div>
 
@@ -421,6 +421,7 @@
 <div class="viewcode-block" id="main"><a class="viewcode-back" href="../../ChildProject.html#ChildProject.cmdline.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
     <span class="n">register_pipeline</span><span class="p">(</span><span class="s1">&#39;zooniverse&#39;</span><span class="p">,</span> <span class="n">ZooniversePipeline</span><span class="p">)</span>
     <span class="n">register_pipeline</span><span class="p">(</span><span class="s1">&#39;convert&#39;</span><span class="p">,</span> <span class="n">ConversionPipeline</span><span class="p">)</span>
+    <span class="n">register_pipeline</span><span class="p">(</span><span class="s1">&#39;anonymize&#39;</span><span class="p">,</span> <span class="n">AnonymizationPipeline</span><span class="p">)</span>
 
     <span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
     <span class="n">args</span><span class="o">.</span><span class="n">func</span><span class="p">(</span><span class="n">args</span><span class="p">)</span></div>

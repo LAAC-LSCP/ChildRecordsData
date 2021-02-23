@@ -105,11 +105,15 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#compute-recordings-duration">Compute recordings duration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#import-annotations">Import annotations</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#single-file-importation">Single file importation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#bulk-importation">Bulk importation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#managing-annotations">Managing annotations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#importation">Importation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#single-file-importation">Single file importation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bulk-importation">Bulk importation</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="#rename-a-set-of-annotations">Rename a set of annotations</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#remove-a-set-of-annotations">Remove a set of annotations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#its-annotations-anonymization">ITS annotations anonymization</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#merge-annotation-sets">Merge annotation sets</a></li>
 </ul>
 </li>
@@ -190,27 +194,8 @@
             
   <div class="section" id="basic-tools">
 <h1>Basic tools<a class="headerlink" href="#basic-tools" title="Permalink to this headline">¶</a></h1>
-<ul class="simple">
-<li><p><a class="reference external" href="#data-validation">Data validation</a></p></li>
-<li><p><a class="reference external" href="#convert-recordings">Convert recordings</a></p>
-<ul>
-<li><p><a class="reference external" href="#multi-core-audio-conversion-with-slurm-on-a-cluster">Multi-core audio conversion with slurm on a
-cluster</a></p></li>
-</ul>
-</li>
-<li><p><a class="reference external" href="#compute-recordings-duration">Compute recordings duration</a></p></li>
-<li><p><a class="reference external" href="#import-annotations">Import annotations</a></p>
-<ul>
-<li><p><a class="reference external" href="#single-file-importation">Single file importation</a></p></li>
-<li><p><a class="reference external" href="#bulk-importation">Bulk importation</a></p></li>
-<li><p><a class="reference external" href="#merge-annotation-sets">Merge annotation sets</a></p></li>
-<li><p><a class="reference external" href="#rename-a-set-of-annotations">Rename a set of annotations</a></p></li>
-<li><p><a class="reference external" href="#remove-a-set-of-annotations">Remove a set of annotations</a></p></li>
-</ul>
-</li>
-</ul>
 <div class="section" id="data-validation">
-<span id="tools-data-validation"></span><h2>Data validation<a class="headerlink" href="#data-validation" title="Permalink to this headline">¶</a></h2>
+<h2>Data validation<a class="headerlink" href="#data-validation" title="Permalink to this headline">¶</a></h2>
 <p>This is typically done (repeatedly!) in the process of importing your
 data into our format for the first time, but you should also do this
 whenever you make a change to the dataset.</p>
@@ -307,8 +292,12 @@ optional arguments:
 </pre></div>
 </div>
 </div>
-<div class="section" id="import-annotations">
-<h2>Import annotations<a class="headerlink" href="#import-annotations" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="managing-annotations">
+<h2>Managing annotations<a class="headerlink" href="#managing-annotations" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="importation">
+<h3>Importation<a class="headerlink" href="#importation" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="single-file-importation">
+<h4>Single file importation<a class="headerlink" href="#single-file-importation" title="Permalink to this headline">¶</a></h4>
 <p>Annotations can be imported one by one or in bulk. Annotation
 importation does the following :</p>
 <ol class="arabic simple">
@@ -318,8 +307,6 @@ and stores them into <code class="docutils literal notranslate"><span class="pre
 <li><p>Registers them to the annotation index at
 <code class="docutils literal notranslate"><span class="pre">metadata/annotations.csv</span></code></p></li>
 </ol>
-<div class="section" id="single-file-importation">
-<h3>Single file importation<a class="headerlink" href="#single-file-importation" title="Permalink to this headline">¶</a></h3>
 <p>Use <code class="docutils literal notranslate"><span class="pre">child-project</span> <span class="pre">import-annotations</span></code> to import a single annotation
 file.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ child-project import-annotations /path/to/dataset --help
@@ -382,13 +369,14 @@ optional arguments:
 <p>Find more information about the allowed values for each parameter, see <a class="reference internal" href="format.html#format-input-annotations"><span class="std std-ref">Annotation importation input format</span></a>.</p>
 </div>
 <div class="section" id="bulk-importation">
-<span id="tools-annotations-bulk-importation"></span><h3>Bulk importation<a class="headerlink" href="#bulk-importation" title="Permalink to this headline">¶</a></h3>
+<span id="tools-annotations-bulk-importation"></span><h4>Bulk importation<a class="headerlink" href="#bulk-importation" title="Permalink to this headline">¶</a></h4>
 <p>Use this to do bulk importation of many annotation files.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">child</span><span class="o">-</span><span class="n">project</span> <span class="n">import</span><span class="o">-</span><span class="n">annotations</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">dataset</span> <span class="o">--</span><span class="n">annotations</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">dataframe</span><span class="o">.</span><span class="n">csv</span>
 </pre></div>
 </div>
 <p>The input dataframe <code class="docutils literal notranslate"><span class="pre">/path/to/dataframe.csv</span></code> must have one entry per
 annotation to import, according to the format specified at <a class="reference internal" href="format.html#format-input-annotations"><span class="std std-ref">Annotation importation input format</span></a>.</p>
+</div>
 </div>
 <div class="section" id="rename-a-set-of-annotations">
 <h3>Rename a set of annotations<a class="headerlink" href="#rename-a-set-of-annotations" title="Permalink to this headline">¶</a></h3>
@@ -437,6 +425,35 @@ optional arguments:
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">child</span><span class="o">-</span><span class="n">project</span> <span class="n">remove</span><span class="o">-</span><span class="n">annotations</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">dataset</span> <span class="o">--</span><span class="nb">set</span> <span class="n">vtc</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="its-annotations-anonymization">
+<h3>ITS annotations anonymization<a class="headerlink" href="#its-annotations-anonymization" title="Permalink to this headline">¶</a></h3>
+<p>LENA .its files might contain information that can help recover the identity of the participants, which may be undesired.
+This command anonymizes .its files, based on a routine by <a class="reference external" href="https://github.com/HomeBankCode/ITS_annonymizer">HomeBank</a>.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ child-project anonymize /path/to/dataset --help
+usage: child-project anonymize <span class="o">[</span>-h<span class="o">]</span> --input-set INPUT_SET --output-set
+                               OUTPUT_SET
+                               <span class="o">[</span>--replacements-json-dict REPLACEMENTS_JSON_DICT<span class="o">]</span>
+                               path
+
+Anonymize a <span class="nb">set</span> of its annotations <span class="o">(</span><span class="sb">`</span>input_set<span class="sb">`</span><span class="o">)</span> and saves it as <span class="sb">`</span>output_set<span class="sb">`</span>.
+
+positional arguments:
+  path                  project path
+
+optional arguments:
+  -h, --help            show this <span class="nb">help</span> message and <span class="nb">exit</span>
+  --input-set INPUT_SET
+                        input annotation <span class="nb">set</span>
+  --output-set OUTPUT_SET
+                        output annotation <span class="nb">set</span>
+  --replacements-json-dict REPLACEMENTS_JSON_DICT
+                        path to the replacements configuration <span class="o">(</span>json dict<span class="o">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">child</span><span class="o">-</span><span class="n">project</span> <span class="n">anonymize</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">dataset</span> <span class="o">--</span><span class="nb">input</span><span class="o">-</span><span class="nb">set</span> <span class="n">lena</span> <span class="o">--</span><span class="n">output</span><span class="o">-</span><span class="nb">set</span> <span class="n">lena</span><span class="o">/</span><span class="n">anonymous</span>
 </pre></div>
 </div>
 </div>
