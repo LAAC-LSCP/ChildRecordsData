@@ -469,6 +469,7 @@ usage: child-project merge-annotations <span class="o">[</span>-h<span class="o"
                                        RIGHT_SET --left-columns LEFT_COLUMNS
                                        --right-columns RIGHT_COLUMNS
                                        --output-set OUTPUT_SET
+                                       <span class="o">[</span>--threads THREADS<span class="o">]</span>
                                        <span class="nb">source</span>
 
 merge segments sharing identical onset and offset from two sets of annotations
@@ -487,6 +488,7 @@ optional arguments:
                         comma-separated columns to merge from the right <span class="nb">set</span>
   --output-set OUTPUT_SET
                         name of the output <span class="nb">set</span>
+  --threads THREADS     amount of threads to run on <span class="o">(</span>default: <span class="m">1</span><span class="o">)</span>
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">child</span><span class="o">-</span><span class="n">project</span> <span class="n">merge</span><span class="o">-</span><span class="n">annotations</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">dataset</span> \
