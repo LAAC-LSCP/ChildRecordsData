@@ -97,6 +97,7 @@
 <p class="caption"><span class="caption-text">Command-line tools</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../tools.html">Basic tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../samplers.html">Samplers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../zooniverse.html">Zooniverse</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../cheatsheet.html">Cheatsheet</a></li>
 </ul>
@@ -421,6 +422,7 @@
     <span class="n">recordings</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">project</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="s1">&#39;metadata/recordings.csv&#39;</span><span class="p">),</span> <span class="n">index</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
 
 <div class="viewcode-block" id="main"><a class="viewcode-back" href="../../ChildProject.html#ChildProject.cmdline.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">register_pipeline</span><span class="p">(</span><span class="s1">&#39;sampler&#39;</span><span class="p">,</span> <span class="n">SamplerPipeline</span><span class="p">)</span>
     <span class="n">register_pipeline</span><span class="p">(</span><span class="s1">&#39;zooniverse&#39;</span><span class="p">,</span> <span class="n">ZooniversePipeline</span><span class="p">)</span>
     <span class="n">register_pipeline</span><span class="p">(</span><span class="s1">&#39;convert&#39;</span><span class="p">,</span> <span class="n">ConversionPipeline</span><span class="p">)</span>
     <span class="n">register_pipeline</span><span class="p">(</span><span class="s1">&#39;anonymize&#39;</span><span class="p">,</span> <span class="n">AnonymizationPipeline</span><span class="p">)</span>

@@ -98,6 +98,7 @@
 <p class="caption"><span class="caption-text">Command-line tools</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="tools.html">Basic tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="samplers.html">Samplers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="zooniverse.html">Zooniverse</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cheatsheet.html">Cheatsheet</a></li>
 </ul>
@@ -261,6 +262,152 @@
 </dd></dl>
 
 </div>
+<div class="section" id="module-ChildProject.pipelines.sampler">
+<span id="childproject-pipelines-sampler-module"></span><h2>ChildProject.pipelines.sampler module<a class="headerlink" href="#module-ChildProject.pipelines.sampler" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="ChildProject.pipelines.sampler.CustomSampler">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">ChildProject.pipelines.sampler.</span></code><code class="sig-name descname"><span class="pre">CustomSampler</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">project</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="ChildProject.html#ChildProject.projects.ChildProject" title="ChildProject.projects.ChildProject"><span class="pre">ChildProject.projects.ChildProject</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">segments_path</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ChildProject/pipelines/sampler.html#CustomSampler"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ChildProject.pipelines.sampler.CustomSampler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#ChildProject.pipelines.sampler.Sampler" title="ChildProject.pipelines.sampler.Sampler"><code class="xref py py-class docutils literal notranslate"><span class="pre">ChildProject.pipelines.sampler.Sampler</span></code></a></p>
+<dl class="py method">
+<dt id="ChildProject.pipelines.sampler.CustomSampler.add_parser">
+<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">add_parser</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">samplers</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ChildProject/pipelines/sampler.html#CustomSampler.add_parser"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ChildProject.pipelines.sampler.CustomSampler.add_parser" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="ChildProject.pipelines.sampler.CustomSampler.sample">
+<code class="sig-name descname"><span class="pre">sample</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/ChildProject/pipelines/sampler.html#CustomSampler.sample"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ChildProject.pipelines.sampler.CustomSampler.sample" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="ChildProject.pipelines.sampler.EnergyDetectionSampler">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">ChildProject.pipelines.sampler.</span></code><code class="sig-name descname"><span class="pre">EnergyDetectionSampler</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">project</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="ChildProject.html#ChildProject.projects.ChildProject" title="ChildProject.projects.ChildProject"><span class="pre">ChildProject.projects.ChildProject</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">windows_length</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">windows_spacing</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">windows_count</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">windows_offset</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threshold</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">0.8</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">low_freq</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">high_freq</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">100000</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ChildProject/pipelines/sampler.html#EnergyDetectionSampler"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ChildProject.pipelines.sampler.EnergyDetectionSampler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#ChildProject.pipelines.sampler.Sampler" title="ChildProject.pipelines.sampler.Sampler"><code class="xref py py-class docutils literal notranslate"><span class="pre">ChildProject.pipelines.sampler.Sampler</span></code></a></p>
+<p>Sample windows within each recording, targetting those
+that have a signal energy higher than some threshold.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>project</strong> (<a class="reference internal" href="ChildProject.html#ChildProject.projects.ChildProject" title="ChildProject.projects.ChildProject"><em>ChildProject.projects.ChildProject</em></a>) – ChildProject instance of the target dataset.</p></li>
+<li><p><strong>windows_length</strong> (<em>float</em>) – Length of each window, in seconds.</p></li>
+<li><p><strong>windows_spacing</strong> (<em>float</em>) – Spacing between the start of each window, in seconds.</p></li>
+<li><p><strong>windows_count</strong> (<em>int</em>) – How many windows to retain per recording.</p></li>
+<li><p><strong>windows_offset</strong> (<em>float</em><em>, </em><em>optional</em>) – start of the first window, in seconds, defaults to 0</p></li>
+<li><p><strong>threshold</strong> (<em>float</em><em>, </em><em>optional</em>) – lowest energy quantile to sample from, defaults to 0.8</p></li>
+<li><p><strong>low_freq</strong> (<em>int</em><em>, </em><em>optional</em>) – if &gt; 0, frequencies below will be filtered before calculating the energy, defaults to 0</p></li>
+<li><p><strong>high_freq</strong> (<em>int</em><em>, </em><em>optional</em>) – if &lt; 100000, frequencies above will be filtered before calculating the energy, defaults to 100000</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="ChildProject.pipelines.sampler.EnergyDetectionSampler.add_parser">
+<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">add_parser</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">samplers</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ChildProject/pipelines/sampler.html#EnergyDetectionSampler.add_parser"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ChildProject.pipelines.sampler.EnergyDetectionSampler.add_parser" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="ChildProject.pipelines.sampler.EnergyDetectionSampler.compute_energy_loudness">
+<code class="sig-name descname"><span class="pre">compute_energy_loudness</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chunk</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sampling_frequency</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ChildProject/pipelines/sampler.html#EnergyDetectionSampler.compute_energy_loudness"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ChildProject.pipelines.sampler.EnergyDetectionSampler.compute_energy_loudness" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="ChildProject.pipelines.sampler.EnergyDetectionSampler.get_recording_windows">
+<code class="sig-name descname"><span class="pre">get_recording_windows</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">profile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">recording</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ChildProject/pipelines/sampler.html#EnergyDetectionSampler.get_recording_windows"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ChildProject.pipelines.sampler.EnergyDetectionSampler.get_recording_windows" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="ChildProject.pipelines.sampler.EnergyDetectionSampler.sample">
+<code class="sig-name descname"><span class="pre">sample</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/ChildProject/pipelines/sampler.html#EnergyDetectionSampler.sample"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ChildProject.pipelines.sampler.EnergyDetectionSampler.sample" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="ChildProject.pipelines.sampler.HighVolubilitySampler">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">ChildProject.pipelines.sampler.</span></code><code class="sig-name descname"><span class="pre">HighVolubilitySampler</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">project</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="ChildProject.html#ChildProject.projects.ChildProject" title="ChildProject.projects.ChildProject"><span class="pre">ChildProject.projects.ChildProject</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">annotation_set</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_speaker_type</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">windows_length</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">windows_count</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ChildProject/pipelines/sampler.html#HighVolubilitySampler"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ChildProject.pipelines.sampler.HighVolubilitySampler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#ChildProject.pipelines.sampler.Sampler" title="ChildProject.pipelines.sampler.Sampler"><code class="xref py py-class docutils literal notranslate"><span class="pre">ChildProject.pipelines.sampler.Sampler</span></code></a></p>
+<dl class="py method">
+<dt id="ChildProject.pipelines.sampler.HighVolubilitySampler.add_parser">
+<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">add_parser</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">samplers</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ChildProject/pipelines/sampler.html#HighVolubilitySampler.add_parser"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ChildProject.pipelines.sampler.HighVolubilitySampler.add_parser" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="ChildProject.pipelines.sampler.HighVolubilitySampler.sample">
+<code class="sig-name descname"><span class="pre">sample</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/ChildProject/pipelines/sampler.html#HighVolubilitySampler.sample"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ChildProject.pipelines.sampler.HighVolubilitySampler.sample" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="ChildProject.pipelines.sampler.RandomVocalizationSampler">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">ChildProject.pipelines.sampler.</span></code><code class="sig-name descname"><span class="pre">RandomVocalizationSampler</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">project</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="ChildProject.html#ChildProject.projects.ChildProject" title="ChildProject.projects.ChildProject"><span class="pre">ChildProject.projects.ChildProject</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">annotation_set</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_speaker_type</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_size</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ChildProject/pipelines/sampler.html#RandomVocalizationSampler"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ChildProject.pipelines.sampler.RandomVocalizationSampler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#ChildProject.pipelines.sampler.Sampler" title="ChildProject.pipelines.sampler.Sampler"><code class="xref py py-class docutils literal notranslate"><span class="pre">ChildProject.pipelines.sampler.Sampler</span></code></a></p>
+<p>Sample vocalizations based on some input annotation set.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>project</strong> (<a class="reference internal" href="ChildProject.html#ChildProject.projects.ChildProject" title="ChildProject.projects.ChildProject"><em>ChildProject.projects.ChildProject</em></a>) – ChildProject instance of the target dataset.</p></li>
+<li><p><strong>annotation_set</strong> (<em>str</em>) – Set of annotations to get vocalizations from.</p></li>
+<li><p><strong>target_speaker_type</strong> (<em>list</em>) – List of speaker types to sample vocalizations from.</p></li>
+<li><p><strong>sample_size</strong> (<em>int</em>) – Amount of vocalizations to sample, per recording.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="ChildProject.pipelines.sampler.RandomVocalizationSampler.add_parser">
+<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">add_parser</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">samplers</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ChildProject/pipelines/sampler.html#RandomVocalizationSampler.add_parser"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ChildProject.pipelines.sampler.RandomVocalizationSampler.add_parser" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="ChildProject.pipelines.sampler.RandomVocalizationSampler.sample">
+<code class="sig-name descname"><span class="pre">sample</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/ChildProject/pipelines/sampler.html#RandomVocalizationSampler.sample"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ChildProject.pipelines.sampler.RandomVocalizationSampler.sample" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="ChildProject.pipelines.sampler.Sampler">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">ChildProject.pipelines.sampler.</span></code><code class="sig-name descname"><span class="pre">Sampler</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">project</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="ChildProject.html#ChildProject.projects.ChildProject" title="ChildProject.projects.ChildProject"><span class="pre">ChildProject.projects.ChildProject</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ChildProject/pipelines/sampler.html#Sampler"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ChildProject.pipelines.sampler.Sampler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></p>
+<dl class="py method">
+<dt id="ChildProject.pipelines.sampler.Sampler.add_parser">
+<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">add_parser</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parsers</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ChildProject/pipelines/sampler.html#Sampler.add_parser"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ChildProject.pipelines.sampler.Sampler.add_parser" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="ChildProject.pipelines.sampler.Sampler.assert_valid">
+<code class="sig-name descname"><span class="pre">assert_valid</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/ChildProject/pipelines/sampler.html#Sampler.assert_valid"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ChildProject.pipelines.sampler.Sampler.assert_valid" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="ChildProject.pipelines.sampler.Sampler.retrieve_segments">
+<code class="sig-name descname"><span class="pre">retrieve_segments</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/ChildProject/pipelines/sampler.html#Sampler.retrieve_segments"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ChildProject.pipelines.sampler.Sampler.retrieve_segments" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="ChildProject.pipelines.sampler.Sampler.sample">
+<em class="property"><span class="pre">abstract</span> </em><code class="sig-name descname"><span class="pre">sample</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/ChildProject/pipelines/sampler.html#Sampler.sample"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ChildProject.pipelines.sampler.Sampler.sample" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="ChildProject.pipelines.sampler.SamplerPipeline">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">ChildProject.pipelines.sampler.</span></code><code class="sig-name descname"><span class="pre">SamplerPipeline</span></code><a class="reference internal" href="_modules/ChildProject/pipelines/sampler.html#SamplerPipeline"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ChildProject.pipelines.sampler.SamplerPipeline" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#ChildProject.pipelines.pipeline.Pipeline" title="ChildProject.pipelines.pipeline.Pipeline"><code class="xref py py-class docutils literal notranslate"><span class="pre">ChildProject.pipelines.pipeline.Pipeline</span></code></a></p>
+<dl class="py method">
+<dt id="ChildProject.pipelines.sampler.SamplerPipeline.run">
+<code class="sig-name descname"><span class="pre">run</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">destination</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sampler</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">func</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ChildProject/pipelines/sampler.html#SamplerPipeline.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ChildProject.pipelines.sampler.SamplerPipeline.run" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="ChildProject.pipelines.sampler.SamplerPipeline.setup_parser">
+<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">setup_parser</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parser</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ChildProject/pipelines/sampler.html#SamplerPipeline.setup_parser"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ChildProject.pipelines.sampler.SamplerPipeline.setup_parser" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
 <div class="section" id="childproject-pipelines-vtc-module">
 <h2>ChildProject.pipelines.vtc module<a class="headerlink" href="#childproject-pipelines-vtc-module" title="Permalink to this headline">¶</a></h2>
 </div>
@@ -283,7 +430,7 @@
 <dd><p>Bases: <a class="reference internal" href="#ChildProject.pipelines.pipeline.Pipeline" title="ChildProject.pipelines.pipeline.Pipeline"><code class="xref py py-class docutils literal notranslate"><span class="pre">ChildProject.pipelines.pipeline.Pipeline</span></code></a></p>
 <dl class="py method">
 <dt id="ChildProject.pipelines.zooniverse.ZooniversePipeline.extract_chunks">
-<code class="sig-name descname"><span class="pre">extract_chunks</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">keyword</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">destination</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">annotation_set</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'vtc'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_speaker_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['CHI']</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">500</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chunk_length</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">500</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threads</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batches</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ChildProject/pipelines/zooniverse.html#ZooniversePipeline.extract_chunks"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ChildProject.pipelines.zooniverse.ZooniversePipeline.extract_chunks" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">extract_chunks</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">keyword</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">destination</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">annotation_set</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'vtc'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chunk_length</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">500</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threads</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batches</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">segments</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exclude_segments</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ChildProject/pipelines/zooniverse.html#ZooniversePipeline.extract_chunks"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ChildProject.pipelines.zooniverse.ZooniversePipeline.extract_chunks" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -303,12 +450,12 @@
 
 <dl class="py method">
 <dt id="ChildProject.pipelines.zooniverse.ZooniversePipeline.split_recording">
-<code class="sig-name descname"><span class="pre">split_recording</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">segments</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ChildProject/pipelines/zooniverse.html#ZooniversePipeline.split_recording"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ChildProject.pipelines.zooniverse.ZooniversePipeline.split_recording" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">split_recording</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">segments</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">pandas.core.frame.DataFrame</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">list</span><a class="reference internal" href="_modules/ChildProject/pipelines/zooniverse.html#ZooniversePipeline.split_recording"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ChildProject.pipelines.zooniverse.ZooniversePipeline.split_recording" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="ChildProject.pipelines.zooniverse.ZooniversePipeline.upload_chunks">
-<code class="sig-name descname"><span class="pre">upload_chunks</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">destination</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">project_slug</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">set_prefix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zooniverse_login</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zooniverse_pwd</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batches</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ChildProject/pipelines/zooniverse.html#ZooniversePipeline.upload_chunks"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ChildProject.pipelines.zooniverse.ZooniversePipeline.upload_chunks" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">upload_chunks</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">destination</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">project_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">set_prefix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zooniverse_login</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zooniverse_pwd</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batches</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ChildProject/pipelines/zooniverse.html#ZooniversePipeline.upload_chunks"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ChildProject.pipelines.zooniverse.ZooniversePipeline.upload_chunks" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>

@@ -39,7 +39,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Cheatsheet" href="cheatsheet.html" />
-    <link rel="prev" title="Basic tools" href="tools.html" /> 
+    <link rel="prev" title="Samplers" href="samplers.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -99,6 +99,7 @@
 <p class="caption"><span class="caption-text">Command-line tools</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="tools.html">Basic tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="samplers.html">Samplers</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Zooniverse</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#introduction">Introduction</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a></li>
@@ -229,8 +230,8 @@ usage: child-project zooniverse <span class="o">[</span>-h<span class="o">]</spa
 positional arguments:
   <span class="o">{</span>extract-chunks,upload-chunks,retrieve-classifications<span class="o">}</span>
                         action
-    extract-chunks      extract chunks and store metadata <span class="k">in</span>
-                        DESTINATION/chunks.csv
+    extract-chunks      extract chunks to DESTINATION, proving all associate
+                        metadata <span class="k">in</span> the same directory
     upload-chunks       upload chunks and updates DESTINATION/chunks.csv
     retrieve-classifications
                         retrieve classifications and save them into
@@ -245,10 +246,9 @@ optional arguments:
 <h2>Chunk extraction<a class="headerlink" href="#chunk-extraction" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ child-project zooniverse extract-chunks /path/to/dataset --help
 usage: child-project zooniverse extract-chunks <span class="o">[</span>-h<span class="o">]</span> --keyword KEYWORD
+                                               --segments SEGMENTS
                                                --destination DESTINATION
-                                               --sample-size SAMPLE_SIZE
-                                               <span class="o">[</span>--annotation-set ANNOTATION_SET<span class="o">]</span>
-                                               <span class="o">[</span>--target-speaker-type <span class="o">{</span>CHI,OCH,FEM,MAL<span class="o">}</span> <span class="o">[{</span>CHI,OCH,FEM,MAL<span class="o">}</span> ...<span class="o">]]</span>
+                                               <span class="o">[</span>--exclude-segments EXCLUDE_SEGMENTS <span class="o">[</span>EXCLUDE_SEGMENTS ...<span class="o">]]</span>
                                                <span class="o">[</span>--batch-size BATCH_SIZE<span class="o">]</span>
                                                <span class="o">[</span>--threads THREADS<span class="o">]</span>
                                                path
@@ -259,14 +259,11 @@ positional arguments:
 optional arguments:
   -h, --help            show this <span class="nb">help</span> message and <span class="nb">exit</span>
   --keyword KEYWORD     <span class="nb">export</span> keyword
+  --segments SEGMENTS   path to the input segments dataframe
   --destination DESTINATION
                         destination
-  --sample-size SAMPLE_SIZE
-                        how many samples per recording
-  --annotation-set ANNOTATION_SET
-                        annotation <span class="nb">set</span>
-  --target-speaker-type <span class="o">{</span>CHI,OCH,FEM,MAL<span class="o">}</span> <span class="o">[{</span>CHI,OCH,FEM,MAL<span class="o">}</span> ...<span class="o">]</span>
-                        speaker <span class="nb">type</span> to get chunks from
+  --exclude-segments EXCLUDE_SEGMENTS <span class="o">[</span>EXCLUDE_SEGMENTS ...<span class="o">]</span>
+                        segments to exclude before sampling
   --batch-size BATCH_SIZE
                         batch size
   --threads THREADS     how many threads to run on
@@ -283,7 +280,7 @@ usage: child-project zooniverse upload-chunks <span class="o">[</span>-h<span cl
                                               --zooniverse-login
                                               ZOONIVERSE_LOGIN
                                               --zooniverse-pwd ZOONIVERSE_PWD
-                                              --project-slug PROJECT_SLUG
+                                              --project-id PROJECT_ID
                                               --set-prefix SET_PREFIX
                                               <span class="o">[</span>--batches BATCHES<span class="o">]</span>
 
@@ -295,8 +292,8 @@ optional arguments:
                         zooniverse login
   --zooniverse-pwd ZOONIVERSE_PWD
                         zooniverse password
-  --project-slug PROJECT_SLUG
-                        zooniverse project name
+  --project-id PROJECT_ID
+                        zooniverse project id
   --set-prefix SET_PREFIX
                         subject prefix
   --batches BATCHES     amount of batches to upload
@@ -341,7 +338,7 @@ optional arguments:
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
         <a href="cheatsheet.html" class="btn btn-neutral float-right" title="Cheatsheet" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="tools.html" class="btn btn-neutral float-left" title="Basic tools" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="samplers.html" class="btn btn-neutral float-left" title="Samplers" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
   <hr/>

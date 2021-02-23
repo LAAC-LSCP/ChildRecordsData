@@ -97,6 +97,7 @@
 <p class="caption"><span class="caption-text">Command-line tools</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="tools.html">Basic tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="samplers.html">Samplers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="zooniverse.html">Zooniverse</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cheatsheet.html">Cheatsheet</a></li>
 </ul>
@@ -176,6 +177,7 @@
  | <a href="#C"><strong>C</strong></a>
  | <a href="#E"><strong>E</strong></a>
  | <a href="#G"><strong>G</strong></a>
+ | <a href="#H"><strong>H</strong></a>
  | <a href="#I"><strong>I</strong></a>
  | <a href="#L"><strong>L</strong></a>
  | <a href="#M"><strong>M</strong></a>
@@ -191,11 +193,25 @@
 <h2 id="A">A</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="ChildProject.html#ChildProject.annotations.AnnotationManager">AnnotationManager (class in ChildProject.annotations)</a>
+      <li><a href="ChildProject.pipelines.html#ChildProject.pipelines.sampler.CustomSampler.add_parser">add_parser() (ChildProject.pipelines.sampler.CustomSampler static method)</a>
+
+      <ul>
+        <li><a href="ChildProject.pipelines.html#ChildProject.pipelines.sampler.EnergyDetectionSampler.add_parser">(ChildProject.pipelines.sampler.EnergyDetectionSampler static method)</a>
 </li>
+        <li><a href="ChildProject.pipelines.html#ChildProject.pipelines.sampler.HighVolubilitySampler.add_parser">(ChildProject.pipelines.sampler.HighVolubilitySampler static method)</a>
+</li>
+        <li><a href="ChildProject.pipelines.html#ChildProject.pipelines.sampler.RandomVocalizationSampler.add_parser">(ChildProject.pipelines.sampler.RandomVocalizationSampler static method)</a>
+</li>
+        <li><a href="ChildProject.pipelines.html#ChildProject.pipelines.sampler.Sampler.add_parser">(ChildProject.pipelines.sampler.Sampler static method)</a>
+</li>
+      </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="ChildProject.html#ChildProject.annotations.AnnotationManager">AnnotationManager (class in ChildProject.annotations)</a>
+</li>
       <li><a href="ChildProject.html#ChildProject.cmdline.arg">arg() (in module ChildProject.cmdline)</a>
+</li>
+      <li><a href="ChildProject.pipelines.html#ChildProject.pipelines.sampler.Sampler.assert_valid">assert_valid() (ChildProject.pipelines.sampler.Sampler method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -251,6 +267,13 @@
         <li><a href="ChildProject.pipelines.html#module-ChildProject.pipelines.pipeline">module</a>
 </li>
       </ul></li>
+      <li>
+    ChildProject.pipelines.sampler
+
+      <ul>
+        <li><a href="ChildProject.pipelines.html#module-ChildProject.pipelines.sampler">module</a>
+</li>
+      </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li>
@@ -287,6 +310,8 @@
 </li>
       <li><a href="ChildProject.html#ChildProject.annotations.AnnotationManager.clip_segments">clip_segments() (ChildProject.annotations.AnnotationManager method)</a>
 </li>
+      <li><a href="ChildProject.pipelines.html#ChildProject.pipelines.sampler.EnergyDetectionSampler.compute_energy_loudness">compute_energy_loudness() (ChildProject.pipelines.sampler.EnergyDetectionSampler method)</a>
+</li>
       <li><a href="ChildProject.html#ChildProject.projects.ChildProject.compute_recordings_duration">compute_recordings_duration() (ChildProject.projects.ChildProject method)</a>
 </li>
       <li><a href="ChildProject.pipelines.html#ChildProject.pipelines.conversion.ConversionPipeline">ConversionPipeline (class in ChildProject.pipelines.conversion)</a>
@@ -295,11 +320,17 @@
 </li>
       <li><a href="ChildProject.html#ChildProject.projects.ChildProject.CONVERTED_RECORDINGS">CONVERTED_RECORDINGS (ChildProject.projects.ChildProject attribute)</a>
 </li>
+      <li><a href="ChildProject.pipelines.html#ChildProject.pipelines.sampler.CustomSampler">CustomSampler (class in ChildProject.pipelines.sampler)</a>
+</li>
   </ul></td>
 </tr></table>
 
 <h2 id="E">E</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="ChildProject.pipelines.html#ChildProject.pipelines.sampler.EnergyDetectionSampler">EnergyDetectionSampler (class in ChildProject.pipelines.sampler)</a>
+</li>
+  </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="ChildProject.pipelines.html#ChildProject.pipelines.zooniverse.ZooniversePipeline.extract_chunks">extract_chunks() (ChildProject.pipelines.zooniverse.ZooniversePipeline method)</a>
 </li>
@@ -311,17 +342,27 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="ChildProject.html#ChildProject.utils.get_audio_duration">get_audio_duration() (in module ChildProject.utils)</a>
 </li>
-      <li><a href="ChildProject.html#ChildProject.annotations.AnnotationManager.get_segments">get_segments() (ChildProject.annotations.AnnotationManager method)</a>
+      <li><a href="ChildProject.pipelines.html#ChildProject.pipelines.sampler.EnergyDetectionSampler.get_recording_windows">get_recording_windows() (ChildProject.pipelines.sampler.EnergyDetectionSampler method)</a>
 </li>
-      <li><a href="ChildProject.html#ChildProject.projects.ChildProject.get_stats">get_stats() (ChildProject.projects.ChildProject method)</a>
+      <li><a href="ChildProject.html#ChildProject.annotations.AnnotationManager.get_segments">get_segments() (ChildProject.annotations.AnnotationManager method)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="ChildProject.html#ChildProject.projects.ChildProject.get_stats">get_stats() (ChildProject.projects.ChildProject method)</a>
+</li>
       <li><a href="ChildProject.html#ChildProject.annotations.AnnotationManager.get_subsets">get_subsets() (ChildProject.annotations.AnnotationManager method)</a>
 </li>
       <li><a href="ChildProject.html#ChildProject.annotations.AnnotationManager.get_vc_stats">get_vc_stats() (ChildProject.annotations.AnnotationManager method)</a>
 </li>
       <li><a href="ChildProject.pipelines.html#ChildProject.pipelines.zooniverse.Chunk.getbasename">getbasename() (ChildProject.pipelines.zooniverse.Chunk method)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="H">H</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="ChildProject.pipelines.html#ChildProject.pipelines.sampler.HighVolubilitySampler">HighVolubilitySampler (class in ChildProject.pipelines.sampler)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -397,6 +438,8 @@
 </li>
         <li><a href="ChildProject.pipelines.html#module-ChildProject.pipelines.pipeline">ChildProject.pipelines.pipeline</a>
 </li>
+        <li><a href="ChildProject.pipelines.html#module-ChildProject.pipelines.sampler">ChildProject.pipelines.sampler</a>
+</li>
         <li><a href="ChildProject.pipelines.html#module-ChildProject.pipelines.zooniverse">ChildProject.pipelines.zooniverse</a>
 </li>
         <li><a href="ChildProject.html#module-ChildProject.projects">ChildProject.projects</a>
@@ -428,6 +471,8 @@
 <h2 id="R">R</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="ChildProject.pipelines.html#ChildProject.pipelines.sampler.RandomVocalizationSampler">RandomVocalizationSampler (class in ChildProject.pipelines.sampler)</a>
+</li>
       <li><a href="ChildProject.html#ChildProject.projects.ChildProject.RAW_RECORDINGS">RAW_RECORDINGS (ChildProject.projects.ChildProject attribute)</a>
 </li>
       <li><a href="ChildProject.html#ChildProject.annotations.AnnotationManager.read">read() (ChildProject.annotations.AnnotationManager method)</a>
@@ -454,10 +499,14 @@
 </li>
       <li><a href="ChildProject.pipelines.html#ChildProject.pipelines.zooniverse.ZooniversePipeline.retrieve_classifications">retrieve_classifications() (ChildProject.pipelines.zooniverse.ZooniversePipeline method)</a>
 </li>
+      <li><a href="ChildProject.pipelines.html#ChildProject.pipelines.sampler.Sampler.retrieve_segments">retrieve_segments() (ChildProject.pipelines.sampler.Sampler method)</a>
+</li>
       <li><a href="ChildProject.pipelines.html#ChildProject.pipelines.conversion.ConversionPipeline.run">run() (ChildProject.pipelines.conversion.ConversionPipeline method)</a>
 
       <ul>
         <li><a href="ChildProject.pipelines.html#ChildProject.pipelines.pipeline.Pipeline.run">(ChildProject.pipelines.pipeline.Pipeline method)</a>
+</li>
+        <li><a href="ChildProject.pipelines.html#ChildProject.pipelines.sampler.SamplerPipeline.run">(ChildProject.pipelines.sampler.SamplerPipeline method)</a>
 </li>
         <li><a href="ChildProject.pipelines.html#ChildProject.pipelines.zooniverse.ZooniversePipeline.run">(ChildProject.pipelines.zooniverse.ZooniversePipeline method)</a>
 </li>
@@ -468,8 +517,26 @@
 <h2 id="S">S</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="ChildProject.pipelines.html#ChildProject.pipelines.sampler.CustomSampler.sample">sample() (ChildProject.pipelines.sampler.CustomSampler method)</a>
+
+      <ul>
+        <li><a href="ChildProject.pipelines.html#ChildProject.pipelines.sampler.EnergyDetectionSampler.sample">(ChildProject.pipelines.sampler.EnergyDetectionSampler method)</a>
+</li>
+        <li><a href="ChildProject.pipelines.html#ChildProject.pipelines.sampler.HighVolubilitySampler.sample">(ChildProject.pipelines.sampler.HighVolubilitySampler method)</a>
+</li>
+        <li><a href="ChildProject.pipelines.html#ChildProject.pipelines.sampler.RandomVocalizationSampler.sample">(ChildProject.pipelines.sampler.RandomVocalizationSampler method)</a>
+</li>
+        <li><a href="ChildProject.pipelines.html#ChildProject.pipelines.sampler.Sampler.sample">(ChildProject.pipelines.sampler.Sampler method)</a>
+</li>
+      </ul></li>
+      <li><a href="ChildProject.pipelines.html#ChildProject.pipelines.sampler.Sampler">Sampler (class in ChildProject.pipelines.sampler)</a>
+</li>
+      <li><a href="ChildProject.pipelines.html#ChildProject.pipelines.sampler.SamplerPipeline">SamplerPipeline (class in ChildProject.pipelines.sampler)</a>
+</li>
       <li><a href="ChildProject.html#ChildProject.utils.Segment">Segment (class in ChildProject.utils)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="ChildProject.html#ChildProject.annotations.AnnotationManager.SEGMENTS_COLUMNS">SEGMENTS_COLUMNS (ChildProject.annotations.AnnotationManager attribute)</a>
 </li>
       <li><a href="ChildProject.pipelines.html#ChildProject.pipelines.pipeline.Pipeline.setup">setup() (ChildProject.pipelines.pipeline.Pipeline method)</a>
@@ -477,11 +544,11 @@
       <li><a href="ChildProject.pipelines.html#ChildProject.pipelines.conversion.ConversionPipeline.setup_parser">setup_parser() (ChildProject.pipelines.conversion.ConversionPipeline static method)</a>
 
       <ul>
+        <li><a href="ChildProject.pipelines.html#ChildProject.pipelines.sampler.SamplerPipeline.setup_parser">(ChildProject.pipelines.sampler.SamplerPipeline static method)</a>
+</li>
         <li><a href="ChildProject.pipelines.html#ChildProject.pipelines.zooniverse.ZooniversePipeline.setup_parser">(ChildProject.pipelines.zooniverse.ZooniversePipeline static method)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="ChildProject.pipelines.html#ChildProject.pipelines.pipeline.Pipeline.setup_pipeline">setup_pipeline() (ChildProject.pipelines.pipeline.Pipeline static method)</a>
 </li>
       <li><a href="ChildProject.html#ChildProject.annotations.AnnotationManager.SPEAKER_ID_TO_TYPE">SPEAKER_ID_TO_TYPE (ChildProject.annotations.AnnotationManager attribute)</a>
