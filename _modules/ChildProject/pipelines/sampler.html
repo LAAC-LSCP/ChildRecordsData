@@ -174,6 +174,7 @@
 <span class="kn">import</span> <span class="nn">argparse</span>
 <span class="kn">import</span> <span class="nn">datetime</span>
 <span class="kn">import</span> <span class="nn">multiprocessing</span> <span class="k">as</span> <span class="nn">mp</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
@@ -229,6 +230,60 @@
         <span class="n">parser</span> <span class="o">=</span> <span class="n">samplers</span><span class="o">.</span><span class="n">add_parser</span><span class="p">(</span><span class="s1">&#39;custom&#39;</span><span class="p">,</span> <span class="n">help</span> <span class="o">=</span> <span class="s1">&#39;custom sampling&#39;</span><span class="p">)</span>
         <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;segments&#39;</span><span class="p">,</span> <span class="n">help</span> <span class="o">=</span> <span class="s1">&#39;path to selected segments datafame&#39;</span><span class="p">)</span></div></div>
 
+<div class="viewcode-block" id="PeriodicSampler"><a class="viewcode-back" href="../../../ChildProject.pipelines.html#ChildProject.pipelines.sampler.PeriodicSampler">[docs]</a><span class="k">class</span> <span class="nc">PeriodicSampler</span><span class="p">(</span><span class="n">Sampler</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Periodic sampling of a recording.</span>
+
+<span class="sd">    :param project: ChildProject instance of the target dataset.</span>
+<span class="sd">    :type project: ChildProject.projects.ChildProject</span>
+<span class="sd">    :param length: length of each segment, in seconds</span>
+<span class="sd">    :type length: float</span>
+<span class="sd">    :param period: spacing between two consecutive segments, in seconds</span>
+<span class="sd">    :type period: float</span>
+<span class="sd">    :param offset: offset of the first segment, in seconds, defaults to 0</span>
+<span class="sd">    :type offset: float</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+        <span class="n">project</span><span class="p">:</span> <span class="n">ChildProject</span><span class="o">.</span><span class="n">projects</span><span class="o">.</span><span class="n">ChildProject</span><span class="p">,</span>
+        <span class="n">length</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">period</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">offset</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="p">):</span>
+
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">project</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">length</span> <span class="o">=</span> <span class="n">length</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">period</span> <span class="o">=</span> <span class="n">period</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">offset</span> <span class="o">=</span> <span class="n">offset</span>
+
+<div class="viewcode-block" id="PeriodicSampler.sample"><a class="viewcode-back" href="../../../ChildProject.pipelines.html#ChildProject.pipelines.sampler.PeriodicSampler.sample">[docs]</a>    <span class="k">def</span> <span class="nf">sample</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">recordings</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">recordings</span>
+        
+        <span class="k">if</span> <span class="ow">not</span> <span class="s1">&#39;duration&#39;</span> <span class="ow">in</span> <span class="n">recordings</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;recordings duration was not found in the metadata</span>
+<span class="s2">            and an attempt will be made to calculate it.&quot;&quot;&quot;</span><span class="p">)</span>
+
+            <span class="n">durations</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">compute_recordings_duration</span><span class="p">()</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+            <span class="n">recordings</span> <span class="o">=</span> <span class="n">recordings</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">durations</span><span class="p">[</span><span class="n">durations</span><span class="p">[</span><span class="s1">&#39;filename&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;NA&#39;</span><span class="p">],</span> <span class="n">how</span> <span class="o">=</span> <span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="n">left_on</span> <span class="o">=</span> <span class="s1">&#39;filename&#39;</span><span class="p">,</span> <span class="n">right_on</span> <span class="o">=</span> <span class="s1">&#39;filename&#39;</span><span class="p">)</span>
+
+        <span class="n">recordings</span><span class="p">[</span><span class="s1">&#39;duration&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">recordings</span><span class="p">[</span><span class="s1">&#39;duration&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">segments</span> <span class="o">=</span> <span class="n">recordings</span><span class="p">[[</span><span class="s1">&#39;filename&#39;</span><span class="p">,</span> <span class="s1">&#39;duration&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">segments</span><span class="p">[</span><span class="s1">&#39;segment_onset&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">segments</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span>
+            <span class="k">lambda</span> <span class="n">row</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="mi">1000</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">offset</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="mi">1000</span><span class="o">*</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;duration&#39;</span><span class="p">]</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">length</span><span class="p">))</span><span class="o">+</span><span class="mf">1e-4</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="mi">1000</span><span class="o">*</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">period</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">length</span><span class="p">))),</span>
+            <span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">segments</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">segments</span><span class="o">.</span><span class="n">explode</span><span class="p">(</span><span class="s1">&#39;segment_onset&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">segments</span><span class="p">[</span><span class="s1">&#39;segment_onset&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">segments</span><span class="p">[</span><span class="s1">&#39;segment_onset&#39;</span><span class="p">]</span><span class="o">/</span><span class="mi">1000</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">segments</span><span class="p">[</span><span class="s1">&#39;segment_offset&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">segments</span><span class="p">[</span><span class="s1">&#39;segment_onset&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">length</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">segments</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;filename&#39;</span><span class="p">:</span> <span class="s1">&#39;recording_filename&#39;</span><span class="p">},</span> <span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">segments</span></div>
+
+
+<div class="viewcode-block" id="PeriodicSampler.add_parser"><a class="viewcode-back" href="../../../ChildProject.pipelines.html#ChildProject.pipelines.sampler.PeriodicSampler.add_parser">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">add_parser</span><span class="p">(</span><span class="n">samplers</span><span class="p">):</span>
+        <span class="n">parser</span> <span class="o">=</span> <span class="n">samplers</span><span class="o">.</span><span class="n">add_parser</span><span class="p">(</span><span class="s1">&#39;periodic&#39;</span><span class="p">,</span> <span class="n">help</span> <span class="o">=</span> <span class="s1">&#39;periodic sampling&#39;</span><span class="p">)</span>
+        <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--length&#39;</span><span class="p">,</span> <span class="n">help</span> <span class="o">=</span> <span class="s1">&#39;length of each segment, in seconds&#39;</span><span class="p">,</span> <span class="nb">type</span> <span class="o">=</span> <span class="nb">float</span><span class="p">,</span> <span class="n">required</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--period&#39;</span><span class="p">,</span> <span class="n">help</span> <span class="o">=</span> <span class="s1">&#39;spacing between two consecutive segments, in seconds&#39;</span><span class="p">,</span> <span class="nb">type</span> <span class="o">=</span> <span class="nb">float</span><span class="p">,</span> <span class="n">required</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--offset&#39;</span><span class="p">,</span> <span class="n">help</span> <span class="o">=</span> <span class="s1">&#39;offset of the first segment, in seconds&#39;</span><span class="p">,</span> <span class="nb">type</span> <span class="o">=</span> <span class="nb">float</span><span class="p">,</span> <span class="n">default</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span></div></div>
+
 <div class="viewcode-block" id="RandomVocalizationSampler"><a class="viewcode-back" href="../../../ChildProject.pipelines.html#ChildProject.pipelines.sampler.RandomVocalizationSampler">[docs]</a><span class="k">class</span> <span class="nc">RandomVocalizationSampler</span><span class="p">(</span><span class="n">Sampler</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Sample vocalizations based on some input annotation set.</span>
 
@@ -264,7 +319,6 @@
         <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--target-speaker-type&#39;</span><span class="p">,</span> <span class="n">help</span> <span class="o">=</span> <span class="s1">&#39;speaker type to get chunks from&#39;</span><span class="p">,</span> <span class="n">choices</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;CHI&#39;</span><span class="p">,</span> <span class="s1">&#39;OCH&#39;</span><span class="p">,</span> <span class="s1">&#39;FEM&#39;</span><span class="p">,</span> <span class="s1">&#39;MAL&#39;</span><span class="p">],</span> <span class="n">nargs</span> <span class="o">=</span> <span class="s1">&#39;+&#39;</span><span class="p">,</span> <span class="n">default</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;CHI&#39;</span><span class="p">])</span>
         <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--sample-size&#39;</span><span class="p">,</span> <span class="n">help</span> <span class="o">=</span> <span class="s1">&#39;how many samples per recording&#39;</span><span class="p">,</span> <span class="n">required</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="nb">type</span> <span class="o">=</span> <span class="nb">int</span><span class="p">)</span></div></div>
 
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">pydub</span> <span class="kn">import</span> <span class="n">AudioSegment</span>
 
 <div class="viewcode-block" id="EnergyDetectionSampler"><a class="viewcode-back" href="../../../ChildProject.pipelines.html#ChildProject.pipelines.sampler.EnergyDetectionSampler">[docs]</a><span class="k">class</span> <span class="nc">EnergyDetectionSampler</span><span class="p">(</span><span class="n">Sampler</span><span class="p">):</span>
@@ -408,7 +462,9 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
 
         <span class="n">splr</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="k">if</span> <span class="n">sampler</span> <span class="o">==</span> <span class="s1">&#39;random-vocalizations&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">sampler</span> <span class="o">==</span> <span class="s1">&#39;periodic&#39;</span><span class="p">:</span>
+            <span class="n">splr</span> <span class="o">=</span> <span class="n">PeriodicSampler</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">sampler</span> <span class="o">==</span> <span class="s1">&#39;random-vocalizations&#39;</span><span class="p">:</span>
             <span class="n">splr</span> <span class="o">=</span> <span class="n">RandomVocalizationSampler</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="k">elif</span> <span class="n">sampler</span> <span class="o">==</span> <span class="s1">&#39;high-volubility&#39;</span><span class="p">:</span>
             <span class="n">splr</span> <span class="o">=</span> <span class="n">HighVolubilitySampler</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
@@ -442,6 +498,7 @@
         <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;path&#39;</span><span class="p">,</span> <span class="n">help</span> <span class="o">=</span> <span class="s1">&#39;path to the dataset&#39;</span><span class="p">)</span>
         <span class="n">samplers</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">add_subparsers</span><span class="p">(</span><span class="n">help</span> <span class="o">=</span> <span class="s1">&#39;sampler&#39;</span><span class="p">,</span> <span class="n">dest</span> <span class="o">=</span> <span class="s1">&#39;sampler&#39;</span><span class="p">)</span>
         <span class="c1">#CustomSampler.add_parser(samplers)</span>
+        <span class="n">PeriodicSampler</span><span class="o">.</span><span class="n">add_parser</span><span class="p">(</span><span class="n">samplers</span><span class="p">)</span>
         <span class="n">RandomVocalizationSampler</span><span class="o">.</span><span class="n">add_parser</span><span class="p">(</span><span class="n">samplers</span><span class="p">)</span>
         <span class="n">HighVolubilitySampler</span><span class="o">.</span><span class="n">add_parser</span><span class="p">(</span><span class="n">samplers</span><span class="p">)</span>
         <span class="n">EnergyDetectionSampler</span><span class="o">.</span><span class="n">add_parser</span><span class="p">(</span><span class="n">samplers</span><span class="p">)</span>

@@ -339,6 +339,33 @@ that have a signal energy higher than some threshold.</p>
 </dd></dl>
 
 <dl class="py class">
+<dt id="ChildProject.pipelines.sampler.PeriodicSampler">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">ChildProject.pipelines.sampler.</span></code><code class="sig-name descname"><span class="pre">PeriodicSampler</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">project</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="ChildProject.html#ChildProject.projects.ChildProject" title="ChildProject.projects.ChildProject"><span class="pre">ChildProject.projects.ChildProject</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">length</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">period</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">offset</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ChildProject/pipelines/sampler.html#PeriodicSampler"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ChildProject.pipelines.sampler.PeriodicSampler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#ChildProject.pipelines.sampler.Sampler" title="ChildProject.pipelines.sampler.Sampler"><code class="xref py py-class docutils literal notranslate"><span class="pre">ChildProject.pipelines.sampler.Sampler</span></code></a></p>
+<p>Periodic sampling of a recording.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>project</strong> (<a class="reference internal" href="ChildProject.html#ChildProject.projects.ChildProject" title="ChildProject.projects.ChildProject"><em>ChildProject.projects.ChildProject</em></a>) – ChildProject instance of the target dataset.</p></li>
+<li><p><strong>length</strong> (<em>float</em>) – length of each segment, in seconds</p></li>
+<li><p><strong>period</strong> (<em>float</em>) – spacing between two consecutive segments, in seconds</p></li>
+<li><p><strong>offset</strong> (<em>float</em>) – offset of the first segment, in seconds, defaults to 0</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="ChildProject.pipelines.sampler.PeriodicSampler.add_parser">
+<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">add_parser</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">samplers</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ChildProject/pipelines/sampler.html#PeriodicSampler.add_parser"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ChildProject.pipelines.sampler.PeriodicSampler.add_parser" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="ChildProject.pipelines.sampler.PeriodicSampler.sample">
+<code class="sig-name descname"><span class="pre">sample</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/ChildProject/pipelines/sampler.html#PeriodicSampler.sample"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ChildProject.pipelines.sampler.PeriodicSampler.sample" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
 <dt id="ChildProject.pipelines.sampler.RandomVocalizationSampler">
 <em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">ChildProject.pipelines.sampler.</span></code><code class="sig-name descname"><span class="pre">RandomVocalizationSampler</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">project</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="ChildProject.html#ChildProject.projects.ChildProject" title="ChildProject.projects.ChildProject"><span class="pre">ChildProject.projects.ChildProject</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">annotation_set</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_speaker_type</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_size</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ChildProject/pipelines/sampler.html#RandomVocalizationSampler"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ChildProject.pipelines.sampler.RandomVocalizationSampler" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#ChildProject.pipelines.sampler.Sampler" title="ChildProject.pipelines.sampler.Sampler"><code class="xref py py-class docutils literal notranslate"><span class="pre">ChildProject.pipelines.sampler.Sampler</span></code></a></p>
