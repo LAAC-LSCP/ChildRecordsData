@@ -174,6 +174,7 @@
 <span class="kn">import</span> <span class="nn">datetime</span>
 <span class="kn">import</span> <span class="nn">itertools</span>
 <span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">math</span>
 <span class="kn">import</span> <span class="nn">multiprocessing</span> <span class="k">as</span> <span class="nn">mp</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
@@ -187,18 +188,14 @@
 <span class="kn">import</span> <span class="nn">ChildProject</span>
 <span class="kn">from</span> <span class="nn">ChildProject.pipelines.pipeline</span> <span class="kn">import</span> <span class="n">Pipeline</span>
 
-<div class="viewcode-block" id="check_dur"><a class="viewcode-back" href="../../../ChildProject.pipelines.html#ChildProject.pipelines.zooniverse.check_dur">[docs]</a><span class="k">def</span> <span class="nf">check_dur</span><span class="p">(</span><span class="n">dur</span><span class="p">,</span> <span class="n">target</span><span class="p">):</span>
-    <span class="k">if</span> <span class="n">dur</span> <span class="o">%</span> <span class="mf">0.5</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="n">new_dur</span><span class="o">=</span><span class="n">dur</span>
-        <span class="n">remain</span><span class="o">=</span><span class="mi">0</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">closest_int</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">dur</span><span class="p">))</span>
-        <span class="k">if</span> <span class="n">closest_int</span><span class="o">&gt;=</span><span class="n">dur</span><span class="p">:</span>
-            <span class="n">new_dur</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">closest_int</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">new_dur</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">closest_int</span><span class="p">)</span><span class="o">+</span><span class="mf">0.5</span>
-    <span class="n">remain</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">new_dur</span><span class="o">-</span><span class="n">dur</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">new_dur</span><span class="p">,</span><span class="n">remain</span></div>
+<div class="viewcode-block" id="pad_interval"><a class="viewcode-back" href="../../../ChildProject.pipelines.html#ChildProject.pipelines.zooniverse.pad_interval">[docs]</a><span class="k">def</span> <span class="nf">pad_interval</span><span class="p">(</span><span class="n">onset</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">offset</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">chunks_length</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">chunks_min_amount</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">):</span>
+    <span class="n">length</span> <span class="o">=</span> <span class="n">offset</span><span class="o">-</span><span class="n">onset</span>
+
+    <span class="n">target_length</span> <span class="o">=</span> <span class="n">chunks_length</span> <span class="o">*</span> <span class="nb">max</span><span class="p">(</span><span class="n">chunks_min_amount</span><span class="p">,</span> <span class="n">math</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">length</span><span class="o">/</span><span class="n">chunks_length</span><span class="p">))</span>
+    <span class="n">onset</span> <span class="o">-=</span> <span class="p">(</span><span class="n">target_length</span> <span class="o">-</span> <span class="n">length</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span>
+    <span class="n">offset</span> <span class="o">+=</span> <span class="p">(</span><span class="n">target_length</span> <span class="o">-</span> <span class="n">length</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span>
+
+    <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">onset</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">offset</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Chunk"><a class="viewcode-back" href="../../../ChildProject.pipelines.html#ChildProject.pipelines.zooniverse.Chunk">[docs]</a><span class="k">class</span> <span class="nc">Chunk</span><span class="p">():</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">recording</span><span class="p">,</span> <span class="n">onset</span><span class="p">,</span> <span class="n">offset</span><span class="p">,</span> <span class="n">segment_onset</span><span class="p">,</span> <span class="n">segment_offset</span><span class="p">):</span>
@@ -232,31 +229,27 @@
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;extracting chunks from </span><span class="si">{}</span><span class="s2">...&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">source</span><span class="p">))</span>
 
         <span class="k">for</span> <span class="n">segment</span> <span class="ow">in</span> <span class="n">segments</span><span class="p">:</span>
-            <span class="n">onset</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">segment</span><span class="p">[</span><span class="s1">&#39;segment_onset&#39;</span><span class="p">]</span><span class="o">*</span><span class="mi">1000</span><span class="p">)</span>
-            <span class="n">offset</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">segment</span><span class="p">[</span><span class="s1">&#39;segment_offset&#39;</span><span class="p">]</span><span class="o">*</span><span class="mi">1000</span><span class="p">)</span>
-            <span class="n">difference</span> <span class="o">=</span> <span class="n">offset</span><span class="o">-</span><span class="n">onset</span>
+            <span class="n">original_onset</span> <span class="o">=</span> <span class="n">segment</span><span class="p">[</span><span class="s1">&#39;segment_onset&#39;</span><span class="p">]</span>
+            <span class="n">original_offset</span> <span class="o">=</span> <span class="n">segment</span><span class="p">[</span><span class="s1">&#39;segment_offset&#39;</span><span class="p">]</span>
 
-            <span class="n">original_onset</span> <span class="o">=</span> <span class="n">onset</span>
-            <span class="n">original_offset</span> <span class="o">=</span> <span class="n">offset</span>
+            <span class="n">onset</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">original_onset</span><span class="o">*</span><span class="mi">1000</span><span class="p">)</span>
+            <span class="n">offset</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">original_offset</span><span class="o">*</span><span class="mi">1000</span><span class="p">)</span>
 
-            <span class="k">if</span> <span class="n">difference</span> <span class="o">&lt;</span> <span class="mi">1000</span><span class="p">:</span>
-                <span class="n">tgt</span> <span class="o">=</span> <span class="mi">1000</span><span class="o">-</span><span class="n">difference</span>
-                <span class="n">onset</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">onset</span><span class="p">)</span><span class="o">-</span><span class="n">tgt</span><span class="o">/</span><span class="mi">2</span>
-                <span class="n">offset</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">offset</span><span class="p">)</span> <span class="o">+</span> <span class="n">tgt</span><span class="o">/</span><span class="mi">2</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">chunks_length</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">onset</span><span class="p">,</span> <span class="n">offset</span> <span class="o">=</span> <span class="n">pad_interval</span><span class="p">(</span><span class="n">onset</span><span class="p">,</span> <span class="n">offset</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">chunks_length</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">chunks_min_amount</span><span class="p">)</span>
+
+                <span class="k">if</span> <span class="n">onset</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;skipping chunk with negative onset (</span><span class="si">{}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">onset</span><span class="p">))</span>
+                    <span class="k">continue</span>
+
+                <span class="n">intervals</span> <span class="o">=</span> <span class="p">[(</span><span class="n">a</span><span class="p">,</span> <span class="n">a</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">chunks_length</span><span class="p">)</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">onset</span><span class="p">,</span> <span class="n">offset</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">chunks_length</span><span class="p">)]</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">new_dur</span><span class="p">,</span><span class="n">remain</span> <span class="o">=</span> <span class="n">check_dur</span><span class="p">((</span><span class="n">offset</span><span class="o">-</span><span class="n">onset</span><span class="p">)</span><span class="o">/</span><span class="mi">1000</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">chunk_length</span><span class="o">/</span><span class="mi">1000</span><span class="p">)</span>
-                <span class="n">onset</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">onset</span><span class="p">)</span><span class="o">-</span><span class="n">remain</span><span class="o">*</span><span class="mi">1000</span><span class="o">/</span><span class="mi">2</span>
-                <span class="n">offset</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">offset</span><span class="p">)</span> <span class="o">+</span> <span class="n">remain</span><span class="o">*</span><span class="mi">1000</span><span class="o">/</span><span class="mi">2</span>
+                <span class="n">intervals</span> <span class="o">=</span> <span class="p">[(</span><span class="n">onset</span><span class="p">,</span> <span class="n">offset</span><span class="p">)]</span>
 
-            <span class="n">onset</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">onset</span><span class="p">)</span>
-            <span class="n">offset</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">offset</span><span class="p">)</span>
-
-            <span class="n">intervals</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="n">onset</span><span class="p">,</span> <span class="n">offset</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">chunk_length</span><span class="p">)</span> 
-
-            <span class="k">for</span> <span class="n">interval</span> <span class="ow">in</span> <span class="n">intervals</span><span class="p">:</span>
+            <span class="k">for</span> <span class="p">(</span><span class="n">onset</span><span class="p">,</span> <span class="n">offset</span><span class="p">)</span> <span class="ow">in</span> <span class="n">intervals</span><span class="p">:</span>
                 <span class="n">chunk</span> <span class="o">=</span> <span class="n">Chunk</span><span class="p">(</span>
                     <span class="n">segment</span><span class="p">[</span><span class="s1">&#39;recording_filename&#39;</span><span class="p">],</span>
-                    <span class="n">interval</span><span class="p">,</span> <span class="n">interval</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">chunk_length</span><span class="p">,</span>
+                    <span class="n">onset</span><span class="p">,</span> <span class="n">offset</span><span class="p">,</span>
                     <span class="n">original_onset</span><span class="p">,</span> <span class="n">original_offset</span>
                 <span class="p">)</span>
                 <span class="n">chunk_audio</span> <span class="o">=</span> <span class="n">audio</span><span class="p">[</span><span class="n">chunk</span><span class="o">.</span><span class="n">onset</span><span class="p">:</span><span class="n">chunk</span><span class="o">.</span><span class="n">offset</span><span class="p">]</span><span class="o">.</span><span class="n">fade_in</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">fade_out</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
@@ -274,25 +267,47 @@
 
         <span class="k">return</span> <span class="n">chunks</span></div>
 
-<div class="viewcode-block" id="ZooniversePipeline.extract_chunks"><a class="viewcode-back" href="../../../ChildProject.pipelines.html#ChildProject.pipelines.zooniverse.ZooniversePipeline.extract_chunks">[docs]</a>    <span class="k">def</span> <span class="nf">extract_chunks</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">keyword</span><span class="p">,</span> <span class="n">destination</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">annotation_set</span> <span class="o">=</span> <span class="s1">&#39;vtc&#39;</span><span class="p">,</span>
-        <span class="n">batch_size</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">,</span>
-        <span class="n">chunk_length</span> <span class="o">=</span> <span class="mi">500</span><span class="p">,</span> <span class="n">threads</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">batches</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
-        <span class="n">segments</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">exclude_segments</span> <span class="o">=</span> <span class="p">[],</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="ZooniversePipeline.extract_chunks"><a class="viewcode-back" href="../../../ChildProject.pipelines.html#ChildProject.pipelines.zooniverse.ZooniversePipeline.extract_chunks">[docs]</a>    <span class="k">def</span> <span class="nf">extract_chunks</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">destination</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">keyword</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> 
+        <span class="n">segments</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">batch_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">,</span>
+        <span class="n">chunks_length</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">chunks_min_amount</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="n">exclude_segments</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="p">[],</span>
+        <span class="n">threads</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;extract-audio chunks based on a list of segments and prepare them for upload</span>
+<span class="sd">        to zooniverse.</span>
+
+<span class="sd">        :param path: dataset path</span>
+<span class="sd">        :type path: str</span>
+<span class="sd">        :param destination: path to the folder where to store the metadata and audio chunks</span>
+<span class="sd">        :type destination: str</span>
+<span class="sd">        :param segments: path to the input segments csv dataframe, defaults to None</span>
+<span class="sd">        :type segments: str</span>
+<span class="sd">        :param keyword: keyword to insert in the output metadata</span>
+<span class="sd">        :type keyword: str</span>
+<span class="sd">        :param batch_size: size of each zooniverse subject subset, defaults to 1000</span>
+<span class="sd">        :type batch_size: int, optional</span>
+<span class="sd">        :param chunks_length: length of the chunks, in milliseconds, defaults to -1</span>
+<span class="sd">        :type chunks_length: int, optional</span>
+<span class="sd">        :param chunks_min_amount: minimum amount of chunk per segment, defaults to 1</span>
+<span class="sd">        :type chunks_min_amount: int, optional</span>
+<span class="sd">        :param threads: amount of threads to run-on, defaults to 0</span>
+<span class="sd">        :type threads: int, optional</span>
+<span class="sd">        :param exclude_segments: unused, defaults to []</span>
+<span class="sd">        :type exclude_segments: list, optional</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
 
         <span class="n">parameters</span> <span class="o">=</span> <span class="nb">locals</span><span class="p">()</span>
         <span class="n">parameters</span> <span class="o">=</span> <span class="p">[[</span><span class="n">key</span><span class="p">,</span> <span class="n">parameters</span><span class="p">[</span><span class="n">key</span><span class="p">]]</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">parameters</span> <span class="k">if</span> <span class="n">key</span> <span class="o">!=</span> <span class="s1">&#39;self&#39;</span><span class="p">]</span>
-
-        <span class="k">assert</span> <span class="mi">1000</span> <span class="o">%</span> <span class="n">chunk_length</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;chunk_length should divide 1000&#39;</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">destination</span> <span class="o">=</span> <span class="n">destination</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">project</span> <span class="o">=</span> <span class="n">ChildProject</span><span class="o">.</span><span class="n">projects</span><span class="o">.</span><span class="n">ChildProject</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
 
         <span class="n">batch_size</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">batch_size</span><span class="p">)</span>
-        <span class="n">chunk_length</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">chunk_length</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">chunks_length</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">chunks_length</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">chunks_min_amount</span> <span class="o">=</span> <span class="n">chunks_min_amount</span>
         <span class="n">threads</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">threads</span><span class="p">)</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">chunk_length</span> <span class="o">=</span> <span class="n">chunk_length</span>
 
         <span class="n">destination_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">destination</span><span class="p">,</span> <span class="s1">&#39;chunks&#39;</span><span class="p">)</span>
         <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">destination_path</span><span class="p">,</span> <span class="n">exist_ok</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
@@ -456,6 +471,10 @@
         <span class="n">parser_extraction</span> <span class="o">=</span> <span class="n">subparsers</span><span class="o">.</span><span class="n">add_parser</span><span class="p">(</span><span class="s1">&#39;extract-chunks&#39;</span><span class="p">,</span> <span class="n">help</span> <span class="o">=</span> <span class="s1">&#39;extract chunks to DESTINATION, proving all associate metadata in the same directory&#39;</span><span class="p">)</span>
         <span class="n">parser_extraction</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;path&#39;</span><span class="p">,</span> <span class="n">help</span> <span class="o">=</span> <span class="s1">&#39;path to the dataset&#39;</span><span class="p">)</span>
         <span class="n">parser_extraction</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--keyword&#39;</span><span class="p">,</span> <span class="n">help</span> <span class="o">=</span> <span class="s1">&#39;export keyword&#39;</span><span class="p">,</span> <span class="n">required</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+
+        <span class="n">parser_extraction</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--chunks-length&#39;</span><span class="p">,</span> <span class="n">help</span> <span class="o">=</span> <span class="s1">&#39;chunk length (in milliseconds). if &lt;= 0, the segments will not be split into chunks&#39;</span><span class="p">,</span> <span class="nb">type</span> <span class="o">=</span> <span class="nb">int</span><span class="p">,</span> <span class="n">default</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">parser_extraction</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--chunks-min-amount&#39;</span><span class="p">,</span> <span class="n">help</span> <span class="o">=</span> <span class="s1">&#39;minimum amount of chunks to extract from a segment&#39;</span><span class="p">,</span> <span class="n">default</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+
         <span class="n">parser_extraction</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--segments&#39;</span><span class="p">,</span> <span class="n">help</span> <span class="o">=</span> <span class="s1">&#39;path to the input segments dataframe&#39;</span><span class="p">,</span> <span class="n">required</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
         <span class="n">parser_extraction</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--destination&#39;</span><span class="p">,</span> <span class="n">help</span> <span class="o">=</span> <span class="s1">&#39;destination&#39;</span><span class="p">,</span> <span class="n">required</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
         <span class="n">parser_extraction</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--exclude-segments&#39;</span><span class="p">,</span> <span class="n">help</span> <span class="o">=</span> <span class="s1">&#39;segments to exclude before sampling&#39;</span><span class="p">,</span> <span class="n">nargs</span> <span class="o">=</span> <span class="s1">&#39;+&#39;</span><span class="p">,</span> <span class="n">default</span> <span class="o">=</span> <span class="p">[])</span>

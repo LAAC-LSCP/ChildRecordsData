@@ -246,6 +246,8 @@ optional arguments:
 <h2>Chunk extraction<a class="headerlink" href="#chunk-extraction" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ child-project zooniverse extract-chunks /path/to/dataset --help
 usage: child-project zooniverse extract-chunks <span class="o">[</span>-h<span class="o">]</span> --keyword KEYWORD
+                                               <span class="o">[</span>--chunks-length CHUNKS_LENGTH<span class="o">]</span>
+                                               <span class="o">[</span>--chunks-min-amount CHUNKS_MIN_AMOUNT<span class="o">]</span>
                                                --segments SEGMENTS
                                                --destination DESTINATION
                                                <span class="o">[</span>--exclude-segments EXCLUDE_SEGMENTS <span class="o">[</span>EXCLUDE_SEGMENTS ...<span class="o">]]</span>
@@ -259,6 +261,11 @@ positional arguments:
 optional arguments:
   -h, --help            show this <span class="nb">help</span> message and <span class="nb">exit</span>
   --keyword KEYWORD     <span class="nb">export</span> keyword
+  --chunks-length CHUNKS_LENGTH
+                        chunk length <span class="o">(</span><span class="k">in</span> milliseconds<span class="o">)</span>. <span class="k">if</span> &lt;<span class="o">=</span> <span class="m">0</span>, the segments
+                        will not be split into chunks
+  --chunks-min-amount CHUNKS_MIN_AMOUNT
+                        minimum amount of chunks to extract from a segment
   --segments SEGMENTS   path to the input segments dataframe
   --destination DESTINATION
                         destination
