@@ -1,0 +1,329 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>ChildProject.pipelines.anonymize &mdash; ChildRecordsData 0.0.1 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> ChildRecordsData
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting-started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../getting-data.html">Getting some data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../format.html">Datasets structure</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../reuse.html">How to reuse extant LAAC datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../vandam.html">Converting a dataset</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Command-line tools</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../tools.html">Basic tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../samplers.html">Samplers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../zooniverse.html">Zooniverse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../cheatsheet.html">Cheatsheet</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Package reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">ChildProject</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">ChildRecordsData</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>ChildProject.pipelines.anonymize</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for ChildProject.pipelines.anonymize</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">glob</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">shutil</span>
+
+<span class="kn">from</span> <span class="nn">ChildProject.projects</span> <span class="kn">import</span> <span class="n">ChildProject</span>
+<span class="kn">from</span> <span class="nn">ChildProject.annotations</span> <span class="kn">import</span> <span class="n">AnnotationManager</span>
+<span class="kn">from</span> <span class="nn">ChildProject.pipelines.pipeline</span> <span class="kn">import</span> <span class="n">Pipeline</span>
+
+<div class="viewcode-block" id="AnonymizationPipeline"><a class="viewcode-back" href="../../../ChildProject.pipelines.html#ChildProject.pipelines.anonymize.AnonymizationPipeline">[docs]</a><span class="k">class</span> <span class="nc">AnonymizationPipeline</span><span class="p">(</span><span class="n">Pipeline</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Anonymize a set of its annotations (`input_set`) and saves it as `output_set`.&quot;&quot;&quot;</span>
+    
+    <span class="n">DEFAULT_REPLACEMENTS</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;PrimaryChild&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;DOB&quot;</span><span class="p">:</span> <span class="s2">&quot;1000-01-01&quot;</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;ITS&quot;</span><span class="p">:{</span>
+            <span class="s2">&quot;fileName&quot;</span><span class="p">:</span><span class="s2">&quot;new_filename_1001&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;timeCreated&quot;</span><span class="p">:[{</span><span class="s2">&quot;replace_value&quot;</span><span class="p">:</span><span class="s2">&quot;1000-01-01&quot;</span><span class="p">},{</span><span class="s2">&quot;only_time&quot;</span><span class="p">:</span><span class="s2">&quot;true&quot;</span><span class="p">}]</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;TransferTime&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;UTCTime&quot;</span><span class="p">:</span> <span class="p">[{</span><span class="s2">&quot;replace_value&quot;</span><span class="p">:</span><span class="s2">&quot;1000-01-01&quot;</span><span class="p">},{</span><span class="s2">&quot;only_time&quot;</span><span class="p">:</span><span class="s2">&quot;true&quot;</span><span class="p">}],</span>
+            <span class="s2">&quot;LocalTime&quot;</span><span class="p">:</span> <span class="p">[{</span><span class="s2">&quot;replace_value&quot;</span><span class="p">:</span><span class="s2">&quot;1000-01-01&quot;</span><span class="p">},{</span><span class="s2">&quot;only_time&quot;</span><span class="p">:</span><span class="s2">&quot;true&quot;</span><span class="p">}]</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;ChildInfo&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;dob&quot;</span><span class="p">:</span> <span class="s2">&quot;1000-01-01&quot;</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;Child&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;DOB&quot;</span><span class="p">:</span> <span class="s2">&quot;1000-01-01&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;EnrollDate&quot;</span><span class="p">:</span> <span class="s2">&quot;1000-01-01&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;A999&quot;</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;Bar&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;startClockTime&quot;</span><span class="p">:</span> <span class="p">[{</span><span class="s2">&quot;replace_value&quot;</span><span class="p">:</span><span class="s2">&quot;1000-01-01&quot;</span><span class="p">},{</span><span class="s2">&quot;only_time&quot;</span><span class="p">:</span><span class="s2">&quot;true&quot;</span><span class="p">}]</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;BarSummary&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;leftBoundaryClockTime&quot;</span><span class="p">:</span> <span class="p">[{</span><span class="s2">&quot;replace_value&quot;</span><span class="p">:</span><span class="s2">&quot;1000-01-01&quot;</span><span class="p">},{</span><span class="s2">&quot;only_time&quot;</span><span class="p">:</span><span class="s2">&quot;true&quot;</span><span class="p">}],</span>
+            <span class="s2">&quot;rightBoundaryClockTime&quot;</span><span class="p">:</span> <span class="p">[{</span><span class="s2">&quot;replace_value&quot;</span><span class="p">:</span><span class="s2">&quot;1000-01-01&quot;</span><span class="p">},{</span><span class="s2">&quot;only_time&quot;</span><span class="p">:</span><span class="s2">&quot;true&quot;</span><span class="p">}]</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;Recording&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;startClockTime&quot;</span><span class="p">:</span> <span class="p">[{</span><span class="s2">&quot;replace_value&quot;</span><span class="p">:</span><span class="s2">&quot;1000-01-01&quot;</span><span class="p">},{</span><span class="s2">&quot;only_time&quot;</span><span class="p">:</span><span class="s2">&quot;true&quot;</span><span class="p">}],</span>
+            <span class="s2">&quot;endClockTime&quot;</span><span class="p">:</span> <span class="p">[{</span><span class="s2">&quot;replace_value&quot;</span><span class="p">:</span><span class="s2">&quot;1000-01-01&quot;</span><span class="p">},{</span><span class="s2">&quot;only_time&quot;</span><span class="p">:</span><span class="s2">&quot;true&quot;</span><span class="p">}]</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;FiveMinuteSection&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;startClockTime&quot;</span><span class="p">:</span> <span class="p">[{</span><span class="s2">&quot;replace_value&quot;</span><span class="p">:</span><span class="s2">&quot;1000-01-01&quot;</span><span class="p">},{</span><span class="s2">&quot;only_time&quot;</span><span class="p">:</span><span class="s2">&quot;true&quot;</span><span class="p">}],</span>
+            <span class="s2">&quot;endClockTime&quot;</span><span class="p">:</span> <span class="p">[{</span><span class="s2">&quot;replace_value&quot;</span><span class="p">:</span><span class="s2">&quot;1000-01-01&quot;</span><span class="p">},{</span><span class="s2">&quot;only_time&quot;</span><span class="p">:</span><span class="s2">&quot;true&quot;</span><span class="p">}]</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;Item&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;timeStamp&quot;</span><span class="p">:</span> <span class="p">[{</span><span class="s2">&quot;replace_value&quot;</span><span class="p">:</span><span class="s2">&quot;1000-01-01&quot;</span><span class="p">},{</span><span class="s2">&quot;only_time&quot;</span><span class="p">:</span><span class="s2">&quot;true&quot;</span><span class="p">}]</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;ProcessingJob&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;logfile&quot;</span><span class="p">:</span> <span class="s2">&quot;exec10001010T100010Z_job00000001-10001010_101010_100100.upl.log&quot;</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;ResourceSnapshot&quot;</span><span class="p">:{</span>
+            <span class="s2">&quot;timelocal&quot;</span><span class="p">:</span> <span class="p">[{</span><span class="s2">&quot;replace_value&quot;</span><span class="p">:</span><span class="s2">&quot;1000-01-01&quot;</span><span class="p">},{</span><span class="s2">&quot;only_time&quot;</span><span class="p">:</span><span class="s2">&quot;true&quot;</span><span class="p">}],</span>
+            <span class="s2">&quot;timegmt&quot;</span><span class="p">:</span> <span class="p">[{</span><span class="s2">&quot;replace_value&quot;</span><span class="p">:</span><span class="s2">&quot;1000-01-01&quot;</span><span class="p">},{</span><span class="s2">&quot;only_time&quot;</span><span class="p">:</span><span class="s2">&quot;true&quot;</span><span class="p">}]</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+<div class="viewcode-block" id="AnonymizationPipeline.run"><a class="viewcode-back" href="../../../ChildProject.pipelines.html#ChildProject.pipelines.anonymize.AnonymizationPipeline.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">input_set</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">output_set</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">replacements_json_dict</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Anonymize a set of its annotations (`input_set`) and saves it as `output_set`.&quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="n">input_set</span> <span class="o">==</span> <span class="n">output_set</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;input_set and output_set should not be equal&#39;</span><span class="p">)</span>
+
+        <span class="n">project</span> <span class="o">=</span> <span class="n">ChildProject</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+        <span class="n">project</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+        <span class="n">replacements</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">DEFAULT_REPLACEMENTS</span>
+        <span class="k">if</span> <span class="n">replacements_json_dict</span><span class="p">:</span>
+            <span class="n">replacements</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="n">replacements_json_dict</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">))</span>
+
+        <span class="n">input_set_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">project</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="s1">&#39;annotations&#39;</span><span class="p">,</span> <span class="n">input_set</span><span class="p">,</span> <span class="s1">&#39;raw&#39;</span><span class="p">)</span>
+        <span class="n">output_set_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">project</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="s1">&#39;annotations&#39;</span><span class="p">,</span> <span class="n">output_set</span><span class="p">,</span> <span class="s1">&#39;raw&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">output_set_path</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;destination </span><span class="si">{}</span><span class="s1"> already exists&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">output_set_path</span><span class="p">))</span>
+        
+        <span class="n">its_files</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">input_set_path</span><span class="p">,</span> <span class="s1">&#39;**/*.*&#39;</span><span class="p">),</span> <span class="n">recursive</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">its</span> <span class="ow">in</span> <span class="n">its_files</span><span class="p">:</span>
+            <span class="n">inFile</span> <span class="o">=</span> <span class="n">its</span> 
+            <span class="n">outFile</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_set_path</span><span class="p">,</span> <span class="n">its</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">input_set_path</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)):])</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">outFile</span><span class="p">),</span> <span class="n">exist_ok</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">inFile</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">inF</span><span class="p">:</span>
+                <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">outFile</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">outF</span><span class="p">:</span>
+                    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">inF</span><span class="p">:</span>
+                        <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">replacements</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                            <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;&lt;</span><span class="si">{}</span><span class="s1">\b&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">node</span><span class="p">),</span> <span class="n">line</span><span class="p">):</span>  <span class="c1"># word boundary is important here</span>
+                                <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">replacements</span><span class="p">[</span><span class="n">node</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                                    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span><span class="nb">list</span><span class="p">):</span>
+                                        <span class="k">if</span> <span class="nb">bool</span><span class="p">(</span><span class="n">value</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="s2">&quot;only_time&quot;</span><span class="p">])</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+                                            <span class="n">line</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">=&quot;[0-9\-]*&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">),</span>
+                                                    <span class="sa">r</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">=&quot;</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;replace_value&quot;</span><span class="p">]),</span>
+                                                    <span class="n">line</span><span class="p">)</span>
+                                            <span class="k">continue</span>
+                                    
+                                    <span class="n">line</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">=&quot;[a-zA-Z0-9_.:\-]*&quot;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">),</span>
+                                                    <span class="sa">r</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">=&quot;</span><span class="si">{}</span><span class="s1">&quot;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">),</span>
+                                                    <span class="n">line</span><span class="p">)</span>
+                        <span class="n">outF</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">line</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="AnonymizationPipeline.setup_parser"><a class="viewcode-back" href="../../../ChildProject.pipelines.html#ChildProject.pipelines.anonymize.AnonymizationPipeline.setup_parser">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">setup_parser</span><span class="p">(</span><span class="n">parser</span><span class="p">):</span>
+        <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;path&quot;</span><span class="p">,</span> <span class="n">help</span> <span class="o">=</span> <span class="s2">&quot;project path&quot;</span><span class="p">)</span>
+        <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--input-set&quot;</span><span class="p">,</span> <span class="n">help</span> <span class="o">=</span> <span class="s2">&quot;input annotation set&quot;</span><span class="p">,</span> <span class="n">required</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--output-set&quot;</span><span class="p">,</span> <span class="n">help</span> <span class="o">=</span> <span class="s2">&quot;output annotation set&quot;</span><span class="p">,</span> <span class="n">required</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--replacements-json-dict&quot;</span><span class="p">,</span> <span class="n">help</span> <span class="o">=</span> <span class="s2">&quot;path to the replacements configuration (json dict)&quot;</span><span class="p">,</span> <span class="n">required</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">default</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">)</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Lucas Gautheron.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
