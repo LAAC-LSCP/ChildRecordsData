@@ -230,9 +230,9 @@ usage: child-project zooniverse <span class="o">[</span>-h<span class="o">]</spa
 positional arguments:
   <span class="o">{</span>extract-chunks,upload-chunks,retrieve-classifications<span class="o">}</span>
                         action
-    extract-chunks      extract chunks to DESTINATION, proving all associate
-                        metadata <span class="k">in</span> the same directory
-    upload-chunks       upload chunks and updates DESTINATION/chunks.csv
+    extract-chunks      extract chunks to &lt;destination&gt;, and exports the
+                        metadata inside of this directory
+    upload-chunks       upload chunks and updates &lt;destination&gt;/chunks.csv
     retrieve-classifications
                         retrieve classifications and save them into
                         DESTINATION/classifications.csv
@@ -312,8 +312,7 @@ updates <code class="docutils literal notranslate"><span class="pre">chunks.csv<
 <div class="section" id="classifications-retrieval">
 <h2>Classifications retrieval<a class="headerlink" href="#classifications-retrieval" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ child-project zooniverse retrieve-classifications /path/to/dataset --help
-usage: child-project zooniverse retrieve-classifications <span class="o">[</span>-h<span class="o">]</span> --destination
-                                                         DESTINATION
+usage: child-project zooniverse retrieve-classifications <span class="o">[</span>-h<span class="o">]</span> --chunks CHUNKS
                                                          --zooniverse-login
                                                          ZOONIVERSE_LOGIN
                                                          --zooniverse-pwd
@@ -323,8 +322,7 @@ usage: child-project zooniverse retrieve-classifications <span class="o">[</span
 
 optional arguments:
   -h, --help            show this <span class="nb">help</span> message and <span class="nb">exit</span>
-  --destination DESTINATION
-                        destination
+  --chunks CHUNKS       path to the chunk dataframe
   --zooniverse-login ZOONIVERSE_LOGIN
                         zooniverse login
   --zooniverse-pwd ZOONIVERSE_PWD

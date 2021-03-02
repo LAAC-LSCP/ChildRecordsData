@@ -101,6 +101,7 @@
 <li class="toctree-l1"><a class="reference internal" href="tools.html">Basic tools</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Samplers</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#periodic-sampler">Periodic sampler</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#vocalization-sampler">Vocalization sampler</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#energy-based-sampler">Energy-based sampler</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#high-volubility-sampler">High-Volubility sampler</a></li>
@@ -183,14 +184,25 @@
 <h1>Samplers<a class="headerlink" href="#samplers" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="overview">
 <h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+<p>A sampler draws segments from each recording, according to the algorithm and the parameters defined by the user.
+The sampler will produce two files into the <cite>destination</cite> folder :</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><cite>segments_YYYYMMDD_HHMMSS.csv</cite>, a CSV dataframe of all sampled segments, with three columns: <code class="docutils literal notranslate"><span class="pre">recording_filename</span></code>, <code class="docutils literal notranslate"><span class="pre">segment_onset</span></code> and <code class="docutils literal notranslate"><span class="pre">segment_offset</span></code>.</p></li>
+<li><p><cite>parameters_YYYYMMDD_HHMMSS.yml</cite>, a Yaml file with all the parameters that were used to generate the samples.</p></li>
+</ul>
+</div></blockquote>
+<p>If the folder <cite>destination</cite> does not exist, it is automatically created in the process.</p>
+<p>Several samplers are implemented in our package, which are listed below.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ child-project sampler --help
 usage: child-project sampler <span class="o">[</span>-h<span class="o">]</span>
-                             path
+                             path destination
                              <span class="o">{</span>periodic,random-vocalizations,high-volubility,energy-detection<span class="o">}</span>
-                             ... destination
+                             ...
 
 positional arguments:
   path                  path to the dataset
+  destination           segments destination
   <span class="o">{</span>periodic,random-vocalizations,high-volubility,energy-detection<span class="o">}</span>
                         sampler
     periodic            periodic sampling
@@ -198,10 +210,25 @@ positional arguments:
                         random sampling
     high-volubility     high-volubility targeted sampling
     energy-detection    energy based activity detection
-  destination           segments destination
 
 optional arguments:
   -h, --help            show this <span class="nb">help</span> message and <span class="nb">exit</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="periodic-sampler">
+<h2>Periodic sampler<a class="headerlink" href="#periodic-sampler" title="Permalink to this headline">¶</a></h2>
+<p>Draw segments from the recordings, periodically</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ child-project sampler /path/to/dataset /path/to/destination periodic --help
+usage: child-project sampler path destination periodic <span class="o">[</span>-h<span class="o">]</span> --length LENGTH
+                                                       --period PERIOD
+                                                       <span class="o">[</span>--offset OFFSET<span class="o">]</span>
+
+optional arguments:
+  -h, --help       show this <span class="nb">help</span> message and <span class="nb">exit</span>
+  --length LENGTH  length of each segment, <span class="k">in</span> seconds
+  --period PERIOD  spacing between two consecutive segments, <span class="k">in</span> seconds
+  --offset OFFSET  offset of the first segment, <span class="k">in</span> seconds
 </pre></div>
 </div>
 </div>
@@ -209,12 +236,11 @@ optional arguments:
 <h2>Vocalization sampler<a class="headerlink" href="#vocalization-sampler" title="Permalink to this headline">¶</a></h2>
 <p>Draw segments from the recordings, targetting vocalizations from
 specific speaker-type(s).</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ child-project sampler /path/to/dataset random-vocalizations --help
-usage: child-project sampler path random-vocalizations <span class="o">[</span>-h<span class="o">]</span>
-                                                       <span class="o">[</span>--annotation-set ANNOTATION_SET<span class="o">]</span>
-                                                       <span class="o">[</span>--target-speaker-type <span class="o">{</span>CHI,OCH,FEM,MAL<span class="o">}</span> <span class="o">[{</span>CHI,OCH,FEM,MAL<span class="o">}</span> ...<span class="o">]]</span>
-                                                       --sample-size
-                                                       SAMPLE_SIZE
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ child-project sampler /path/to/dataset /path/to/destination random-vocalizations --help
+usage: child-project sampler path destination random-vocalizations
+       <span class="o">[</span>-h<span class="o">]</span> <span class="o">[</span>--annotation-set ANNOTATION_SET<span class="o">]</span>
+       <span class="o">[</span>--target-speaker-type <span class="o">{</span>CHI,OCH,FEM,MAL<span class="o">}</span> <span class="o">[{</span>CHI,OCH,FEM,MAL<span class="o">}</span> ...<span class="o">]]</span>
+       --sample-size SAMPLE_SIZE
 
 optional arguments:
   -h, --help            show this <span class="nb">help</span> message and <span class="nb">exit</span>
@@ -231,17 +257,11 @@ optional arguments:
 <h2>Energy-based sampler<a class="headerlink" href="#energy-based-sampler" title="Permalink to this headline">¶</a></h2>
 <p>Draw segments from the recordings, targetting windows with energies
 above some threshold.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ child-project sampler /path/to/dataset energy-detection --help
-usage: child-project sampler path energy-detection <span class="o">[</span>-h<span class="o">]</span> --windows-length
-                                                   WINDOWS_LENGTH
-                                                   --windows-spacing
-                                                   WINDOWS_SPACING
-                                                   --windows-count
-                                                   WINDOWS_COUNT
-                                                   <span class="o">[</span>--windows-offset WINDOWS_OFFSET<span class="o">]</span>
-                                                   <span class="o">[</span>--threshold THRESHOLD<span class="o">]</span>
-                                                   <span class="o">[</span>--low-freq LOW_FREQ<span class="o">]</span>
-                                                   <span class="o">[</span>--high-freq HIGH_FREQ<span class="o">]</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ child-project sampler /path/to/dataset /path/to/destination energy-detection --help
+usage: child-project sampler path destination energy-detection
+       <span class="o">[</span>-h<span class="o">]</span> --windows-length WINDOWS_LENGTH --windows-spacing WINDOWS_SPACING
+       --windows-count WINDOWS_COUNT <span class="o">[</span>--windows-offset WINDOWS_OFFSET<span class="o">]</span>
+       <span class="o">[</span>--threshold THRESHOLD<span class="o">]</span> <span class="o">[</span>--low-freq LOW_FREQ<span class="o">]</span> <span class="o">[</span>--high-freq HIGH_FREQ<span class="o">]</span>
 
 optional arguments:
   -h, --help            show this <span class="nb">help</span> message and <span class="nb">exit</span>
@@ -269,14 +289,11 @@ optional arguments:
 <div class="section" id="high-volubility-sampler">
 <h2>High-Volubility sampler<a class="headerlink" href="#high-volubility-sampler" title="Permalink to this headline">¶</a></h2>
 <p>(TODO)</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ child-project sampler /path/to/dataset high-volubility --help
-usage: child-project sampler path high-volubility <span class="o">[</span>-h<span class="o">]</span>
-                                                  <span class="o">[</span>--annotation-set ANNOTATION_SET<span class="o">]</span>
-                                                  <span class="o">[</span>--target-speaker-type <span class="o">{</span>CHI,OCH,FEM,MAL<span class="o">}</span> <span class="o">[{</span>CHI,OCH,FEM,MAL<span class="o">}</span> ...<span class="o">]]</span>
-                                                  --windows-length
-                                                  WINDOWS_LENGTH
-                                                  --windows-count
-                                                  WINDOWS_COUNT
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ child-project sampler /path/to/dataset /path/to/destination high-volubility --help
+usage: child-project sampler path destination high-volubility
+       <span class="o">[</span>-h<span class="o">]</span> <span class="o">[</span>--annotation-set ANNOTATION_SET<span class="o">]</span>
+       <span class="o">[</span>--target-speaker-type <span class="o">{</span>CHI,OCH,FEM,MAL<span class="o">}</span> <span class="o">[{</span>CHI,OCH,FEM,MAL<span class="o">}</span> ...<span class="o">]]</span>
+       --windows-length WINDOWS_LENGTH --windows-count WINDOWS_COUNT
 
 optional arguments:
   -h, --help            show this <span class="nb">help</span> message and <span class="nb">exit</span>
