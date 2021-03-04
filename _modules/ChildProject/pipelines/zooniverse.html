@@ -230,11 +230,10 @@
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;extracting chunks from </span><span class="si">{}</span><span class="s2">...&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">source</span><span class="p">))</span>
 
         <span class="k">for</span> <span class="n">segment</span> <span class="ow">in</span> <span class="n">segments</span><span class="p">:</span>
-            <span class="n">original_onset</span> <span class="o">=</span> <span class="n">segment</span><span class="p">[</span><span class="s1">&#39;segment_onset&#39;</span><span class="p">]</span>
-            <span class="n">original_offset</span> <span class="o">=</span> <span class="n">segment</span><span class="p">[</span><span class="s1">&#39;segment_offset&#39;</span><span class="p">]</span>
-
-            <span class="n">onset</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">original_onset</span><span class="o">*</span><span class="mi">1000</span><span class="p">)</span>
-            <span class="n">offset</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">original_offset</span><span class="o">*</span><span class="mi">1000</span><span class="p">)</span>
+            <span class="n">original_onset</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">segment</span><span class="p">[</span><span class="s1">&#39;segment_onset&#39;</span><span class="p">])</span>
+            <span class="n">original_offset</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">segment</span><span class="p">[</span><span class="s1">&#39;segment_offset&#39;</span><span class="p">])</span>
+            <span class="n">onset</span> <span class="o">=</span> <span class="n">original_onset</span>
+            <span class="n">offset</span> <span class="o">=</span> <span class="n">original_offset</span>
 
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">chunks_length</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
                 <span class="n">onset</span><span class="p">,</span> <span class="n">offset</span> <span class="o">=</span> <span class="n">pad_interval</span><span class="p">(</span><span class="n">onset</span><span class="p">,</span> <span class="n">offset</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">chunks_length</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">chunks_min_amount</span><span class="p">)</span>

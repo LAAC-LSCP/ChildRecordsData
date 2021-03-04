@@ -226,9 +226,9 @@ usage: child-project sampler path destination periodic <span class="o">[</span>-
 
 optional arguments:
   -h, --help       show this <span class="nb">help</span> message and <span class="nb">exit</span>
-  --length LENGTH  length of each segment, <span class="k">in</span> seconds
-  --period PERIOD  spacing between two consecutive segments, <span class="k">in</span> seconds
-  --offset OFFSET  offset of the first segment, <span class="k">in</span> seconds
+  --length LENGTH  length of each segment, <span class="k">in</span> milliseconds
+  --period PERIOD  spacing between two consecutive segments, <span class="k">in</span> milliseconds
+  --offset OFFSET  offset of the first segment, <span class="k">in</span> milliseconds
 </pre></div>
 </div>
 </div>
@@ -266,14 +266,14 @@ usage: child-project sampler path destination energy-detection
 optional arguments:
   -h, --help            show this <span class="nb">help</span> message and <span class="nb">exit</span>
   --windows-length WINDOWS_LENGTH
-                        length of each window <span class="o">(</span><span class="k">in</span> seconds<span class="o">)</span>
+                        length of each window <span class="o">(</span><span class="k">in</span> milliseconds<span class="o">)</span>
   --windows-spacing WINDOWS_SPACING
                         spacing between the start of two consecutive windows
-                        <span class="o">(</span><span class="k">in</span> seconds<span class="o">)</span>
+                        <span class="o">(</span><span class="k">in</span> milliseconds<span class="o">)</span>
   --windows-count WINDOWS_COUNT
                         how many windows to sample from
   --windows-offset WINDOWS_OFFSET
-                        start of the first window <span class="o">(</span><span class="k">in</span> seconds<span class="o">)</span>
+                        start of the first window <span class="o">(</span><span class="k">in</span> milliseconds<span class="o">)</span>
   --threshold THRESHOLD
                         lowest energy quantile to sample from. default is <span class="m">0</span>.8
                         <span class="o">(</span>i.e., sample from the <span class="m">20</span>% windows with the highest

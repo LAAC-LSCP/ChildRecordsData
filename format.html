@@ -548,11 +548,11 @@ the standards detailed right below.</p>
 </tr>
 <tr class="row-even"><td><p>duration</p></td>
 <td><div class="line-block">
-<div class="line">duration of the audio</div>
+<div class="line">duration of the audio, in milliseconds</div>
 </div>
 </td>
 <td><p>optional</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">(\d+(\.\d+)?)</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">([0-9]+)</span></code></p></td>
 </tr>
 <tr class="row-odd"><td><p>session_id</p></td>
 <td><div class="line-block">
@@ -564,14 +564,14 @@ the standards detailed right below.</p>
 </tr>
 <tr class="row-even"><td><p>session_offset</p></td>
 <td><div class="line-block">
-<div class="line">offset (in seconds) of the recording with respect</div>
-<div class="line">to other recordings that are part of the same</div>
-<div class="line">session. Each recording session is identified by</div>
-<div class="line">their <cite>session_id</cite>.</div>
+<div class="line">offset (in milliseconds) of the recording with</div>
+<div class="line">respect to other recordings that are part of the</div>
+<div class="line">same session. Each recording session is identified</div>
+<div class="line">by their <cite>session_id</cite>.</div>
 </div>
 </td>
 <td><p>optional</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">(\d+(\.\d+)?)</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">[0-9]+</span></code></p></td>
 </tr>
 <tr class="row-odd"><td><p>recording_device_id</p></td>
 <td><div class="line-block">
@@ -707,19 +707,19 @@ following csv format, with one row per segment :</p>
 </tr>
 <tr class="row-odd"><td><p>segment_onset</p></td>
 <td><div class="line-block">
-<div class="line">segment start time in seconds</div>
+<div class="line">segment start time in milliseconds</div>
 </div>
 </td>
 <td><p><strong>required</strong></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">(\d+(\.\d+)?)</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">([0-9]+)</span></code></p></td>
 </tr>
 <tr class="row-even"><td><p>segment_offset</p></td>
 <td><div class="line-block">
-<div class="line">segment end time in seconds</div>
+<div class="line">segment end time in milliseconds</div>
 </div>
 </td>
 <td><p><strong>required</strong></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">(\d+(\.\d+)?)</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">([0-9]+)</span></code></p></td>
 </tr>
 <tr class="row-odd"><td><p>speaker_id</p></td>
 <td><div class="line-block">
@@ -937,7 +937,7 @@ following csv format, with one row per segment :</p>
 </div>
 </td>
 <td><p>optional</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">(\d+(\.\d+)?)</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">([0-9]+)</span></code></p></td>
 </tr>
 <tr class="row-even"><td><p>non_speech_length</p></td>
 <td><div class="line-block">
@@ -945,7 +945,7 @@ following csv format, with one row per segment :</p>
 </div>
 </td>
 <td><p>optional</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">(\d+(\.\d+)?)</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">([0-9]+)</span></code></p></td>
 </tr>
 <tr class="row-odd"><td><p>average_db</p></td>
 <td><div class="line-block">
@@ -969,7 +969,7 @@ following csv format, with one row per segment :</p>
 </div>
 </td>
 <td><p>optional</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">(\d+(\.\d+)?)</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">([0-9]+)</span></code></p></td>
 </tr>
 <tr class="row-even"><td><p>utterances</p></td>
 <td><div class="line-block">
@@ -1038,31 +1038,31 @@ following csv format, with one row per segment :</p>
 </tr>
 <tr class="row-even"><td><p>time_seek</p></td>
 <td><div class="line-block">
-<div class="line">reference time in seconds, e.g: 3600, or 3600.500.</div>
-<div class="line">All times expressed in the annotations are</div>
-<div class="line">relative to this time.</div>
+<div class="line">reference time in milliseconds, e.g: 3600000. All</div>
+<div class="line">times expressed in the annotations are relative to</div>
+<div class="line">this time.</div>
 </div>
 </td>
 <td><p><strong>required</strong></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">(\-?)(\d+(\.\d+)?)</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">(\-?)([0-9]+)</span></code></p></td>
 </tr>
 <tr class="row-odd"><td><p>range_onset</p></td>
 <td><div class="line-block">
-<div class="line">covered range start time in seconds, measured</div>
+<div class="line">covered range start time in milliseconds, measured</div>
 <div class="line">since <cite>time_seek</cite></div>
 </div>
 </td>
 <td><p><strong>required</strong></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">(\d+(\.\d+)?)</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">([0-9]+)</span></code></p></td>
 </tr>
 <tr class="row-even"><td><p>range_offset</p></td>
 <td><div class="line-block">
-<div class="line">covered range end time in seconds, measured since</div>
-<div class="line"><cite>time_seek</cite></div>
+<div class="line">covered range end time in milliseconds, measured</div>
+<div class="line">since <cite>time_seek</cite></div>
 </div>
 </td>
 <td><p><strong>required</strong></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">(\d+(\.\d+)?)</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">([0-9]+)</span></code></p></td>
 </tr>
 <tr class="row-odd"><td><p>raw_filename</p></td>
 <td><div class="line-block">
@@ -1151,31 +1151,31 @@ following format as an input:</p>
 </tr>
 <tr class="row-even"><td><p>time_seek</p></td>
 <td><div class="line-block">
-<div class="line">reference time in seconds, e.g: 3600, or 3600.500.</div>
-<div class="line">All times expressed in the annotations are</div>
-<div class="line">relative to this time.</div>
+<div class="line">reference time in milliseconds, e.g: 3600000. All</div>
+<div class="line">times expressed in the annotations are relative to</div>
+<div class="line">this time.</div>
 </div>
 </td>
 <td><p><strong>required</strong></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">(\-?)(\d+(\.\d+)?)</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">(\-?)([0-9]+)</span></code></p></td>
 </tr>
 <tr class="row-odd"><td><p>range_onset</p></td>
 <td><div class="line-block">
-<div class="line">covered range start time in seconds, measured</div>
+<div class="line">covered range start time in milliseconds, measured</div>
 <div class="line">since <cite>time_seek</cite></div>
 </div>
 </td>
 <td><p><strong>required</strong></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">(\d+(\.\d+)?)</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">([0-9]+)</span></code></p></td>
 </tr>
 <tr class="row-even"><td><p>range_offset</p></td>
 <td><div class="line-block">
-<div class="line">covered range end time in seconds, measured since</div>
-<div class="line"><cite>time_seek</cite></div>
+<div class="line">covered range end time in milliseconds, measured</div>
+<div class="line">since <cite>time_seek</cite></div>
 </div>
 </td>
 <td><p><strong>required</strong></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">(\d+(\.\d+)?)</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">([0-9]+)</span></code></p></td>
 </tr>
 <tr class="row-odd"><td><p>raw_filename</p></td>
 <td><div class="line-block">
@@ -1210,6 +1210,11 @@ following format as an input:</p>
 </tr>
 </tbody>
 </table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In order to avoid rounding errors, all timestamps are integers,
+expressed in milliseconds.</p>
+</div>
 </div>
 </div>
 </div>
