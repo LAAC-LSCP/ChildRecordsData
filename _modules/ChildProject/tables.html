@@ -306,7 +306,7 @@
                 <span class="k">continue</span>
 
             <span class="n">grouped</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="p">[</span><span class="n">c</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;NA&#39;</span><span class="p">]</span>
-            <span class="n">grouped</span><span class="p">[</span><span class="s1">&#39;lineno&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">grouped</span><span class="o">.</span><span class="n">index</span>
+            <span class="n">grouped</span> <span class="o">=</span> <span class="n">grouped</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">lineno</span> <span class="o">=</span> <span class="n">grouped</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
             <span class="n">grouped</span> <span class="o">=</span> <span class="n">grouped</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">name</span><span class="p">)[</span><span class="s1">&#39;lineno&#39;</span><span class="p">]</span>\
                 <span class="o">.</span><span class="n">agg</span><span class="p">([</span>
                     <span class="p">(</span><span class="s1">&#39;count&#39;</span><span class="p">,</span> <span class="nb">len</span><span class="p">),</span>
