@@ -329,14 +329,14 @@ the specifications (see <a class="reference internal" href="format.html#format-m
 <h2>Create the metadata<a class="headerlink" href="#create-the-metadata" title="Permalink to this headline">¶</a></h2>
 <p>Let’s start with the recordings metadata. <code class="docutils literal notranslate"><span class="pre">metadata/recordings.csv</span></code>
 should at least have the following columns: experiment, child_id,
-date_iso, start_time, recording_device_type, filename. The .its file
+date_iso, start_time, recording_device_type, recording_filename. The .its file
 contains (<code class="docutils literal notranslate"><span class="pre">annotations/its/raw/BN32_010007.its</span></code>) precious information
 about when the recording started:</p>
 <div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;Recording</span> <span class="na">num=</span><span class="s">&quot;1&quot;</span> <span class="na">startClockTime=</span><span class="s">&quot;2010-07-24T11:58:16Z&quot;</span> <span class="na">endClockTime=</span><span class="s">&quot;2010-07-25T01:59:20Z&quot;</span> <span class="na">startTime=</span><span class="s">&quot;PT0.00S&quot;</span> <span class="na">endTime=</span><span class="s">&quot;PT50464.24S&quot;</span><span class="nt">&gt;</span>
 </pre></div>
 </div>
 <p>Make sure that <code class="docutils literal notranslate"><span class="pre">metadata/recordings.csv</span></code> contains the following text:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">experiment</span><span class="p">,</span><span class="n">child_id</span><span class="p">,</span><span class="n">date_iso</span><span class="p">,</span><span class="n">start_time</span><span class="p">,</span><span class="n">recording_device_type</span><span class="p">,</span><span class="n">filename</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">experiment</span><span class="p">,</span><span class="n">child_id</span><span class="p">,</span><span class="n">date_iso</span><span class="p">,</span><span class="n">start_time</span><span class="p">,</span><span class="n">recording_device_type</span><span class="p">,</span><span class="n">recording_filename</span>
 <span class="n">vandam</span><span class="o">-</span><span class="n">daylong</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2010</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">24</span><span class="p">,</span><span class="mi">11</span><span class="p">:</span><span class="mi">58</span><span class="p">,</span><span class="n">lena</span><span class="p">,</span><span class="n">BN32_010007</span><span class="o">.</span><span class="n">mp3</span>
 </pre></div>
 </div>
