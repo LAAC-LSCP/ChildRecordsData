@@ -236,8 +236,8 @@ the standards detailed right below.</p>
 <div class="section" id="children-notebook">
 <h3>children notebook<a class="headerlink" href="#children-notebook" title="Permalink to this headline">¶</a></h3>
 <p>The children dataframe needs to be saved at <code class="docutils literal notranslate"><span class="pre">metadata/children.csv</span></code>.</p>
-<table class="colwidths-given docutils align-default" id="id1">
-<caption><span class="caption-text">Children metadata</span><a class="headerlink" href="#id1" title="Permalink to this table">¶</a></caption>
+<table class="colwidths-given docutils align-default" id="id3">
+<caption><span class="caption-text">Children metadata</span><a class="headerlink" href="#id3" title="Permalink to this table">¶</a></caption>
 <colgroup>
 <col style="width: 20%" />
 <col style="width: 50%" />
@@ -467,8 +467,8 @@ the standards detailed right below.</p>
 <h3>recording notebook<a class="headerlink" href="#recording-notebook" title="Permalink to this headline">¶</a></h3>
 <p>The recordings dataframe needs to be saved at
 <code class="docutils literal notranslate"><span class="pre">metadata/recordings.csv</span></code>.</p>
-<table class="colwidths-given docutils align-default" id="id2">
-<caption><span class="caption-text">Recordings metadata</span><a class="headerlink" href="#id2" title="Permalink to this table">¶</a></caption>
+<table class="colwidths-given docutils align-default" id="id4">
+<caption><span class="caption-text">Recordings metadata</span><a class="headerlink" href="#id4" title="Permalink to this table">¶</a></caption>
 <colgroup>
 <col style="width: 20%" />
 <col style="width: 50%" />
@@ -680,8 +680,8 @@ the standards detailed right below.</p>
 <span id="format-annotations-segments"></span><h3>Annotations format<a class="headerlink" href="#annotations-format" title="Permalink to this headline">¶</a></h3>
 <p>The package provides functions to convert any annotation into the
 following csv format, with one row per segment :</p>
-<table class="colwidths-given docutils align-default" id="id3">
-<caption><span class="caption-text">Annotations format</span><a class="headerlink" href="#id3" title="Permalink to this table">¶</a></caption>
+<table class="colwidths-given docutils align-default" id="id5">
+<caption><span class="caption-text">Annotations format</span><a class="headerlink" href="#id5" title="Permalink to this table">¶</a></caption>
 <colgroup>
 <col style="width: 20%" />
 <col style="width: 50%" />
@@ -696,7 +696,7 @@ following csv format, with one row per segment :</p>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p>annotation_file</p></td>
+<tr class="row-even"><td><p>raw_filename</p></td>
 <td><div class="line-block">
 <div class="line">raw annotation path relative, relative to</div>
 <div class="line"><cite>annotations/&lt;set&gt;/raw</cite></div>
@@ -1002,8 +1002,8 @@ following csv format, with one row per segment :</p>
 <span id="format-annotations"></span><h3>Annotations index<a class="headerlink" href="#annotations-index" title="Permalink to this headline">¶</a></h3>
 <p>Annotations are indexed in one unique dataframe located at
 <code class="docutils literal notranslate"><span class="pre">/metadata/annotations.csv</span></code>, with the following format :</p>
-<table class="colwidths-given docutils align-default" id="id4">
-<caption><span class="caption-text">Annotations metadata</span><a class="headerlink" href="#id4" title="Permalink to this table">¶</a></caption>
+<table class="colwidths-given docutils align-default" id="id6">
+<caption><span class="caption-text">Annotations metadata</span><a class="headerlink" href="#id6" title="Permalink to this table">¶</a></caption>
 <colgroup>
 <col style="width: 20%" />
 <col style="width: 50%" />
@@ -1075,8 +1075,9 @@ following csv format, with one row per segment :</p>
 </tr>
 <tr class="row-even"><td><p>annotation_filename</p></td>
 <td><div class="line-block">
-<div class="line">output formatted annotation location (automatic</div>
-<div class="line">column, don’t specify)</div>
+<div class="line">output formatted annotation location, relative to</div>
+<div class="line"><a href="#id1"><span class="problematic" id="id2">`</span></a>annotations/&lt;set&gt;/converted (automatic column,</div>
+<div class="line">don’t specify)</div>
 </div>
 </td>
 <td><p>optional</p></td>
@@ -1115,8 +1116,8 @@ following csv format, with one row per segment :</p>
 <span id="format-input-annotations"></span><h3>Annotation importation input format<a class="headerlink" href="#annotation-importation-input-format" title="Permalink to this headline">¶</a></h3>
 <p>The annotations importation script (<a class="reference internal" href="tools.html#tools-annotations-bulk-importation"><span class="std std-ref">Bulk importation</span></a>) and python method (<a class="reference internal" href="ChildProject.html#ChildProject.annotations.AnnotationManager.import_annotations" title="ChildProject.annotations.AnnotationManager.import_annotations"><code class="xref py py-meth docutils literal notranslate"><span class="pre">ChildProject.annotations.AnnotationManager.import_annotations()</span></code></a>) take a dataframe of the
 following format as an input:</p>
-<table class="colwidths-given docutils align-default" id="id5">
-<caption><span class="caption-text">Input annotations</span><a class="headerlink" href="#id5" title="Permalink to this table">¶</a></caption>
+<table class="colwidths-given docutils align-default" id="id7">
+<caption><span class="caption-text">Input annotations</span><a class="headerlink" href="#id7" title="Permalink to this table">¶</a></caption>
 <colgroup>
 <col style="width: 20%" />
 <col style="width: 50%" />
