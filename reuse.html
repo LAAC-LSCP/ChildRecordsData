@@ -335,6 +335,19 @@ downloading those files.</p>
 <h2>Downloading large files<a class="headerlink" href="#downloading-large-files" title="Permalink to this headline">¶</a></h2>
 <p>Files can be retrieved using <code class="docutils literal notranslate"><span class="pre">datalad</span> <span class="pre">get</span> <span class="pre">[path]</span></code>. For instance,
 <code class="docutils literal notranslate"><span class="pre">datalad</span> <span class="pre">get</span> <span class="pre">recordings</span></code> will download all recordings.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Technically speaking, the large files in your repository are symbolic links
+pointing to their actual location, somewhere under <cite>.git</cite>.
+You can ignore that and read/copy the content of these files as if they where
+actual files.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>If you want to <em>edit</em> the content of a large file, you will need to unlock it
+beforehand, using <code class="docutils literal notranslate"><span class="pre">datalad</span> <span class="pre">unlock</span></code>,
+e.g.: <code class="docutils literal notranslate"><span class="pre">datalad</span> <span class="pre">unlock</span> <span class="pre">annotations/vtc/converted</span></code>.</p>
+</div>
 </div>
 <div class="section" id="updating-a-dataset">
 <h2>Updating a dataset<a class="headerlink" href="#updating-a-dataset" title="Permalink to this headline">¶</a></h2>
