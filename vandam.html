@@ -405,8 +405,8 @@ information. This is easily done with:</p>
 </div>
 <p>Now <code class="docutils literal notranslate"><span class="pre">metadata/recordings.csv</span></code> became:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ cat metadata/recordings.csv
-experiment,child_id,date_iso,start_time,recording_device_type,filename,duration
-vandam-daylong,1,2010-07-24,11:58,lena,BN32_010007.mp3,50464.512
+experiment,child_id,date_iso,start_time,recording_device_type,recording_filename,duration
+vandam-daylong,1,2010-07-24,11:58,lena,BN32_010007.mp3,50464512
 </pre></div>
 </div>
 <p>You can also convert and index the its annotation:</p>
@@ -414,7 +414,7 @@ vandam-daylong,1,2010-07-24,11:58,lena,BN32_010007.mp3,50464.512
   --recording_filename BN32_010007.mp3 <span class="se">\</span>
   --time_seek <span class="m">0</span> <span class="se">\</span>
   --range_onset <span class="m">0</span> <span class="se">\</span>
-  --range_offset <span class="m">50464</span>.512 <span class="se">\</span>
+  --range_offset <span class="m">50464512</span> <span class="se">\</span>
   --raw_filename BN32_010007.its <span class="se">\</span>
   --format its
 </pre></div>
