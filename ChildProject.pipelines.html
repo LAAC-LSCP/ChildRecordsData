@@ -315,8 +315,8 @@ that have a signal energy higher than some threshold.</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>project</strong> (<a class="reference internal" href="ChildProject.html#ChildProject.projects.ChildProject" title="ChildProject.projects.ChildProject"><em>ChildProject.projects.ChildProject</em></a>) – ChildProject instance of the target dataset.</p></li>
-<li><p><strong>windows_length</strong> (<em>float</em>) – Length of each window, in milliseconds.</p></li>
-<li><p><strong>windows_spacing</strong> (<em>float</em>) – Spacing between the start of each window, in milliseconds.</p></li>
+<li><p><strong>windows_length</strong> (<em>int</em>) – Length of each window, in milliseconds.</p></li>
+<li><p><strong>windows_spacing</strong> (<em>int</em>) – Spacing between the start of each window, in milliseconds.</p></li>
 <li><p><strong>windows_count</strong> (<em>int</em>) – How many windows to retain per recording.</p></li>
 <li><p><strong>windows_offset</strong> (<em>float</em><em>, </em><em>optional</em>) – start of the first window, in milliseconds, defaults to 0</p></li>
 <li><p><strong>threshold</strong> (<em>float</em><em>, </em><em>optional</em>) – lowest energy quantile to sample from, defaults to 0.8</p></li>
@@ -349,8 +349,23 @@ that have a signal energy higher than some threshold.</p>
 
 <dl class="py class">
 <dt id="ChildProject.pipelines.samplers.HighVolubilitySampler">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">ChildProject.pipelines.samplers.</span></code><code class="sig-name descname"><span class="pre">HighVolubilitySampler</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">project</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="ChildProject.html#ChildProject.projects.ChildProject" title="ChildProject.projects.ChildProject"><span class="pre">ChildProject.projects.ChildProject</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">annotation_set</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_speaker_type</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">windows_length</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">windows_count</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ChildProject/pipelines/samplers.html#HighVolubilitySampler"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ChildProject.pipelines.samplers.HighVolubilitySampler" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">ChildProject.pipelines.samplers.</span></code><code class="sig-name descname"><span class="pre">HighVolubilitySampler</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">project</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="ChildProject.html#ChildProject.projects.ChildProject" title="ChildProject.projects.ChildProject"><span class="pre">ChildProject.projects.ChildProject</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">annotation_set</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">windows_length</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">windows_count</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threads</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ChildProject/pipelines/samplers.html#HighVolubilitySampler"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ChildProject.pipelines.samplers.HighVolubilitySampler" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#ChildProject.pipelines.samplers.Sampler" title="ChildProject.pipelines.samplers.Sampler"><code class="xref py py-class docutils literal notranslate"><span class="pre">ChildProject.pipelines.samplers.Sampler</span></code></a></p>
+<p>Return the top <code class="docutils literal notranslate"><span class="pre">windows_count</span></code> windows (of length <code class="docutils literal notranslate"><span class="pre">windows_length</span></code>)
+with the highest volubility from each recording,
+as calculated from the metric <code class="docutils literal notranslate"><span class="pre">metric</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>project</strong> (<a class="reference internal" href="ChildProject.html#ChildProject.projects.ChildProject" title="ChildProject.projects.ChildProject"><em>ChildProject.projects.ChildProject</em></a>) – ChildProject instance of the target dataset.</p></li>
+<li><p><strong>annotation_set</strong> (<em>str</em>) – set of annotations to calculate volubility from.</p></li>
+<li><p><strong>metric</strong> (<em>str</em>) – the metric to evaluate high-volubility. should be any of ‘awc’, ‘ctc’, ‘cvc’.</p></li>
+<li><p><strong>windows_length</strong> (<em>int</em>) – length of the windows, in milliseconds</p></li>
+<li><p><strong>windows_count</strong> (<em>int</em>) – amount of top regions to extract per recording</p></li>
+<li><p><strong>threads</strong> (<em>int</em>) – amount of threads to run the sampler on</p></li>
+</ul>
+</dd>
+</dl>
 <dl class="py method">
 <dt id="ChildProject.pipelines.samplers.HighVolubilitySampler.add_parser">
 <em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">add_parser</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">samplers</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ChildProject/pipelines/samplers.html#HighVolubilitySampler.add_parser"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ChildProject.pipelines.samplers.HighVolubilitySampler.add_parser" title="Permalink to this definition">¶</a></dt>
@@ -433,7 +448,7 @@ that have a signal energy higher than some threshold.</p>
 
 <dl class="py method">
 <dt id="ChildProject.pipelines.samplers.Sampler.retrieve_segments">
-<code class="sig-name descname"><span class="pre">retrieve_segments</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/ChildProject/pipelines/samplers.html#Sampler.retrieve_segments"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ChildProject.pipelines.samplers.Sampler.retrieve_segments" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">retrieve_segments</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">recording_filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ChildProject/pipelines/samplers.html#Sampler.retrieve_segments"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ChildProject.pipelines.samplers.Sampler.retrieve_segments" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">

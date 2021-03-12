@@ -291,20 +291,21 @@ optional arguments:
 <p>(TODO)</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ child-project sampler /path/to/dataset /path/to/destination high-volubility --help
 usage: child-project sampler path destination high-volubility
-       <span class="o">[</span>-h<span class="o">]</span> <span class="o">[</span>--annotation-set ANNOTATION_SET<span class="o">]</span>
-       <span class="o">[</span>--target-speaker-type <span class="o">{</span>CHI,OCH,FEM,MAL<span class="o">}</span> <span class="o">[{</span>CHI,OCH,FEM,MAL<span class="o">}</span> ...<span class="o">]]</span>
+       <span class="o">[</span>-h<span class="o">]</span> --annotation-set ANNOTATION_SET --metric <span class="o">{</span>ctc,cvc,awc<span class="o">}</span>
        --windows-length WINDOWS_LENGTH --windows-count WINDOWS_COUNT
+       <span class="o">[</span>--threads THREADS<span class="o">]</span>
 
 optional arguments:
   -h, --help            show this <span class="nb">help</span> message and <span class="nb">exit</span>
   --annotation-set ANNOTATION_SET
                         annotation <span class="nb">set</span>
-  --target-speaker-type <span class="o">{</span>CHI,OCH,FEM,MAL<span class="o">}</span> <span class="o">[{</span>CHI,OCH,FEM,MAL<span class="o">}</span> ...<span class="o">]</span>
-                        speaker <span class="nb">type</span> to get chunks from
+  --metric <span class="o">{</span>ctc,cvc,awc<span class="o">}</span>
+                        which metric should be used to evaluate volubility
   --windows-length WINDOWS_LENGTH
-                        window length <span class="o">(</span>minutes<span class="o">)</span>
+                        window length <span class="o">(</span>milliseconds<span class="o">)</span>
   --windows-count WINDOWS_COUNT
                         how many windows to be sampled
+  --threads THREADS     amount of threads to run on
 </pre></div>
 </div>
 </div>
