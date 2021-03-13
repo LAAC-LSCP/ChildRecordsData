@@ -126,6 +126,7 @@
 <p class="caption"><span class="caption-text">Package reference</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="modules.html">ChildProject</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples of python scripts</a></li>
 </ul>
 
             
@@ -295,6 +296,15 @@ optional arguments:
 </div>
 <div class="section" id="managing-annotations">
 <h2>Managing annotations<a class="headerlink" href="#managing-annotations" title="Permalink to this headline">¶</a></h2>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>You should never run two of the following commands in parallel.
+All of them need to be run sequentially, otherwise the index
+may get corrupted.</p>
+<p>If you need to parallelize the processing to speed it up,
+you can use the <code class="docutils literal notranslate"><span class="pre">--threads</span></code> option, which is built-in
+in all of our tools that might require it.</p>
+</div>
 <div class="section" id="importation">
 <h3>Importation<a class="headerlink" href="#importation" title="Permalink to this headline">¶</a></h3>
 <div class="section" id="single-file-importation">
