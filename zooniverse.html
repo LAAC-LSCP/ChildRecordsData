@@ -232,10 +232,10 @@ positional arguments:
                         action
     extract-chunks      extract chunks to &lt;destination&gt;, and exports the
                         metadata inside of this directory
-    upload-chunks       upload chunks and updates &lt;destination&gt;/chunks.csv
+    upload-chunks       upload chunks and updates chunk state
     retrieve-classifications
-                        retrieve classifications and save them into
-                        DESTINATION/classifications.csv
+                        retrieve classifications and save them as
+                        &lt;destination&gt;
 
 optional arguments:
   -h, --help            show this <span class="nb">help</span> message and <span class="nb">exit</span>
@@ -283,27 +283,29 @@ named <code class="docutils literal notranslate"><span class="pre">DESTINATION/c
 <div class="section" id="chunk-upload">
 <h2>Chunk upload<a class="headerlink" href="#chunk-upload" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ child-project zooniverse upload-chunks /path/to/dataset --help
-usage: child-project zooniverse upload-chunks <span class="o">[</span>-h<span class="o">]</span> --destination DESTINATION
-                                              --zooniverse-login
-                                              ZOONIVERSE_LOGIN
-                                              --zooniverse-pwd ZOONIVERSE_PWD
+usage: child-project zooniverse upload-chunks <span class="o">[</span>-h<span class="o">]</span> --chunks CHUNKS
                                               --project-id PROJECT_ID
                                               --set-prefix SET_PREFIX
                                               <span class="o">[</span>--batches BATCHES<span class="o">]</span>
+                                              <span class="o">[</span>--zooniverse-login ZOONIVERSE_LOGIN<span class="o">]</span>
+                                              <span class="o">[</span>--zooniverse-pwd ZOONIVERSE_PWD<span class="o">]</span>
 
 optional arguments:
   -h, --help            show this <span class="nb">help</span> message and <span class="nb">exit</span>
-  --destination DESTINATION
-                        destination
-  --zooniverse-login ZOONIVERSE_LOGIN
-                        zooniverse login
-  --zooniverse-pwd ZOONIVERSE_PWD
-                        zooniverse password
+  --chunks CHUNKS       path to the chunk CSV dataframe
   --project-id PROJECT_ID
                         zooniverse project id
   --set-prefix SET_PREFIX
                         subject prefix
   --batches BATCHES     amount of batches to upload
+  --zooniverse-login ZOONIVERSE_LOGIN
+                        zooniverse login. If not specified, the program
+                        attempts to get it from the environmental variable
+                        ZOONIVERSE_LOGIN instead
+  --zooniverse-pwd ZOONIVERSE_PWD
+                        zooniverse password. If not specified, the program
+                        attempts to get it from the environmental variable
+                        ZOONIVERSE_PWD instead
 </pre></div>
 </div>
 <p>Uploads as many batches of audio chunks as specified to Zooniverse, and
@@ -312,23 +314,27 @@ updates <code class="docutils literal notranslate"><span class="pre">chunks.csv<
 <div class="section" id="classifications-retrieval">
 <h2>Classifications retrieval<a class="headerlink" href="#classifications-retrieval" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ child-project zooniverse retrieve-classifications /path/to/dataset --help
-usage: child-project zooniverse retrieve-classifications <span class="o">[</span>-h<span class="o">]</span> --chunks CHUNKS
-                                                         --zooniverse-login
-                                                         ZOONIVERSE_LOGIN
-                                                         --zooniverse-pwd
-                                                         ZOONIVERSE_PWD
+usage: child-project zooniverse retrieve-classifications <span class="o">[</span>-h<span class="o">]</span> --destination
+                                                         DESTINATION
                                                          --project-id
                                                          PROJECT_ID
+                                                         <span class="o">[</span>--zooniverse-login ZOONIVERSE_LOGIN<span class="o">]</span>
+                                                         <span class="o">[</span>--zooniverse-pwd ZOONIVERSE_PWD<span class="o">]</span>
 
 optional arguments:
   -h, --help            show this <span class="nb">help</span> message and <span class="nb">exit</span>
-  --chunks CHUNKS       path to the chunk dataframe
-  --zooniverse-login ZOONIVERSE_LOGIN
-                        zooniverse login
-  --zooniverse-pwd ZOONIVERSE_PWD
-                        zooniverse password
+  --destination DESTINATION
+                        output CSV dataframe destination
   --project-id PROJECT_ID
                         zooniverse project id
+  --zooniverse-login ZOONIVERSE_LOGIN
+                        zooniverse login. If not specified, the program
+                        attempts to get it from the environmental variable
+                        ZOONIVERSE_LOGIN instead
+  --zooniverse-pwd ZOONIVERSE_PWD
+                        zooniverse password. If not specified, the program
+                        attempts to get it from the environmental variable
+                        ZOONIVERSE_PWD instead
 </pre></div>
 </div>
 <p>Retrieve classifications and save them into

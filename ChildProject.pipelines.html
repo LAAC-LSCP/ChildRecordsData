@@ -484,7 +484,7 @@ as calculated from the metric <code class="docutils literal notranslate"><span c
 <span id="childproject-pipelines-zooniverse-module"></span><h2>ChildProject.pipelines.zooniverse module<a class="headerlink" href="#module-ChildProject.pipelines.zooniverse" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt id="ChildProject.pipelines.zooniverse.Chunk">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">ChildProject.pipelines.zooniverse.</span></code><code class="sig-name descname"><span class="pre">Chunk</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">recording</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">onset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">offset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">segment_onset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">segment_offset</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ChildProject/pipelines/zooniverse.html#Chunk"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ChildProject.pipelines.zooniverse.Chunk" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">ChildProject.pipelines.zooniverse.</span></code><code class="sig-name descname"><span class="pre">Chunk</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">recording_filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">onset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">offset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">segment_onset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">segment_offset</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ChildProject/pipelines/zooniverse.html#Chunk"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ChildProject.pipelines.zooniverse.Chunk" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <dl class="py method">
 <dt id="ChildProject.pipelines.zooniverse.Chunk.getbasename">
@@ -520,9 +520,41 @@ to zooniverse.</p>
 </dd></dl>
 
 <dl class="py method">
+<dt id="ChildProject.pipelines.zooniverse.ZooniversePipeline.get_credentials">
+<code class="sig-name descname"><span class="pre">get_credentials</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">login</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pwd</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ChildProject/pipelines/zooniverse.html#ZooniversePipeline.get_credentials"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ChildProject.pipelines.zooniverse.ZooniversePipeline.get_credentials" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns input credentials if provided or attempts to read them
+from the environmental variables.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>login</strong> (<em>str</em><em>, </em><em>optional</em>) – input login, defaults to ‘’</p></li>
+<li><p><strong>pwd</strong> (<em>str</em><em>, </em><em>optional</em>) – input password, defaults to ‘’</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>(login, pwd)</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(str, str)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt id="ChildProject.pipelines.zooniverse.ZooniversePipeline.retrieve_classifications">
-<code class="sig-name descname"><span class="pre">retrieve_classifications</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">destination</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">project_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zooniverse_login</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zooniverse_pwd</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ChildProject/pipelines/zooniverse.html#ZooniversePipeline.retrieve_classifications"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ChildProject.pipelines.zooniverse.ZooniversePipeline.retrieve_classifications" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="sig-name descname"><span class="pre">retrieve_classifications</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">destination</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">project_id</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zooniverse_login</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zooniverse_pwd</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ChildProject/pipelines/zooniverse.html#ZooniversePipeline.retrieve_classifications"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ChildProject.pipelines.zooniverse.ZooniversePipeline.retrieve_classifications" title="Permalink to this definition">¶</a></dt>
+<dd><p>[summary]</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>destination</strong> (<em>str</em>) – output CSV dataframe destination</p></li>
+<li><p><strong>project_id</strong> (<em>int</em>) – zooniverse project id</p></li>
+<li><p><strong>zooniverse_login</strong> (<em>str</em><em>, </em><em>optional</em>) – zooniverse login. If not specified, the program attempts to get it from the environmental variable <code class="docutils literal notranslate"><span class="pre">ZOONIVERSE_LOGIN</span></code> instead, defaults to ‘’</p></li>
+<li><p><strong>zooniverse_pwd</strong> (<em>str</em><em>, </em><em>optional</em>) – zooniverse password. If not specified, the program attempts to get it from the environmental variable <code class="docutils literal notranslate"><span class="pre">ZOONIVERSE_PWD</span></code> instead, defaults to ‘’</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt id="ChildProject.pipelines.zooniverse.ZooniversePipeline.run">
@@ -541,8 +573,21 @@ to zooniverse.</p>
 
 <dl class="py method">
 <dt id="ChildProject.pipelines.zooniverse.ZooniversePipeline.upload_chunks">
-<code class="sig-name descname"><span class="pre">upload_chunks</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chunks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">project_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">set_prefix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zooniverse_login</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zooniverse_pwd</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batches</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ChildProject/pipelines/zooniverse.html#ZooniversePipeline.upload_chunks"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ChildProject.pipelines.zooniverse.ZooniversePipeline.upload_chunks" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="sig-name descname"><span class="pre">upload_chunks</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chunks</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">project_id</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">set_prefix</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zooniverse_login</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zooniverse_pwd</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batches</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ChildProject/pipelines/zooniverse.html#ZooniversePipeline.upload_chunks"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ChildProject.pipelines.zooniverse.ZooniversePipeline.upload_chunks" title="Permalink to this definition">¶</a></dt>
+<dd><p>Uploads <code class="docutils literal notranslate"><span class="pre">batches</span></code> batches of audio chunks from the CSV dataframe <cite>chunks</cite> to a zooniverse project.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>chunks</strong> (<em>[</em><em>type</em><em>]</em>) – path to the chunk CSV dataframe</p></li>
+<li><p><strong>project_id</strong> (<em>int</em>) – zooniverse project id</p></li>
+<li><p><strong>set_prefix</strong> (<em>str</em>) – prefix to each subject set display name</p></li>
+<li><p><strong>zooniverse_login</strong> (<em>str</em><em>, </em><em>optional</em>) – zooniverse login. If not specified, the program attempts to get it from the environmental variable <code class="docutils literal notranslate"><span class="pre">ZOONIVERSE_LOGIN</span></code> instead, defaults to ‘’</p></li>
+<li><p><strong>zooniverse_pwd</strong> (<em>str</em><em>, </em><em>optional</em>) – zooniverse password. If not specified, the program attempts to get it from the environmental variable <code class="docutils literal notranslate"><span class="pre">ZOONIVERSE_PWD</span></code> instead, defaults to ‘’</p></li>
+<li><p><strong>batches</strong> (<em>int</em><em>, </em><em>optional</em>) – amount of batches to upload, defaults to 0</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 

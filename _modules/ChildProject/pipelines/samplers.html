@@ -236,7 +236,7 @@
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="s1">&#39;recordings/raw&#39;</span><span class="p">,</span> <span class="n">recording</span><span class="p">)</span>
             
-            <span class="n">audio</span> <span class="o">=</span> <span class="n">AudioSegment</span><span class="o">.</span><span class="n">from_file</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">path</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
+            <span class="n">audio</span> <span class="o">=</span> <span class="n">AudioSegment</span><span class="o">.</span><span class="n">from_file</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
 
             <span class="k">for</span> <span class="n">segment</span> <span class="ow">in</span> <span class="n">segments</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(</span><span class="n">orient</span> <span class="o">=</span> <span class="s1">&#39;records&#39;</span><span class="p">):</span>
                 <span class="n">output_name</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">_</span><span class="si">{}</span><span class="s2">_</span><span class="si">{}</span><span class="s2">.</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
@@ -595,7 +595,9 @@
             <span class="s1">&#39;package_version&#39;</span><span class="p">:</span> <span class="n">ChildProject</span><span class="o">.</span><span class="n">__version__</span><span class="p">,</span>
             <span class="s1">&#39;date&#39;</span><span class="p">:</span> <span class="n">date</span>
         <span class="p">},</span> <span class="nb">open</span><span class="p">(</span><span class="n">parameters_path</span><span class="p">,</span> <span class="s1">&#39;w+&#39;</span><span class="p">))</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;exported sampler parameters to </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">parameters_path</span><span class="p">))</span></div>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;exported sampler parameters to </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">parameters_path</span><span class="p">))</span>
+
+        <span class="k">return</span> <span class="n">segments_path</span></div>
 
 <div class="viewcode-block" id="SamplerPipeline.setup_parser"><a class="viewcode-back" href="../../../ChildProject.pipelines.html#ChildProject.pipelines.samplers.SamplerPipeline.setup_parser">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">setup_parser</span><span class="p">(</span><span class="n">parser</span><span class="p">):</span>
