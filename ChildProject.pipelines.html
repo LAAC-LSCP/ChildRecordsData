@@ -526,7 +526,7 @@ to zooniverse.</p>
 <dt id="ChildProject.pipelines.zooniverse.ZooniversePipeline.get_credentials">
 <code class="sig-name descname"><span class="pre">get_credentials</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">login</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pwd</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ChildProject/pipelines/zooniverse.html#ZooniversePipeline.get_credentials"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ChildProject.pipelines.zooniverse.ZooniversePipeline.get_credentials" title="Permalink to this definition">¶</a></dt>
 <dd><p>returns input credentials if provided or attempts to read them
-from the environmental variables.</p>
+from the environment variables.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -552,8 +552,8 @@ from the environmental variables.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>destination</strong> (<em>str</em>) – output CSV dataframe destination</p></li>
 <li><p><strong>project_id</strong> (<em>int</em>) – zooniverse project id</p></li>
-<li><p><strong>zooniverse_login</strong> (<em>str</em><em>, </em><em>optional</em>) – zooniverse login. If not specified, the program attempts to get it from the environmental variable <code class="docutils literal notranslate"><span class="pre">ZOONIVERSE_LOGIN</span></code> instead, defaults to ‘’</p></li>
-<li><p><strong>zooniverse_pwd</strong> (<em>str</em><em>, </em><em>optional</em>) – zooniverse password. If not specified, the program attempts to get it from the environmental variable <code class="docutils literal notranslate"><span class="pre">ZOONIVERSE_PWD</span></code> instead, defaults to ‘’</p></li>
+<li><p><strong>zooniverse_login</strong> (<em>str</em><em>, </em><em>optional</em>) – zooniverse login. If not specified, the program attempts to get it from the environment variable <code class="docutils literal notranslate"><span class="pre">ZOONIVERSE_LOGIN</span></code> instead, defaults to ‘’</p></li>
+<li><p><strong>zooniverse_pwd</strong> (<em>str</em><em>, </em><em>optional</em>) – zooniverse password. If not specified, the program attempts to get it from the environment variable <code class="docutils literal notranslate"><span class="pre">ZOONIVERSE_PWD</span></code> instead, defaults to ‘’</p></li>
 </ul>
 </dd>
 </dl>
@@ -584,8 +584,8 @@ from the environmental variables.</p>
 <li><p><strong>chunks</strong> (<em>[</em><em>type</em><em>]</em>) – path to the chunk CSV dataframe</p></li>
 <li><p><strong>project_id</strong> (<em>int</em>) – zooniverse project id</p></li>
 <li><p><strong>set_prefix</strong> (<em>str</em>) – prefix to each subject set display name</p></li>
-<li><p><strong>zooniverse_login</strong> (<em>str</em><em>, </em><em>optional</em>) – zooniverse login. If not specified, the program attempts to get it from the environmental variable <code class="docutils literal notranslate"><span class="pre">ZOONIVERSE_LOGIN</span></code> instead, defaults to ‘’</p></li>
-<li><p><strong>zooniverse_pwd</strong> (<em>str</em><em>, </em><em>optional</em>) – zooniverse password. If not specified, the program attempts to get it from the environmental variable <code class="docutils literal notranslate"><span class="pre">ZOONIVERSE_PWD</span></code> instead, defaults to ‘’</p></li>
+<li><p><strong>zooniverse_login</strong> (<em>str</em><em>, </em><em>optional</em>) – zooniverse login. If not specified, the program attempts to get it from the environment variable <code class="docutils literal notranslate"><span class="pre">ZOONIVERSE_LOGIN</span></code> instead, defaults to ‘’</p></li>
+<li><p><strong>zooniverse_pwd</strong> (<em>str</em><em>, </em><em>optional</em>) – zooniverse password. If not specified, the program attempts to get it from the environment variable <code class="docutils literal notranslate"><span class="pre">ZOONIVERSE_PWD</span></code> instead, defaults to ‘’</p></li>
 <li><p><strong>batches</strong> (<em>int</em><em>, </em><em>optional</em>) – amount of batches to upload, defaults to 0</p></li>
 </ul>
 </dd>
