@@ -263,6 +263,7 @@ usage: child-project sampler path destination energy-detection
        <span class="o">[</span>-h<span class="o">]</span> --windows-length WINDOWS_LENGTH --windows-spacing WINDOWS_SPACING
        --windows-count WINDOWS_COUNT <span class="o">[</span>--windows-offset WINDOWS_OFFSET<span class="o">]</span>
        <span class="o">[</span>--threshold THRESHOLD<span class="o">]</span> <span class="o">[</span>--low-freq LOW_FREQ<span class="o">]</span> <span class="o">[</span>--high-freq HIGH_FREQ<span class="o">]</span>
+       <span class="o">[</span>--threads THREADS<span class="o">]</span> <span class="o">[</span>--profile PROFILE<span class="o">]</span>
 
 optional arguments:
   -h, --help            show this <span class="nb">help</span> message and <span class="nb">exit</span>
@@ -284,6 +285,9 @@ optional arguments:
 <span class="s1">  --high-freq HIGH_FREQ</span>
 <span class="s1">                        remove all frequencies above high-freq before</span>
 <span class="s1">                        calculating each window&#39;</span>s energy. <span class="o">(</span><span class="k">in</span> Hz<span class="o">)</span>
+  --threads THREADS     amount of threads to run on
+  --profile PROFILE     name of the profile of recordings to use <span class="o">(</span>uses raw
+                        recordings <span class="k">if</span> empty<span class="o">)</span>
 </pre></div>
 </div>
 </div>
