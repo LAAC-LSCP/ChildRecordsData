@@ -229,6 +229,7 @@ HomeBank</a>
 as an example.</p>
 <div class="section" id="set-up-datalad-and-child-project">
 <h2>Set-up datalad and child-project<a class="headerlink" href="#set-up-datalad-and-child-project" title="Permalink to this headline">¶</a></h2>
+<p>Make sure you have followed the <a class="reference internal" href="install.html#installation"><span class="std std-ref">Installation</span></a> instructions before proceeding.</p>
 </div>
 <div class="section" id="create-a-dataset">
 <h2>Create a dataset<a class="headerlink" href="#create-a-dataset" title="Permalink to this headline">¶</a></h2>
@@ -242,39 +243,36 @@ as an example.</p>
 .datalad    .git        .gitattributes
 </pre></div>
 </div>
-<p>Now, we would like to get the data from <a class="reference external" href="https://">https://</a>, convert it to our
+<p>Now, we would like to get the data from <a class="reference external" href="https://homebank.talkbank.org/access/Public/VanDam-Daylong.html">https://homebank.talkbank.org/access/Public/VanDam-Daylong.html</a>, convert it to our
 standards, and then publish it.</p>
 </div>
 <div class="section" id="gather-and-sort-the-files">
 <h2>Gather and sort the files<a class="headerlink" href="#gather-and-sort-the-files" title="Permalink to this headline">¶</a></h2>
 <p>The first step is to create the directories:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir metadata
-mkdir -p recordings/raw
-mkdir annotations
-mkdir extra
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir metadata <span class="c1"># Create the metadata subfolder</span>
+mkdir -p recordings/raw <span class="c1"># Create the subfolders for raw recordings</span>
+mkdir annotations <span class="c1"># Create the subfolder for annotations</span>
+mkdir extra <span class="c1"># Create the subfolder for extra data (that are neither metadata, recordings or annotations)</span>
 touch extra/.gitignore <span class="c1"># Make sure the directory is present even though it&#39;s empty</span>
 </pre></div>
 </div>
 <p>Then, download the original data-set from HomeBank.</p>
 <p>The audio first:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wget https://media.talkbank.org/homebank/Public/VanDam-Daylong/BN32/BN32_010007.mp3 -O recordings/raw/BN32_010007.mp3
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl https://media.talkbank.org/homebank/Public/VanDam-Daylong/BN32/BN32_010007.mp3 -o recordings/raw/BN32_010007.mp3
 </pre></div>
 </div>
 <p>Now let’s get the annotations.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wget https://homebank.talkbank.org/data/Public/VanDam-Daylong.zip -O VanDam-Daylong.zip
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl https://homebank.talkbank.org/data/Public/VanDam-Daylong.zip -o VanDam-Daylong.zip
 unzip VanDam-Daylong.zip
-rm VanDam-Daylong.zip
+rm VanDam-Daylong.zip <span class="c1"># Remove the zip archive</span>
 </pre></div>
 </div>
-<p>Let’s explore the content of VanDam-Daylong:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ ls -R VanDam-Daylong
-0metadata.cdc   BN32
-
-VanDam-Daylong/BN32:
-0its        BN32_010007.cha
-
-VanDam-Daylong/BN32/0its:
-e20100728_143446_003489.its
+<p>Let’s explore the contents of VanDam-Daylong:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ find . -not -path <span class="s1">&#39;*/\.*&#39;</span> -type f -print
+./recordings/raw/BN32_010007.mp3
+./VanDam-Daylong/BN32/0its/e20100728_143446_003489.its
+./VanDam-Daylong/BN32/BN32_010007.cha
+./VanDam-Daylong/0metadata.cdc
 </pre></div>
 </div>
 <ul class="simple">
@@ -322,12 +320,23 @@ Traceback <span class="o">(</span>most recent call last<span class="o">)</span>:
 Exception: could not find table <span class="s1">&#39;./metadata/children&#39;</span>
 </pre></div>
 </div>
-<p>The validation fails, because the metadata is missing. We need to store
+<p>This is expected. The validation should fail, because the metadata is missing. We need to store
 the metadata about the children and the recordings in a way that meets
 the specifications (see <a class="reference internal" href="format.html#format-metadata"><span class="std std-ref">Metadata</span></a>).</p>
 </div>
 <div class="section" id="create-the-metadata">
 <h2>Create the metadata<a class="headerlink" href="#create-the-metadata" title="Permalink to this headline">¶</a></h2>
+<p>We need two metadata files:</p>
+<blockquote>
+<div><ul class="simple">
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">metadata/recordings.csv</span></code>, which links each recording to their associate metadata</dt><dd><p>(recording date and time, recording device, etc.)</p>
+</dd>
+</dl>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">metadata/children.csv</span></code>, which stores the information about the participants.</p></li>
+</ul>
+</div></blockquote>
 <p>Let’s start with the recordings metadata. <code class="docutils literal notranslate"><span class="pre">metadata/recordings.csv</span></code>
 should at least have the following columns: experiment, child_id,
 date_iso, start_time, recording_device_type, recording_filename. The .its file
@@ -336,13 +345,48 @@ about when the recording started:</p>
 <div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;Recording</span> <span class="na">num=</span><span class="s">&quot;1&quot;</span> <span class="na">startClockTime=</span><span class="s">&quot;2010-07-24T11:58:16Z&quot;</span> <span class="na">endClockTime=</span><span class="s">&quot;2010-07-25T01:59:20Z&quot;</span> <span class="na">startTime=</span><span class="s">&quot;PT0.00S&quot;</span> <span class="na">endTime=</span><span class="s">&quot;PT50464.24S&quot;</span><span class="nt">&gt;</span>
 </pre></div>
 </div>
-<p>Make sure that <code class="docutils literal notranslate"><span class="pre">metadata/recordings.csv</span></code> contains the following text:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">experiment</span><span class="p">,</span><span class="n">child_id</span><span class="p">,</span><span class="n">date_iso</span><span class="p">,</span><span class="n">start_time</span><span class="p">,</span><span class="n">recording_device_type</span><span class="p">,</span><span class="n">recording_filename</span>
-<span class="n">vandam</span><span class="o">-</span><span class="n">daylong</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2010</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">24</span><span class="p">,</span><span class="mi">11</span><span class="p">:</span><span class="mi">58</span><span class="p">,</span><span class="n">lena</span><span class="p">,</span><span class="n">BN32_010007</span><span class="o">.</span><span class="n">mp3</span>
+<p>In order to reflect that information, the recordings CSV metadata
+should look like this (we have decided that the only child of the
+dataset should have ID ‘1’):</p>
+<table class="docutils align-default" id="id1">
+<caption><span class="caption-text">Recordings metadata</span><a class="headerlink" href="#id1" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col style="width: 17%" />
+<col style="width: 17%" />
+<col style="width: 17%" />
+<col style="width: 17%" />
+<col style="width: 17%" />
+<col style="width: 17%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>experiment</p></th>
+<th class="head"><p>child_id</p></th>
+<th class="head"><p>date_iso</p></th>
+<th class="head"><p>start_time</p></th>
+<th class="head"><p>recording_device_type</p></th>
+<th class="head"><p>recording_filename</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>vandam-daylong</p></td>
+<td><p>1</p></td>
+<td><p>2010-07-24</p></td>
+<td><p>11:58</p></td>
+<td><p>lena</p></td>
+<td><p>BN32_010007.mp3</p></td>
+</tr>
+</tbody>
+</table>
+<p>We have prepared it for you. Download <code class="docutils literal notranslate"><span class="pre">recordings.csv</span></code> <a class="reference download internal" download="" href="_downloads/b0e7168a084cd4685db6c0409be540d5/recordings.csv"><code class="xref download docutils literal notranslate"><span class="pre">here</span></code></a>,
+and save it in the <code class="docutils literal notranslate"><span class="pre">metadata</span></code> subfolder of your dataset.
+You can check its content by issuing the following command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ cat metadata/recordings.csv
+experiment,child_id,date_iso,start_time,recording_device_type,recording_filename
+vandam-daylong,1,2010-07-24,11:58,lena,BN32_010007.mp3
 </pre></div>
 </div>
-<p>(we have decided that the only child of the dataset should have ID ‘1’)</p>
-<p>Now the children metadata. The only fields that are required are:
+<p>Now, let us proceed to the children metadata.
+The only fields that are required are:
 experiment, child_id and child_dob. The .its file also contains some
 information about the child:</p>
 <div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;ChildInfo</span> <span class="na">algorithmAge=</span><span class="s">&quot;P12M&quot;</span> <span class="na">gender=</span><span class="s">&quot;F&quot;</span> <span class="nt">/&gt;</span>
@@ -353,9 +397,39 @@ assign her a calculated date of birth: 2009-07-24. We will set
 <code class="docutils literal notranslate"><span class="pre">dob_criterion</span></code> to “extrapolated” to keep track of the fact that the
 date of birth was calculated from the approximate age at recording. We
 will also set <code class="docutils literal notranslate"><span class="pre">dob_accuracy</span></code> to ‘month’ for that child.</p>
-<p>This is what <code class="docutils literal notranslate"><span class="pre">metadata/children.csv</span></code> should look like:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">experiment</span><span class="p">,</span><span class="n">child_id</span><span class="p">,</span><span class="n">child_dob</span><span class="p">,</span><span class="n">dob_criterion</span><span class="p">,</span><span class="n">dob_accuracy</span>
-<span class="n">vandam</span><span class="o">-</span><span class="n">daylong</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2009</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">24</span><span class="p">,</span><span class="n">extrapolated</span><span class="p">,</span><span class="n">month</span>
+<p>In other words, the children metadata CSV file should look like this:</p>
+<table class="docutils align-default" id="id2">
+<caption><span class="caption-text">Children metadata</span><a class="headerlink" href="#id2" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>experiment</p></th>
+<th class="head"><p>child_id</p></th>
+<th class="head"><p>child_dob</p></th>
+<th class="head"><p>dob_criterion</p></th>
+<th class="head"><p>dob_accuracy</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>vandam-daylong</p></td>
+<td><p>1</p></td>
+<td><p>2009-07-24</p></td>
+<td><p>extrapolated</p></td>
+<td><p>month</p></td>
+</tr>
+</tbody>
+</table>
+<p>We have prepared it for you. Download <code class="docutils literal notranslate"><span class="pre">children.csv</span></code> <a class="reference download internal" download="" href="_downloads/6ddb624558f79e855cb3bbb588d1db57/children.csv"><code class="xref download docutils literal notranslate"><span class="pre">here</span></code></a>,
+and save it in the <code class="docutils literal notranslate"><span class="pre">metadata</span></code> subfolder of your dataset.
+You can check its content by issuing the following command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ cat metadata/children.csv
+experiment,child_id,child_dob,dob_criterion,dob_accuracy
+vandam-daylong,1,2009-07-24,extrapolated,month
 </pre></div>
 </div>
 <p>We can now make sure that they are no errors by running the validation
@@ -364,6 +438,12 @@ command again:</p>
 </pre></div>
 </div>
 <p>No error occurs.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The metadata can be enriched with many more columns.
+See <a class="reference internal" href="format.html#format-metadata"><span class="std std-ref">Metadata</span></a> for standard columns.
+You can add as many extra, custom columns as you need.</p>
+</div>
 </div>
 <div class="section" id="save-the-changes-locally">
 <h2>Save the changes locally<a class="headerlink" href="#save-the-changes-locally" title="Permalink to this headline">¶</a></h2>
@@ -634,8 +714,8 @@ will be able to get the data without this step.</p>
 <a class="reference external" href="http://docs.datalad.org/projects/osf/en/latest/generated/man/datalad-create-sibling-osf.html">extension</a>
 to publish data on the <a class="reference external" href="https://osf.io/">Open Science Framework</a>.</p>
 <p>This extension supports the following modes:</p>
-<table class="docutils align-default" id="id1">
-<caption><span class="caption-text">datalad create-sibling-osf modes</span><a class="headerlink" href="#id1" title="Permalink to this table">¶</a></caption>
+<table class="docutils align-default" id="id3">
+<caption><span class="caption-text">datalad create-sibling-osf modes</span><a class="headerlink" href="#id3" title="Permalink to this table">¶</a></caption>
 <colgroup>
 <col style="width: 17%" />
 <col style="width: 17%" />
