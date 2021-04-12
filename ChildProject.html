@@ -592,6 +592,27 @@ and updating the index accordingly.</p>
 </dd></dl>
 
 <dl class="py method">
+<dt id="ChildProject.projects.ChildProject.get_converted_recording_filename">
+<code class="sig-name descname"><span class="pre">get_converted_recording_filename</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">profile</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">recording_filename</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">str</span><a class="reference internal" href="_modules/ChildProject/projects.html#ChildProject.get_converted_recording_filename"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ChildProject.projects.ChildProject.get_converted_recording_filename" title="Permalink to this definition">¶</a></dt>
+<dd><p>retrieve the converted filename of a recording under a given <code class="docutils literal notranslate"><span class="pre">profile</span></code>,
+from its original filename.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>profile</strong> (<em>str</em>) – recording profile</p></li>
+<li><p><strong>recording_filename</strong> (<em>str</em>) – original recording filename, as indexed in the metadata</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>corresponding converted filename of the recording under this profile</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt id="ChildProject.projects.ChildProject.get_stats">
 <code class="sig-name descname"><span class="pre">get_stats</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <span class="pre">dict</span><a class="reference internal" href="_modules/ChildProject/projects.html#ChildProject.get_stats"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ChildProject.projects.ChildProject.get_stats" title="Permalink to this definition">¶</a></dt>
 <dd><p>return statistics extracted from the dataset</p>

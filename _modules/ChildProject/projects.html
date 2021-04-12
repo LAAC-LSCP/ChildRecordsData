@@ -268,6 +268,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">warnings</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">children</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">recordings</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">converted_recordings_hashtable</span> <span class="o">=</span> <span class="p">{}</span>
     
 <div class="viewcode-block" id="ChildProject.read"><a class="viewcode-back" href="../../ChildProject.html#ChildProject.projects.ChildProject.read">[docs]</a>    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Read the metadata</span>
@@ -353,6 +355,39 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">warnings</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;file &#39;</span><span class="si">{}</span><span class="s2">&#39; not indexed.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">rf</span><span class="p">))</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">errors</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">warnings</span></div>
+
+<div class="viewcode-block" id="ChildProject.get_converted_recording_filename"><a class="viewcode-back" href="../../ChildProject.html#ChildProject.projects.ChildProject.get_converted_recording_filename">[docs]</a>    <span class="k">def</span> <span class="nf">get_converted_recording_filename</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">profile</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">recording_filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;retrieve the converted filename of a recording under a given ``profile``,</span>
+<span class="sd">        from its original filename.</span>
+
+<span class="sd">        :param profile: recording profile</span>
+<span class="sd">        :type profile: str</span>
+<span class="sd">        :param recording_filename: original recording filename, as indexed in the metadata</span>
+<span class="sd">        :type recording_filename: str</span>
+<span class="sd">        :return: corresponding converted filename of the recording under this profile</span>
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">key</span> <span class="o">=</span> <span class="p">(</span><span class="n">profile</span><span class="p">,</span> <span class="n">recording_filename</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">converted_recordings_hashtable</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">converted_recordings_hashtable</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+
+        <span class="n">converted_recordings</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">CONVERTED_RECORDINGS</span><span class="p">,</span> <span class="n">profile</span><span class="p">,</span> <span class="s1">&#39;recordings.csv&#39;</span>
+        <span class="p">))</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">converted_recordings_hashtable</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
+            <span class="p">(</span><span class="n">profile</span><span class="p">,</span> <span class="n">original</span><span class="p">):</span> <span class="n">converted</span>
+            <span class="k">for</span> <span class="n">original</span><span class="p">,</span> <span class="n">converted</span> <span class="ow">in</span> <span class="n">converted_recordings</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s1">&#39;original_filename&#39;</span><span class="p">,</span> <span class="s1">&#39;converted_filename&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">values</span>
+        <span class="p">})</span>
+
+        <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">converted_recordings_hashtable</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">converted_recordings_hashtable</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">converted_recordings_hashtable</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="k">return</span> <span class="kc">None</span></div>
+
 
 <div class="viewcode-block" id="ChildProject.get_stats"><a class="viewcode-back" href="../../ChildProject.html#ChildProject.projects.ChildProject.get_stats">[docs]</a>    <span class="k">def</span> <span class="nf">get_stats</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;return statistics extracted from the dataset</span>
