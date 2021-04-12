@@ -98,6 +98,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="tools.html">Basic tools</a></li>
 <li class="toctree-l1"><a class="reference internal" href="samplers.html">Samplers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="elan.html">ELAN builder</a></li>
 <li class="toctree-l1"><a class="reference internal" href="zooniverse.html">Zooniverse</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cheatsheet.html">Cheatsheet</a></li>
 </ul>
@@ -272,6 +273,13 @@
 </li>
       </ul></li>
       <li>
+    ChildProject.pipelines.eafbuilder
+
+      <ul>
+        <li><a href="ChildProject.pipelines.html#module-ChildProject.pipelines.eafbuilder">module</a>
+</li>
+      </ul></li>
+      <li>
     ChildProject.pipelines.pipeline
 
       <ul>
@@ -331,6 +339,8 @@
 </li>
       <li><a href="ChildProject.html#ChildProject.projects.ChildProject.CONVERTED_RECORDINGS">CONVERTED_RECORDINGS (ChildProject.projects.ChildProject attribute)</a>
 </li>
+      <li><a href="ChildProject.pipelines.html#ChildProject.pipelines.eafbuilder.create_eaf">create_eaf() (in module ChildProject.pipelines.eafbuilder)</a>
+</li>
       <li><a href="ChildProject.pipelines.html#ChildProject.pipelines.samplers.CustomSampler">CustomSampler (class in ChildProject.pipelines.samplers)</a>
 </li>
   </ul></td>
@@ -347,6 +357,8 @@
 <h2 id="E">E</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="ChildProject.pipelines.html#ChildProject.pipelines.eafbuilder.EafBuilderPipeline">EafBuilderPipeline (class in ChildProject.pipelines.eafbuilder)</a>
+</li>
       <li><a href="ChildProject.pipelines.html#ChildProject.pipelines.samplers.EnergyDetectionSampler">EnergyDetectionSampler (class in ChildProject.pipelines.samplers)</a>
 </li>
   </ul></td>
@@ -366,6 +378,8 @@
       <li><a href="ChildProject.html#ChildProject.projects.ChildProject.get_converted_recording_filename">get_converted_recording_filename() (ChildProject.projects.ChildProject method)</a>
 </li>
       <li><a href="ChildProject.pipelines.html#ChildProject.pipelines.zooniverse.ZooniversePipeline.get_credentials">get_credentials() (ChildProject.pipelines.zooniverse.ZooniversePipeline method)</a>
+</li>
+      <li><a href="ChildProject.html#ChildProject.cmdline.get_doc_summary">get_doc_summary() (in module ChildProject.cmdline)</a>
 </li>
       <li><a href="ChildProject.pipelines.html#ChildProject.pipelines.samplers.EnergyDetectionSampler.get_recording_windows">get_recording_windows() (ChildProject.pipelines.samplers.EnergyDetectionSampler method)</a>
 </li>
@@ -465,6 +479,8 @@
 </li>
         <li><a href="ChildProject.pipelines.html#module-ChildProject.pipelines.conversion">ChildProject.pipelines.conversion</a>
 </li>
+        <li><a href="ChildProject.pipelines.html#module-ChildProject.pipelines.eafbuilder">ChildProject.pipelines.eafbuilder</a>
+</li>
         <li><a href="ChildProject.pipelines.html#module-ChildProject.pipelines.pipeline">ChildProject.pipelines.pipeline</a>
 </li>
         <li><a href="ChildProject.pipelines.html#module-ChildProject.pipelines.samplers">ChildProject.pipelines.samplers</a>
@@ -539,6 +555,8 @@
       <ul>
         <li><a href="ChildProject.pipelines.html#ChildProject.pipelines.conversion.ConversionPipeline.run">(ChildProject.pipelines.conversion.ConversionPipeline method)</a>
 </li>
+        <li><a href="ChildProject.pipelines.html#ChildProject.pipelines.eafbuilder.EafBuilderPipeline.run">(ChildProject.pipelines.eafbuilder.EafBuilderPipeline method)</a>
+</li>
         <li><a href="ChildProject.pipelines.html#ChildProject.pipelines.pipeline.Pipeline.run">(ChildProject.pipelines.pipeline.Pipeline method)</a>
 </li>
         <li><a href="ChildProject.pipelines.html#ChildProject.pipelines.samplers.SamplerPipeline.run">(ChildProject.pipelines.samplers.SamplerPipeline method)</a>
@@ -572,16 +590,18 @@
 </li>
       <li><a href="ChildProject.html#ChildProject.utils.Segment">Segment (class in ChildProject.utils)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="ChildProject.html#ChildProject.annotations.AnnotationManager.SEGMENTS_COLUMNS">SEGMENTS_COLUMNS (ChildProject.annotations.AnnotationManager attribute)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="ChildProject.pipelines.html#ChildProject.pipelines.pipeline.Pipeline.setup">setup() (ChildProject.pipelines.pipeline.Pipeline method)</a>
 </li>
       <li><a href="ChildProject.pipelines.html#ChildProject.pipelines.anonymize.AnonymizationPipeline.setup_parser">setup_parser() (ChildProject.pipelines.anonymize.AnonymizationPipeline static method)</a>
 
       <ul>
         <li><a href="ChildProject.pipelines.html#ChildProject.pipelines.conversion.ConversionPipeline.setup_parser">(ChildProject.pipelines.conversion.ConversionPipeline static method)</a>
+</li>
+        <li><a href="ChildProject.pipelines.html#ChildProject.pipelines.eafbuilder.EafBuilderPipeline.setup_parser">(ChildProject.pipelines.eafbuilder.EafBuilderPipeline static method)</a>
 </li>
         <li><a href="ChildProject.pipelines.html#ChildProject.pipelines.samplers.SamplerPipeline.setup_parser">(ChildProject.pipelines.samplers.SamplerPipeline static method)</a>
 </li>

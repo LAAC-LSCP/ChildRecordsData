@@ -100,6 +100,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="tools.html">Basic tools</a></li>
 <li class="toctree-l1"><a class="reference internal" href="samplers.html">Samplers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="elan.html">ELAN builder</a></li>
 <li class="toctree-l1"><a class="reference internal" href="zooniverse.html">Zooniverse</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cheatsheet.html">Cheatsheet</a></li>
 </ul>
@@ -257,6 +258,44 @@
 <dl class="py function">
 <dt id="ChildProject.pipelines.conversion.convert_recording">
 <code class="sig-prename descclassname"><span class="pre">ChildProject.pipelines.conversion.</span></code><code class="sig-name descname"><span class="pre">convert_recording</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">profile</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip_existing</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">row</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">list</span><a class="reference internal" href="_modules/ChildProject/pipelines/conversion.html#convert_recording"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ChildProject.pipelines.conversion.convert_recording" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-ChildProject.pipelines.eafbuilder">
+<span id="childproject-pipelines-eafbuilder-module"></span><h2>ChildProject.pipelines.eafbuilder module<a class="headerlink" href="#module-ChildProject.pipelines.eafbuilder" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="ChildProject.pipelines.eafbuilder.EafBuilderPipeline">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">ChildProject.pipelines.eafbuilder.</span></code><code class="sig-name descname"><span class="pre">EafBuilderPipeline</span></code><a class="reference internal" href="_modules/ChildProject/pipelines/eafbuilder.html#EafBuilderPipeline"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ChildProject.pipelines.eafbuilder.EafBuilderPipeline" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#ChildProject.pipelines.pipeline.Pipeline" title="ChildProject.pipelines.pipeline.Pipeline"><code class="xref py py-class docutils literal notranslate"><span class="pre">ChildProject.pipelines.pipeline.Pipeline</span></code></a></p>
+<dl class="py method">
+<dt id="ChildProject.pipelines.eafbuilder.EafBuilderPipeline.run">
+<code class="sig-name descname"><span class="pre">run</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">destination</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">segments</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eaf_type</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">template</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">context_onset</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">context_offset</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ChildProject/pipelines/eafbuilder.html#EafBuilderPipeline.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ChildProject.pipelines.eafbuilder.EafBuilderPipeline.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>generate .eaf templates based on intervals to code</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<em>str</em>) – project path</p></li>
+<li><p><strong>destination</strong> (<em>str</em>) – eaf destination</p></li>
+<li><p><strong>segments</strong> (<em>str</em>) – path to the input segments dataframe</p></li>
+<li><p><strong>eaf_type</strong> (<em>str</em>) – eaf-type [random, periodic]</p></li>
+<li><p><strong>template</strong> (<em>str</em>) – name of the template to use (basic, native, or non-native)</p></li>
+<li><p><strong>context_onset</strong> (<em>float</em>) – context onset and segment offset difference in milliseconds, 0 for no introductory context</p></li>
+<li><p><strong>context_offset</strong> (<em>float</em>) – context offset and segment offset difference in milliseconds, 0 for no outro context</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="ChildProject.pipelines.eafbuilder.EafBuilderPipeline.setup_parser">
+<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">setup_parser</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parser</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ChildProject/pipelines/eafbuilder.html#EafBuilderPipeline.setup_parser"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ChildProject.pipelines.eafbuilder.EafBuilderPipeline.setup_parser" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt id="ChildProject.pipelines.eafbuilder.create_eaf">
+<code class="sig-prename descclassname"><span class="pre">ChildProject.pipelines.eafbuilder.</span></code><code class="sig-name descname"><span class="pre">create_eaf</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">etf_path</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_dir</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timestamps_list</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eaf_type</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">contxt_on</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">contxt_off</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">template</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ChildProject/pipelines/eafbuilder.html#create_eaf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ChildProject.pipelines.eafbuilder.create_eaf" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
