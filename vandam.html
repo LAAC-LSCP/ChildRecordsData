@@ -318,6 +318,13 @@ about when the recording started:</p>
 <div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;Recording</span> <span class="na">num=</span><span class="s">&quot;1&quot;</span> <span class="na">startClockTime=</span><span class="s">&quot;2010-07-24T11:58:16Z&quot;</span> <span class="na">endClockTime=</span><span class="s">&quot;2010-07-25T01:59:20Z&quot;</span> <span class="na">startTime=</span><span class="s">&quot;PT0.00S&quot;</span> <span class="na">endTime=</span><span class="s">&quot;PT50464.24S&quot;</span><span class="nt">&gt;</span>
 </pre></div>
 </div>
+<p>The ‘Z’ suffix in the clock times indicate they correspond to the UTC timezone.
+However, the metadata should contain local times only. The difference between
+the two is 5 hours, according to the following line in the .its file:</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;TransferTime</span> <span class="na">LocalTime=</span><span class="s">&quot;2010-07-28T14:34:46&quot;</span> <span class="na">TimeZone=</span><span class="s">&quot;CST&quot;</span> <span class="na">UTCTime=</span><span class="s">&quot;2010-07-28T19:34:46&quot;</span> <span class="nt">/&gt;</span>
+</pre></div>
+</div>
+<p>Therefore, the recording started on 2010-07-24, at 06:58 (local time).</p>
 <p>In order to reflect that information, the recordings CSV metadata
 should look like this (we have decided that the only child of the
 dataset should have ID ‘1’):</p>
