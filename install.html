@@ -90,6 +90,7 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#install-our-package-via-pip">Install our package via pip</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#install-git-annex">Install git-annex</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#install-ffmpeg">Install ffmpeg</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#check-the-setup">Check the setup</a></li>
 </ul>
 </li>
@@ -187,13 +188,14 @@ instructions we provide next.</p>
 <div class="section" id="install-our-package-via-pip">
 <h2>Install our package via pip<a class="headerlink" href="#install-our-package-via-pip" title="Permalink to this headline">¶</a></h2>
 <p>The package can be installed using pip :</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">git</span><span class="o">+</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">LAAC</span><span class="o">-</span><span class="n">LSCP</span><span class="o">/</span><span class="n">ChildProject</span><span class="o">.</span><span class="n">git</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip3</span> <span class="n">install</span> <span class="n">git</span><span class="o">+</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">LAAC</span><span class="o">-</span><span class="n">LSCP</span><span class="o">/</span><span class="n">ChildProject</span><span class="o">.</span><span class="n">git</span>
 </pre></div>
 </div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>Important: the package requires Python 3+, so make sure <code class="docutils literal notranslate"><span class="pre">pip</span></code> points
-to a python3 installation, otherwise try pip3. You can do so by typing
+<p>Important: the package requires Python 3+. If the above command
+does not work, try <cite>pip</cite> instead of <cite>pip3</cite>, but make sure that <cite>pip</cite>
+points to a python3 installation. You can do so by typing
 <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">--version</span></code>. If you have accidentally installed the package on
 the wrong environment, remove it with <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">uninstall</span> <span class="pre">datalad</span></code>.</p>
 </div>
@@ -202,7 +204,7 @@ any of the following :</p>
 <ul class="simple">
 <li><p>Use the <code class="docutils literal notranslate"><span class="pre">--user</span></code> flag:</p></li>
 </ul>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">git</span><span class="o">+</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">LAAC</span><span class="o">-</span><span class="n">LSCP</span><span class="o">/</span><span class="n">ChildProject</span><span class="o">.</span><span class="n">git</span> <span class="o">--</span><span class="n">user</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip3</span> <span class="n">install</span> <span class="n">git</span><span class="o">+</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">LAAC</span><span class="o">-</span><span class="n">LSCP</span><span class="o">/</span><span class="n">ChildProject</span><span class="o">.</span><span class="n">git</span> <span class="o">--</span><span class="n">user</span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -211,16 +213,23 @@ have to activate it everytime you need to use the package or datalad.</p></li>
 </ul>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python3</span> <span class="o">-</span><span class="n">m</span> <span class="n">venv</span> <span class="o">~/</span><span class="n">ChildProjectVenv</span>
 <span class="n">source</span> <span class="o">~/</span><span class="n">ChildProjectVenv</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">activate</span>
-<span class="n">pip</span> <span class="n">install</span> <span class="n">git</span><span class="o">+</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">LAAC</span><span class="o">-</span><span class="n">LSCP</span><span class="o">/</span><span class="n">ChildProject</span><span class="o">.</span><span class="n">git</span>
+<span class="n">pip3</span> <span class="n">install</span> <span class="n">git</span><span class="o">+</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">LAAC</span><span class="o">-</span><span class="n">LSCP</span><span class="o">/</span><span class="n">ChildProject</span><span class="o">.</span><span class="n">git</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="install-git-annex">
 <h2>Install git-annex<a class="headerlink" href="#install-git-annex" title="Permalink to this headline">¶</a></h2>
 <p>The package also requires git-annex in order to retrieve the datasets.
-It can be installed via <code class="docutils literal notranslate"><span class="pre">apt</span> <span class="pre">install</span> <span class="pre">git-annex</span></code> or
-<code class="docutils literal notranslate"><span class="pre">brew</span> <span class="pre">install</span> <span class="pre">git-annex</span></code>. It is encouraged to use a recent version of
+It can be installed via <code class="docutils literal notranslate"><span class="pre">apt</span> <span class="pre">install</span> <span class="pre">git-annex</span></code> (Linux) or
+<code class="docutils literal notranslate"><span class="pre">brew</span> <span class="pre">install</span> <span class="pre">git-annex</span></code> (Mac). It is encouraged to use a recent version of
 git-annex (8.2+).</p>
+</div>
+<div class="section" id="install-ffmpeg">
+<h2>Install ffmpeg<a class="headerlink" href="#install-ffmpeg" title="Permalink to this headline">¶</a></h2>
+<p>Operations on the audio will require ffmpeg.
+It is usually installed on most systems. You can check by typing <code class="docutils literal notranslate"><span class="pre">ffmpeg</span> <span class="pre">-version</span></code>.
+If not, it can be installed via <code class="docutils literal notranslate"><span class="pre">apt</span> <span class="pre">install</span> <span class="pre">ffmpeg</span></code> (Linux) or
+<code class="docutils literal notranslate"><span class="pre">brew</span> <span class="pre">install</span> <span class="pre">ffmpeg</span></code> (Mac).</p>
 </div>
 <div class="section" id="check-the-setup">
 <h2>Check the setup<a class="headerlink" href="#check-the-setup" title="Permalink to this headline">¶</a></h2>
@@ -244,8 +253,8 @@ optional arguments:
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>We recommend that you regularly keep DataLad and our package up to date.
-This can be achieved with the commands <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">datalad</span> <span class="pre">--upgrade</span></code>
-and <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">git+https://github.com/LAAC-LSCP/ChildProject.git</span> <span class="pre">--upgrade</span></code>.</p>
+This can be achieved with the commands <code class="docutils literal notranslate"><span class="pre">pip3</span> <span class="pre">install</span> <span class="pre">datalad</span> <span class="pre">--upgrade</span></code>
+and <code class="docutils literal notranslate"><span class="pre">pip3</span> <span class="pre">install</span> <span class="pre">git+https://github.com/LAAC-LSCP/ChildProject.git</span> <span class="pre">--upgrade</span></code>.</p>
 </div>
 </div>
 </div>
