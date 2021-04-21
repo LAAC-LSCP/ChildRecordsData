@@ -183,9 +183,13 @@
            <div itemprop="articleBody">
             
   <div class="section" id="samplers">
-<h1>Samplers<a class="headerlink" href="#samplers" title="Permalink to this headline">¶</a></h1>
+<span id="id1"></span><h1>Samplers<a class="headerlink" href="#samplers" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="overview">
 <h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+<div class="figure align-default" id="id2">
+<img alt="Sampling recordings" src="_images/sampler_diagram.png" />
+<p class="caption"><span class="caption-text">Sampling audio segments to be annotated with ChildProject.</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+</div>
 <p>A sampler draws segments from each recording, according to the algorithm and the parameters defined by the user.
 The sampler will produce two files into the <cite>destination</cite> folder :</p>
 <blockquote>
@@ -195,7 +199,8 @@ The sampler will produce two files into the <cite>destination</cite> folder :</p
 </ul>
 </div></blockquote>
 <p>If the folder <cite>destination</cite> does not exist, it is automatically created in the process.</p>
-<p>Several samplers are implemented in our package, which are listed below.</p>
+<p>Several samplers are implemented in our package, which are listed below.
+The samples can then feed following pipelines such as the <a class="reference internal" href="zooniverse.html#zooniverse"><span class="std std-ref">Zooniverse</span></a> pipeline.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ child-project sampler --help
 usage: child-project sampler <span class="o">[</span>-h<span class="o">]</span>
                              path destination
