@@ -378,26 +378,71 @@
     <span class="n">datalad</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">run_procedure</span><span class="p">(</span><span class="n">spec</span> <span class="o">=</span> <span class="n">cmd</span><span class="p">,</span> <span class="n">dataset</span> <span class="o">=</span> <span class="n">ds</span><span class="p">)</span>
 
 <span class="nd">@subcommand</span><span class="p">([</span>
-    <span class="n">arg</span><span class="p">(</span><span class="s2">&quot;source&quot;</span><span class="p">,</span> <span class="n">help</span> <span class="o">=</span> <span class="s2">&quot;source data path&quot;</span><span class="p">),</span>
-    <span class="n">arg</span><span class="p">(</span><span class="s2">&quot;--stats&quot;</span><span class="p">,</span> <span class="n">help</span> <span class="o">=</span> <span class="s2">&quot;stats to retrieve (comma-separated)&quot;</span><span class="p">,</span> <span class="n">required</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">default</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="n">arg</span><span class="p">(</span><span class="s2">&quot;source&quot;</span><span class="p">,</span> <span class="n">help</span> <span class="o">=</span> <span class="s2">&quot;source data path&quot;</span><span class="p">)</span>
 <span class="p">])</span>
-<span class="k">def</span> <span class="nf">stats</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;print statistics about a given dataset&quot;&quot;&quot;</span>
+<span class="k">def</span> <span class="nf">overview</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;prints an overview of the contents of a given dataset&quot;&quot;&quot;</span>
     
     <span class="n">project</span> <span class="o">=</span> <span class="n">ChildProject</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">source</span><span class="p">)</span>
-
-    <span class="n">errors</span><span class="p">,</span> <span class="n">warnings</span> <span class="o">=</span> <span class="n">project</span><span class="o">.</span><span class="n">validate</span><span class="p">()</span>
+    <span class="n">errors</span><span class="p">,</span> <span class="n">warnings</span> <span class="o">=</span> <span class="n">project</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">ignore_files</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">errors</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;validation failed, </span><span class="si">{}</span><span class="s2"> error(s) occured&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">errors</span><span class="p">)),</span> <span class="n">file</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">)</span>
-        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 
-    <span class="n">stats</span> <span class="o">=</span> <span class="n">project</span><span class="o">.</span><span class="n">get_stats</span><span class="p">()</span>
-    <span class="n">args</span><span class="o">.</span><span class="n">stats</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span> <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">stats</span> <span class="k">else</span> <span class="p">[]</span>
+    <span class="n">am</span> <span class="o">=</span> <span class="n">AnnotationManager</span><span class="p">(</span><span class="n">project</span><span class="p">)</span>
+    <span class="n">project</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
 
-    <span class="k">for</span> <span class="n">stat</span> <span class="ow">in</span> <span class="n">stats</span><span class="p">:</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">args</span><span class="o">.</span><span class="n">stats</span> <span class="ow">or</span> <span class="n">stat</span> <span class="ow">in</span> <span class="n">args</span><span class="o">.</span><span class="n">stats</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">stat</span><span class="p">,</span> <span class="n">stats</span><span class="p">[</span><span class="n">stat</span><span class="p">]))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n\033</span><span class="s1">[1mrecordings</span><span class="se">\033</span><span class="s1">[0m:&#39;</span><span class="p">)</span>
+    <span class="n">_recordings</span> <span class="o">=</span> <span class="n">project</span><span class="o">.</span><span class="n">recordings</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;recording_filename&#39;</span><span class="p">])</span>\
+        <span class="o">.</span><span class="n">sort_values</span><span class="p">([</span><span class="s1">&#39;recording_device_type&#39;</span><span class="p">,</span> <span class="s1">&#39;date_iso&#39;</span><span class="p">])</span>\
+        <span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;recording_device_type&#39;</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">recording_device_type</span><span class="p">,</span> <span class="n">recordings</span> <span class="ow">in</span> <span class="n">_recordings</span><span class="p">:</span>
+        <span class="k">if</span> <span class="s1">&#39;duration&#39;</span> <span class="ow">in</span> <span class="n">recordings</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+            <span class="n">duration</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{:.2f}</span><span class="s2"> hours&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">recordings</span><span class="p">[</span><span class="s1">&#39;duration&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">/</span><span class="p">(</span><span class="mi">3600</span><span class="o">*</span><span class="mi">1000</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">duration</span> <span class="o">=</span> <span class="s1">&#39;unknown duration&#39;</span>
+
+        <span class="n">available</span> <span class="o">=</span> <span class="n">recordings</span><span class="p">[</span><span class="s1">&#39;recording_filename&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">recording_filename</span><span class="p">:</span>
+            <span class="mi">1</span> <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                <span class="n">project</span><span class="o">.</span><span class="n">path</span><span class="p">,</span>
+                <span class="s1">&#39;recordings&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;raw&#39;</span><span class="p">,</span>
+                <span class="n">recording_filename</span>
+            <span class="p">))</span> <span class="k">else</span> <span class="mi">0</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[94m</span><span class="si">{}</span><span class="se">\033</span><span class="s1">[0m: </span><span class="si">{}</span><span class="s1">, </span><span class="si">{}</span><span class="s1">/</span><span class="si">{}</span><span class="s1"> files locally available&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="n">recording_device_type</span><span class="p">,</span>
+            <span class="n">duration</span><span class="p">,</span>
+            <span class="n">available</span><span class="p">,</span>
+            <span class="nb">len</span><span class="p">(</span><span class="n">recordings</span><span class="p">)</span>
+        <span class="p">))</span>
+        
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n\033</span><span class="s1">[1mannotations</span><span class="se">\033</span><span class="s1">[0m:&#39;</span><span class="p">)</span>
+    <span class="n">_annotations</span> <span class="o">=</span> <span class="n">am</span><span class="o">.</span><span class="n">annotations</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;annotation_filename&#39;</span><span class="p">])</span>\
+        <span class="o">.</span><span class="n">sort_values</span><span class="p">([</span><span class="s1">&#39;set&#39;</span><span class="p">,</span> <span class="s1">&#39;imported_at&#39;</span><span class="p">])</span>\
+        <span class="o">.</span><span class="n">drop_duplicates</span><span class="p">([</span><span class="s1">&#39;set&#39;</span><span class="p">,</span> <span class="s1">&#39;annotation_filename&#39;</span><span class="p">],</span> <span class="n">keep</span> <span class="o">=</span> <span class="s1">&#39;last&#39;</span><span class="p">)</span>\
+        <span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;set&#39;</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">annotation_set</span><span class="p">,</span> <span class="n">annotations</span> <span class="ow">in</span> <span class="n">_annotations</span><span class="p">:</span>
+        <span class="n">duration_covered</span> <span class="o">=</span> <span class="n">annotations</span><span class="p">[</span><span class="s1">&#39;range_offset&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">-</span><span class="n">annotations</span><span class="p">[</span><span class="s1">&#39;range_onset&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+        <span class="n">available</span> <span class="o">=</span> <span class="n">annotations</span><span class="p">[</span><span class="s1">&#39;annotation_filename&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">annotation_filename</span><span class="p">:</span>
+            <span class="mi">1</span> <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                <span class="n">project</span><span class="o">.</span><span class="n">path</span><span class="p">,</span>
+                <span class="s1">&#39;annotations&#39;</span><span class="p">,</span>
+                <span class="n">annotation_set</span><span class="p">,</span>
+                <span class="s1">&#39;converted&#39;</span><span class="p">,</span>
+                <span class="n">annotation_filename</span>
+            <span class="p">))</span> <span class="k">else</span> <span class="mi">0</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[94m</span><span class="si">{}</span><span class="se">\033</span><span class="s1">[0m: </span><span class="si">{:.2f}</span><span class="s1"> hours, </span><span class="si">{}</span><span class="s1">/</span><span class="si">{}</span><span class="s1"> files locally available&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="n">annotation_set</span><span class="p">,</span>
+            <span class="n">duration_covered</span><span class="o">/</span><span class="p">(</span><span class="mi">3600</span><span class="o">*</span><span class="mi">1000</span><span class="p">),</span>
+            <span class="n">available</span><span class="p">,</span>
+            <span class="nb">len</span><span class="p">(</span><span class="n">annotations</span><span class="p">)</span>
+        <span class="p">))</span>
 
 <span class="nd">@subcommand</span><span class="p">([</span>
     <span class="n">arg</span><span class="p">(</span><span class="s2">&quot;source&quot;</span><span class="p">,</span> <span class="n">help</span> <span class="o">=</span> <span class="s2">&quot;source data path&quot;</span><span class="p">),</span>

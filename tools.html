@@ -100,6 +100,7 @@
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Basic tools</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#data-validation">Data validation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#dataset-overview">Dataset overview</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#convert-recordings">Convert recordings</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#multi-core-audio-conversion-with-slurm-on-a-cluster">Multi-core audio conversion with slurm on a cluster</a></li>
 </ul>
@@ -225,6 +226,40 @@ optional arguments:
 </div>
 <p>Example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">child</span><span class="o">-</span><span class="n">project</span> <span class="n">validate</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">dataset</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="dataset-overview">
+<h2>Dataset overview<a class="headerlink" href="#dataset-overview" title="Permalink to this headline">¶</a></h2>
+<p>An overview of the contents of a dataset can be obtained with the
+<code class="docutils literal notranslate"><span class="pre">child-project</span> <span class="pre">overview</span></code> command.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ child-project overview --help
+usage: child-project overview <span class="o">[</span>-h<span class="o">]</span> <span class="nb">source</span>
+
+prints an overview of the contents of a given dataset
+
+positional arguments:
+  <span class="nb">source</span>      <span class="nb">source</span> data path
+
+optional arguments:
+  -h, --help  show this <span class="nb">help</span> message and <span class="nb">exit</span>
+</pre></div>
+</div>
+<p>Example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ child-project overview .
+
+recordings:
+lena: <span class="m">288</span>.00 hours, <span class="m">0</span>/18 files locally available
+olympus: <span class="m">49</span>.57 hours, <span class="m">0</span>/3 files locally available
+usb: <span class="m">223</span>.42 hours, <span class="m">0</span>/20 files locally available
+
+annotations:
+alice: <span class="m">560</span>.99 hours, <span class="m">0</span>/40 files locally available
+alice_vtc: <span class="m">560</span>.99 hours, <span class="m">0</span>/40 files locally available
+eaf/nk: <span class="m">1</span>.47 hours, <span class="m">0</span>/88 files locally available
+lena: <span class="m">272</span>.00 hours, <span class="m">0</span>/17 files locally available
+textgrid/mm: <span class="m">8</span>.75 hours, <span class="m">0</span>/525 files locally available
+vtc: <span class="m">560</span>.99 hours, <span class="m">40</span>/40 files locally available
 </pre></div>
 </div>
 </div>
