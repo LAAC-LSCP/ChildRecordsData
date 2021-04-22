@@ -88,8 +88,8 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#install-datalad">Install DataLad</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#install-our-package-via-pip">Install our package via pip</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#install-git-annex">Install git-annex</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#install-ffmpeg">Install ffmpeg</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#check-the-setup">Check the setup</a></li>
 </ul>
@@ -185,6 +185,26 @@
 <span id="id1"></span><h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
 <p>You’ll need to install our package and git-annex, following the
 instructions we provide next.</p>
+<div class="section" id="install-datalad">
+<h2>Install DataLad<a class="headerlink" href="#install-datalad" title="Permalink to this headline">¶</a></h2>
+<p>In order to store and deliver the datasets, we recommend the use of DataLad,
+“a decentralized system for integrated discovery, management, and publication of digital objects of science”,
+which we already use for several corpora.</p>
+<p>DataLad is a python package, but it also requires git-annex to be installed.</p>
+<p>For most MacOS and Linux users, these can be installed with:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip3 install datalad
+apt-get install git-annex <span class="o">||</span> brew install git-annex
+</pre></div>
+</div>
+<p>Detailed instructions for Windows, Linux and MacOS users are given in
+<a class="reference external" href="http://handbook.datalad.org/en/latest/intro/installation.html">DataLad’s handbook</a>,
+including instructions to install DataLad via conda.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>After installing, please make sure your version of git-annex
+is recent (we recommend 8.2 and later), with <code class="docutils literal notranslate"><span class="pre">git-annex</span> <span class="pre">version</span></code>.</p>
+</div>
+</div>
 <div class="section" id="install-our-package-via-pip">
 <h2>Install our package via pip<a class="headerlink" href="#install-our-package-via-pip" title="Permalink to this headline">¶</a></h2>
 <p>The package can be installed using pip :</p>
@@ -217,23 +237,16 @@ have to activate it everytime you need to use the package or datalad.</p></li>
 </pre></div>
 </div>
 </div>
-<div class="section" id="install-git-annex">
-<h2>Install git-annex<a class="headerlink" href="#install-git-annex" title="Permalink to this headline">¶</a></h2>
-<p>The package also requires git-annex in order to retrieve the datasets.
-It can be installed via <code class="docutils literal notranslate"><span class="pre">apt</span> <span class="pre">install</span> <span class="pre">git-annex</span></code> (Linux) or
-<code class="docutils literal notranslate"><span class="pre">brew</span> <span class="pre">install</span> <span class="pre">git-annex</span></code> (Mac). It is encouraged to use a recent version of
-git-annex (8.2+).</p>
-</div>
 <div class="section" id="install-ffmpeg">
 <h2>Install ffmpeg<a class="headerlink" href="#install-ffmpeg" title="Permalink to this headline">¶</a></h2>
 <p>Operations on the audio will require ffmpeg.
 It is usually installed on most systems. You can check by typing <code class="docutils literal notranslate"><span class="pre">ffmpeg</span> <span class="pre">-version</span></code>.
 If not, it can be installed via <code class="docutils literal notranslate"><span class="pre">apt</span> <span class="pre">install</span> <span class="pre">ffmpeg</span></code> (Linux) or
-<code class="docutils literal notranslate"><span class="pre">brew</span> <span class="pre">install</span> <span class="pre">ffmpeg</span></code> (Mac).</p>
+<code class="docutils literal notranslate"><span class="pre">brew</span> <span class="pre">install</span> <span class="pre">ffmpeg</span></code> (Mac), or <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">install</span> <span class="pre">ffmpeg</span></code> for conda users.</p>
 </div>
 <div class="section" id="check-the-setup">
 <h2>Check the setup<a class="headerlink" href="#check-the-setup" title="Permalink to this headline">¶</a></h2>
-<p>You can check the setup by issuing the following commands :</p>
+<p>You can now make sure the packages have been successfully installed:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ datalad --version
 datalad <span class="m">0</span>.14.2
 </pre></div>
