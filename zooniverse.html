@@ -251,7 +251,7 @@ usage: child-project zooniverse extract-chunks <span class="o">[</span>-h<span c
                                                <span class="o">[</span>--chunks-min-amount CHUNKS_MIN_AMOUNT<span class="o">]</span>
                                                --segments SEGMENTS
                                                --destination DESTINATION
-                                               <span class="o">[</span>--exclude-segments EXCLUDE_SEGMENTS <span class="o">[</span>EXCLUDE_SEGMENTS ...<span class="o">]]</span>
+                                               <span class="o">[</span>--profile PROFILE<span class="o">]</span>
                                                <span class="o">[</span>--threads THREADS<span class="o">]</span>
                                                path
 
@@ -270,8 +270,8 @@ optional arguments:
   --segments SEGMENTS   path to the input segments dataframe
   --destination DESTINATION
                         destination
-  --exclude-segments EXCLUDE_SEGMENTS <span class="o">[</span>EXCLUDE_SEGMENTS ...<span class="o">]</span>
-                        segments to exclude before sampling
+  --profile PROFILE     Recording profile to extract the audio clips from. If
+                        not specified, raw recordings will be used
   --threads THREADS     how many threads to run on
 </pre></div>
 </div>
