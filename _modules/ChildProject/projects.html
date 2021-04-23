@@ -357,6 +357,27 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">errors</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">warnings</span></div>
 
+<div class="viewcode-block" id="ChildProject.get_recording_path"><a class="viewcode-back" href="../../ChildProject.html#ChildProject.projects.ChildProject.get_recording_path">[docs]</a>    <span class="k">def</span> <span class="nf">get_recording_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">recording_filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">profile</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;return the path to a recording</span>
+
+<span class="sd">        :param recording_filename: recording filename, as in the metadata</span>
+<span class="sd">        :type recording_filename: str</span>
+<span class="sd">        :param profile: name of the conversion profile, defaults to None</span>
+<span class="sd">        :type profile: str, optional</span>
+<span class="sd">        :return: path to the recording</span>
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="n">profile</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">CONVERTED_RECORDINGS</span><span class="p">,</span>
+                <span class="n">profile</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">get_converted_recording_filename</span><span class="p">(</span><span class="n">profile</span><span class="p">,</span> <span class="n">recording_filename</span><span class="p">)</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">RAW_RECORDINGS</span><span class="p">,</span> <span class="n">recording_filename</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="ChildProject.get_converted_recording_filename"><a class="viewcode-back" href="../../ChildProject.html#ChildProject.projects.ChildProject.get_converted_recording_filename">[docs]</a>    <span class="k">def</span> <span class="nf">get_converted_recording_filename</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">profile</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">recording_filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;retrieve the converted filename of a recording under a given ``profile``,</span>
 <span class="sd">        from its original filename.</span>
@@ -390,7 +411,7 @@
             <span class="k">return</span> <span class="kc">None</span></div>
 
 <div class="viewcode-block" id="ChildProject.compute_recordings_duration"><a class="viewcode-back" href="../../ChildProject.html#ChildProject.projects.ChildProject.compute_recordings_duration">[docs]</a>    <span class="k">def</span> <span class="nf">compute_recordings_duration</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">profile</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;[summary]</span>
+        <span class="sd">&quot;&quot;&quot;compute recordings duration</span>
 
 <span class="sd">        :param profile: name of the profile of recordings to compute the duration from. If None, raw recordings are used. defaults to None</span>
 <span class="sd">        :type profile: str, optional</span>
@@ -400,8 +421,7 @@
         <span class="n">recordings</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">recordings</span><span class="p">[[</span><span class="s1">&#39;recording_filename&#39;</span><span class="p">]]</span>
 
         <span class="n">recordings</span> <span class="o">=</span> <span class="n">recordings</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">duration</span> <span class="o">=</span> <span class="n">recordings</span><span class="p">[</span><span class="s1">&#39;recording_filename&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">f</span><span class="p">:</span>
-            <span class="n">get_audio_duration</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">CONVERTED_RECORDINGS</span><span class="p">,</span> <span class="n">profile</span><span class="p">,</span> <span class="n">f</span><span class="p">))</span> <span class="k">if</span> <span class="n">profile</span>
-            <span class="k">else</span> <span class="n">get_audio_duration</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">RAW_RECORDINGS</span><span class="p">,</span> <span class="n">f</span><span class="p">))</span>
+            <span class="n">get_audio_duration</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_recording_path</span><span class="p">(</span><span class="n">f</span><span class="p">))</span>
         <span class="p">))</span>
         <span class="n">recordings</span><span class="p">[</span><span class="s1">&#39;duration&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
         <span class="n">recordings</span><span class="p">[</span><span class="s1">&#39;duration&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">recordings</span><span class="p">[</span><span class="s1">&#39;duration&#39;</span><span class="p">]</span><span class="o">*</span><span class="mi">1000</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>

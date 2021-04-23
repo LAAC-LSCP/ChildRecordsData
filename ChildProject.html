@@ -584,7 +584,7 @@ and updating the index accordingly.</p>
 <dl class="py method">
 <dt id="ChildProject.projects.ChildProject.compute_recordings_duration">
 <code class="sig-name descname"><span class="pre">compute_recordings_duration</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">profile</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">pandas.core.frame.DataFrame</span><a class="reference internal" href="_modules/ChildProject/projects.html#ChildProject.compute_recordings_duration"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ChildProject.projects.ChildProject.compute_recordings_duration" title="Permalink to this definition">¶</a></dt>
-<dd><p>[summary]</p>
+<dd><p>compute recordings duration</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>profile</strong> (<em>str</em><em>, </em><em>optional</em>) – name of the profile of recordings to compute the duration from. If None, raw recordings are used. defaults to None</p>
@@ -612,6 +612,26 @@ from its original filename.</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>corresponding converted filename of the recording under this profile</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="ChildProject.projects.ChildProject.get_recording_path">
+<code class="sig-name descname"><span class="pre">get_recording_path</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">recording_filename</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">profile</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">str</span><a class="reference internal" href="_modules/ChildProject/projects.html#ChildProject.get_recording_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ChildProject.projects.ChildProject.get_recording_path" title="Permalink to this definition">¶</a></dt>
+<dd><p>return the path to a recording</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>recording_filename</strong> (<em>str</em>) – recording filename, as in the metadata</p></li>
+<li><p><strong>profile</strong> (<em>str</em><em>, </em><em>optional</em>) – name of the conversion profile, defaults to None</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>path to the recording</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>str</p>
