@@ -92,8 +92,9 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Datasets structure</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#dataset-tree">Dataset tree</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#metadata">Metadata</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#children-notebook">children notebook</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#recording-notebook">recording notebook</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#children-notebook">Children notebook</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#recordings-notebook">Recordings notebook</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#splitting-the-metadata-across-several-files">Splitting the metadata across several files</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#annotations">Annotations</a><ul>
@@ -236,10 +237,10 @@ the standards detailed right below.</p>
 <div class="section" id="metadata">
 <span id="format-metadata"></span><h2>Metadata<a class="headerlink" href="#metadata" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="children-notebook">
-<h3>children notebook<a class="headerlink" href="#children-notebook" title="Permalink to this headline">¶</a></h3>
-<p>The children dataframe needs to be saved at <code class="docutils literal notranslate"><span class="pre">metadata/children.csv</span></code>.</p>
-<table class="colwidths-given docutils align-default" id="id3">
-<caption><span class="caption-text">Children metadata</span><a class="headerlink" href="#id3" title="Permalink to this table">¶</a></caption>
+<h3>Children notebook<a class="headerlink" href="#children-notebook" title="Permalink to this headline">¶</a></h3>
+<p>The children metadata dataframe needs to be saved at <code class="docutils literal notranslate"><span class="pre">metadata/children.csv</span></code>.</p>
+<table class="colwidths-given docutils align-default" id="id7">
+<caption><span class="caption-text">Children metadata</span><a class="headerlink" href="#id7" title="Permalink to this table">¶</a></caption>
 <colgroup>
 <col style="width: 20%" />
 <col style="width: 50%" />
@@ -465,12 +466,12 @@ the standards detailed right below.</p>
 </tbody>
 </table>
 </div>
-<div class="section" id="recording-notebook">
-<h3>recording notebook<a class="headerlink" href="#recording-notebook" title="Permalink to this headline">¶</a></h3>
-<p>The recordings dataframe needs to be saved at
+<div class="section" id="recordings-notebook">
+<h3>Recordings notebook<a class="headerlink" href="#recordings-notebook" title="Permalink to this headline">¶</a></h3>
+<p>The recordings metadata dataframe needs to be saved at
 <code class="docutils literal notranslate"><span class="pre">metadata/recordings.csv</span></code>.</p>
-<table class="colwidths-given docutils align-default" id="id4">
-<caption><span class="caption-text">Recordings metadata</span><a class="headerlink" href="#id4" title="Permalink to this table">¶</a></caption>
+<table class="colwidths-given docutils align-default" id="id8">
+<caption><span class="caption-text">Recordings metadata</span><a class="headerlink" href="#id8" title="Permalink to this table">¶</a></caption>
 <colgroup>
 <col style="width: 20%" />
 <col style="width: 50%" />
@@ -540,9 +541,8 @@ the standards detailed right below.</p>
 <tr class="row-odd"><td><p>recording_filename</p></td>
 <td><div class="line-block">
 <div class="line">the path to the file from the root of</div>
-<div class="line">“recordings”), set to ‘NA’ if no valid recording</div>
-<div class="line">available. It is unique (two recordings cannot</div>
-<div class="line">point towards the same file).</div>
+<div class="line">“recordings”). It MUST be unique (two recordings</div>
+<div class="line">cannot point towards the same file).</div>
 </div>
 </td>
 <td><p><strong>required</strong></p></td>
@@ -675,6 +675,57 @@ the standards detailed right below.</p>
 </tbody>
 </table>
 </div>
+<div class="section" id="splitting-the-metadata-across-several-files">
+<h3>Splitting the metadata across several files<a class="headerlink" href="#splitting-the-metadata-across-several-files" title="Permalink to this headline">¶</a></h3>
+<p>Sometimes, access to parts of the metadata should be limited
+to a list of authorized users. This can be achieved by moving confidential
+information out of the main notebook to a separate CSV file to
+be only delivered to authorized users. These additional files
+should be placed according to the table below:</p>
+<table class="docutils align-default" id="id9">
+<caption><span class="caption-text">Additional metadata</span><a class="headerlink" href="#id9" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>data</p></th>
+<th class="head"><p>main notebook</p></th>
+<th class="head"><p>location of additional notebooks</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>children</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">metadata/children.csv</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">metadata/children/</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>recordings</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">metadata/recordings.csv</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">metadata/recordings/</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<p>There can be as many additional notebooks as necessary, and recursion
+is permitted.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In case two or more notebooks contain the same column, the files
+whose names come first in alphabetical order will prevail while
+loading the dataset with our package. For instance, if
+<code class="docutils literal notranslate"><span class="pre">child_dob</span></code> is specified in both  <code class="docutils literal notranslate"><span class="pre">metadata/recordings/0_private.csv</span></code>
+and <code class="docutils literal notranslate"><span class="pre">metadata/recordings/1_public.csv</span></code>, the values in the former file will prevail if it is available.
+This is useful when anonymized values for a certain parameter still need to be shared,
+but should be replaced with the true values for those who have access to the full dataset.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>For recursive metadata, two dataframes cannot share the same basename.
+For instance, if one dataframe is located at <cite>metadata/children/dates-of-birth.csv</cite>,
+an error will be thrown if another dataframe exists at
+<a href="#id1"><span class="problematic" id="id2">`</span></a>metadata/children/private/dates-of-birth.csv <a href="#id3"><span class="problematic" id="id4">`</span></a>.</p>
+</div>
+</div>
 </div>
 <div class="section" id="annotations">
 <h2>Annotations<a class="headerlink" href="#annotations" title="Permalink to this headline">¶</a></h2>
@@ -682,8 +733,8 @@ the standards detailed right below.</p>
 <span id="format-annotations-segments"></span><h3>Annotations format<a class="headerlink" href="#annotations-format" title="Permalink to this headline">¶</a></h3>
 <p>The package provides functions to convert any annotation into the
 following csv format, with one row per segment :</p>
-<table class="colwidths-given docutils align-default" id="id5">
-<caption><span class="caption-text">Annotations format</span><a class="headerlink" href="#id5" title="Permalink to this table">¶</a></caption>
+<table class="colwidths-given docutils align-default" id="id10">
+<caption><span class="caption-text">Annotations format</span><a class="headerlink" href="#id10" title="Permalink to this table">¶</a></caption>
 <colgroup>
 <col style="width: 20%" />
 <col style="width: 50%" />
@@ -1004,8 +1055,8 @@ following csv format, with one row per segment :</p>
 <span id="format-annotations"></span><h3>Annotations index<a class="headerlink" href="#annotations-index" title="Permalink to this headline">¶</a></h3>
 <p>Annotations are indexed in one unique dataframe located at
 <code class="docutils literal notranslate"><span class="pre">/metadata/annotations.csv</span></code>, with the following format :</p>
-<table class="colwidths-given docutils align-default" id="id6">
-<caption><span class="caption-text">Annotations metadata</span><a class="headerlink" href="#id6" title="Permalink to this table">¶</a></caption>
+<table class="colwidths-given docutils align-default" id="id11">
+<caption><span class="caption-text">Annotations metadata</span><a class="headerlink" href="#id11" title="Permalink to this table">¶</a></caption>
 <colgroup>
 <col style="width: 20%" />
 <col style="width: 50%" />
@@ -1078,7 +1129,7 @@ following csv format, with one row per segment :</p>
 <tr class="row-even"><td><p>annotation_filename</p></td>
 <td><div class="line-block">
 <div class="line">output formatted annotation location, relative to</div>
-<div class="line"><a href="#id1"><span class="problematic" id="id2">`</span></a>annotations/&lt;set&gt;/converted (automatic column,</div>
+<div class="line"><a href="#id5"><span class="problematic" id="id6">`</span></a>annotations/&lt;set&gt;/converted (automatic column,</div>
 <div class="line">don’t specify)</div>
 </div>
 </td>
@@ -1118,8 +1169,8 @@ following csv format, with one row per segment :</p>
 <span id="format-input-annotations"></span><h3>Annotation importation input format<a class="headerlink" href="#annotation-importation-input-format" title="Permalink to this headline">¶</a></h3>
 <p>The annotations importation script (<a class="reference internal" href="tools.html#tools-annotations-bulk-importation"><span class="std std-ref">Bulk importation</span></a>) and python method (<a class="reference internal" href="ChildProject.html#ChildProject.annotations.AnnotationManager.import_annotations" title="ChildProject.annotations.AnnotationManager.import_annotations"><code class="xref py py-meth docutils literal notranslate"><span class="pre">ChildProject.annotations.AnnotationManager.import_annotations()</span></code></a>) take a dataframe of the
 following format as an input:</p>
-<table class="colwidths-given docutils align-default" id="id7">
-<caption><span class="caption-text">Input annotations</span><a class="headerlink" href="#id7" title="Permalink to this table">¶</a></caption>
+<table class="colwidths-given docutils align-default" id="id12">
+<caption><span class="caption-text">Input annotations</span><a class="headerlink" href="#id12" title="Permalink to this table">¶</a></caption>
 <colgroup>
 <col style="width: 20%" />
 <col style="width: 50%" />
