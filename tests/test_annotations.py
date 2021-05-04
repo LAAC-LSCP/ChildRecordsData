@@ -215,6 +215,8 @@ def test_rename(project):
     assert am.annotations[am.annotations['set'] == 'renamed'].shape[0] == tg_count
 
 def custom_function(filename):
+    from ChildProject.converters import VtcConverter
+    
     df = pd.read_csv(
         filename,
         sep = " ",
@@ -223,7 +225,7 @@ def custom_function(filename):
 
     df['segment_onset'] = 1000*df['tbeg'].astype(int)
     df['segment_offset'] = (1000*(df['tbeg']+df['tdur'])).astype(int)
-    df['speaker_type'] = df['name'].map(AnnotationManager.VTC_SPEAKER_TYPE_TRANSLATION)
+    df['speaker_type'] = df['name'].map(VtcConverter.SPEAKER_TYPE_TRANSLATION)
 
     df.drop(['type', 'file', 'chnl', 'tbeg', 'tdur', 'ortho', 'stype', 'name', 'conf', 'unk'], axis = 1, inplace = True)
     return df
