@@ -303,6 +303,9 @@
             <span class="p">))</span>
 
         <span class="k">for</span> <span class="n">md</span> <span class="ow">in</span> <span class="n">md</span><span class="p">[</span><span class="s1">&#39;path&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">():</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">md</span><span class="p">):</span>
+                <span class="k">continue</span>
+               
             <span class="n">table</span> <span class="o">=</span> <span class="n">IndexTable</span><span class="p">(</span><span class="n">table</span><span class="p">,</span> <span class="n">md</span><span class="p">,</span> <span class="n">columns</span><span class="p">)</span>
             <span class="n">dataframe</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
 
