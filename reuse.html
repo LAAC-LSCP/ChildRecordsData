@@ -204,7 +204,7 @@ our large files.</p>
 <h2>Installing datalad<a class="headerlink" href="#installing-datalad" title="Permalink to this headline">¶</a></h2>
 <p>The DataLad handbook provides extensive instructions for the
 installation of DataLad in their <a class="reference external" href="http://handbook.datalad.org/en/latest/intro/installation.html#install">handbook</a>.</p>
-<p>If you have admin rights and are working on Linux or Mac, the following
+<p>If you have admin rights and you are working on Linux or Mac, the following
 should work:</p>
 <ol class="arabic simple">
 <li><p>Install git-annex using <code class="docutils literal notranslate"><span class="pre">apt</span> <span class="pre">install</span> <span class="pre">git-annex</span></code> (linux) or
@@ -214,7 +214,7 @@ on Oberon.</p></li>
 </ol>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>If you are still having permission issues, consider using python virtual
+<p>If you are having permission issues, consider using python virtual
 environments or conda (see <a class="reference external" href="http://handbook.datalad.org/en/latest/intro/installation.html#install">DataLad’s handbook</a>).
 Otherwise, refer to your system administrator.</p>
 </div>
@@ -256,7 +256,13 @@ if you are prompted for your SSH passphrase everytime.</p>
 <h3>Installing a dataset<a class="headerlink" href="#installing-a-dataset" title="Permalink to this headline">¶</a></h3>
 <p>Installing a dataset can be done with the <cite>datalad install</cite> command.
 The input is the SSH location of the dataset. It can be found on
-the page of the repository on GIN.</p>
+the page of the repository on GIN:</p>
+<div class="figure align-default" id="id1">
+<img alt="Where to find the SSH url of a dataset on GIN" src="_images/gin.png" />
+<p class="caption"><span class="caption-text">A GIN dataset.</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</div>
+<p>For instance, the VanDam public dataset (available on <a class="reference external" href="https://gin.g-node.org/LAAC-LSCP/vandam-data">GIN</a>)
+can be installed with the following command:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>datalad install git@gin.g-node.org:/LAAC-LSCP/vandam-data.git
 <span class="nb">cd</span> vandam-data
 </pre></div>
