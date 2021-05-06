@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>How to reuse extant LAAC datasets &mdash; ChildProject 0.0.1 documentation</title>
+  <title>How to reuse GIN datasets &mdash; ChildProject 0.0.1 documentation</title>
   
 
   
@@ -93,13 +93,10 @@
 </ul>
 <p class="caption"><span class="caption-text">Tutorials</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">How to reuse extant LAAC datasets</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#how-it-works">How it works</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">How to reuse GIN datasets</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#installing-datalad">Installing datalad</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#installing-a-dataset">Installing a dataset</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#setting-up-your-ssh-access-to-github">Setting up your ssh access to GitHub</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#setting-up-your-ssh-access-to-oberon">Setting up your ssh access to Oberon</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#cloning-the-dataset">Cloning the dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#setup-your-gin-account">Setup your GIN account</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#installing-a-dataset">Installing a dataset</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#downloading-large-files">Downloading large files</a></li>
@@ -173,7 +170,7 @@
     
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
-      <li>How to reuse extant LAAC datasets</li>
+      <li>How to reuse GIN datasets</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -192,141 +189,88 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="how-to-reuse-extant-laac-datasets">
-<h1>How to reuse extant LAAC datasets<a class="headerlink" href="#how-to-reuse-extant-laac-datasets" title="Permalink to this headline">¶</a></h1>
-<ul class="simple">
-<li><p><a class="reference external" href="#how-to-reuse-extant-laac-datasets">How to reuse extant LAAC
-datasets</a></p>
-<ul>
-<li><p><a class="reference external" href="#how-it-works">How it works</a></p></li>
-<li><p><a class="reference external" href="#installing-datalad">Installing datalad</a></p></li>
-<li><p><a class="reference external" href="#installing-a-dataset">Installing a dataset</a></p>
-<ul>
-<li><p><a class="reference external" href="#setting-up-your-ssh-access-to-github">Setting up your ssh access to
-GitHub</a></p></li>
-<li><p><a class="reference external" href="#setting-up-your-ssh-access-to-oberon">Setting up your ssh access to
-Oberon</a></p></li>
-<li><p><a class="reference external" href="#datalad-way-using-only-datalad">Cloning the dataset</a></p></li>
-</ul>
-</li>
-<li><p><a class="reference external" href="#downloading-large-files">Downloading large files</a></p></li>
-<li><p><a class="reference external" href="#updating-a-dataset">Updating a dataset</a></p></li>
-<li><p><a class="reference external" href="#installing-all-our-datasets-at-once">Installing all our datasets at
-once</a></p></li>
-<li><p><a class="reference external" href="#contributing">Contributing</a></p>
-<ul>
-<li><p><a class="reference external" href="#pushing-changes-to-a-dataset">Pushing changes to a
-dataset</a></p></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<p>Our datasets rely on <a class="reference external" href="https://www.datalad.org/">datalad</a>. Datalad
+  <div class="section" id="how-to-reuse-gin-datasets">
+<h1>How to reuse GIN datasets<a class="headerlink" href="#how-to-reuse-gin-datasets" title="Permalink to this headline">¶</a></h1>
+<p>Our datasets are managed with <a class="reference external" href="https://www.datalad.org/">datalad</a>. Datalad
 allows the versioning and distribution of large datasets. Datalad relies
 on another tool called
 <a class="reference external" href="https://git-annex.branchable.com/">git-annex</a>, which itself is an
 extension of git providing support for large file versioning with a high
 flexibility.</p>
-<div class="section" id="how-it-works">
-<h2>How it works<a class="headerlink" href="#how-it-works" title="Permalink to this headline">¶</a></h2>
-<p>Our dataset are distributed on two “siblings”. Siblings are analogous to
-git and git-annex remotes. The github remote doesn’t include large
-files, only pointers refering to them. The large files are stored in a
-sibling hosted on Oberon, our lab cluster:</p>
-<div class="figure align-default" id="id1">
-<img alt="Dataset infrastructure" src="_images/infrastructure.png" />
-<p class="caption"><span class="caption-text">LAAC datasets storage infrastructure</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
-</div>
-</div>
+<p>We host the data on <a class="reference external" href="http://gin.g-node.org/">GIN</a>. GIN’s interface
+is really similar to GitHub, but unlike the latter, GIN can handle
+our large files.</p>
 <div class="section" id="installing-datalad">
 <h2>Installing datalad<a class="headerlink" href="#installing-datalad" title="Permalink to this headline">¶</a></h2>
-<p><em>Important: datasets are hosted on github and oberon. This means you are
-required access to our private github repositories as well as ssh access
-to oberon. You will be prompted for credentials everytime you issue
-datalad commands, so we recommand using SSH keys and enabling the
-Keychain (append ``~/.ssh/config`` with ``UseKeychain yes``).</em></p>
+<p>The DataLad handbook provides extensive instructions for the
+installation of DataLad in their <a class="reference external" href="http://handbook.datalad.org/en/latest/intro/installation.html#install">handbook</a>.</p>
+<p>If you have admin rights and are working on Linux or Mac, the following
+should work:</p>
 <ol class="arabic simple">
 <li><p>Install git-annex using <code class="docutils literal notranslate"><span class="pre">apt</span> <span class="pre">install</span> <span class="pre">git-annex</span></code> (linux) or
 <code class="docutils literal notranslate"><span class="pre">brew</span> <span class="pre">install</span> <span class="pre">git-annex</span></code> (mac). Git-annex is available by default
 on Oberon.</p></li>
-<li><p>Install datalad with pip : <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">datalad</span></code> (or
-<code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">datalad</span> <span class="pre">--user</span></code> in case of permission issues)</p></li>
+<li><p>Install datalad with pip : <code class="docutils literal notranslate"><span class="pre">pip3</span> <span class="pre">install</span> <span class="pre">datalad</span></code></p></li>
 </ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
 <p>If you are still having permission issues, consider using python virtual
-environments or conda. Otherwise, refer to your system administrator.</p>
+environments or conda (see <a class="reference external" href="http://handbook.datalad.org/en/latest/intro/installation.html#install">DataLad’s handbook</a>).
+Otherwise, refer to your system administrator.</p>
 </div>
-<div class="section" id="installing-a-dataset">
-<h2>Installing a dataset<a class="headerlink" href="#installing-a-dataset" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="setting-up-your-ssh-access-to-github">
-<h3>Setting up your ssh access to GitHub<a class="headerlink" href="#setting-up-your-ssh-access-to-github" title="Permalink to this headline">¶</a></h3>
-<p>This step shall only be done once for all. Since our datasets are
-partially hosted on GitHub private repositories, authentication is
-needed to access them. I highly recommend that you use SSH
-authentication, for security and simplicity. I will only provide
-instructions for SSH authentication, and leave HTTPS authentication to
-consenting adults. Here are the steps:</p>
+</div>
+<div class="section" id="setup-your-gin-account">
+<h2>Setup your GIN account<a class="headerlink" href="#setup-your-gin-account" title="Permalink to this headline">¶</a></h2>
+<p>Most repositories are private, and thus require authentication.
+We recommend that you always use SSH authentication and we will only
+provide instructions for this case.</p>
+<p>Before anything, you will need to create an account on <a class="reference external" href="https://gin.g-node.org/">GIN</a>,
+and to link your <a class="reference external" href="https://gin.g-node.org/user/settings/ssh">SSH public key</a> to your
+GIN account.</p>
 <ol class="arabic simple">
+<li><p>Create an account on GIN</p></li>
 <li><p>Copy your SSH public key (usually located in <code class="docutils literal notranslate"><span class="pre">~/.ssh/id_rsa.pub</span></code>)</p></li>
-<li><p>Go to <a class="reference external" href="https://github.com/settings/keys">GitHub.com &gt; Settings &gt; SSH and GPG
-Keys</a></p></li>
-<li><p>Click on the green button ‘New SSH key’ and paste your public key
+<li><p>Go to <a class="reference external" href="https://gin.g-node.org/user/settings/ssh">GIN &gt; Settings &gt; SSH Keys</a></p></li>
+<li><p>Click on the blue button ‘Add a key’ and paste your public key
 where requested.</p></li>
 </ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Remember to communicate your username to the data administrator
+before you try to access the data
+in order for him to grant you permissions.</p>
 </div>
-<div class="section" id="setting-up-your-ssh-access-to-oberon">
-<span id="reuse-oberon-ssh"></span><h3>Setting up your ssh access to Oberon<a class="headerlink" href="#setting-up-your-ssh-access-to-oberon" title="Permalink to this headline">¶</a></h3>
-<p>The actual content of the large files (e.g. recordings) is stored on the
-lab cluster (Oberon). Therefore, you need ssh access to the cluster to
-retrieve them.</p>
-<p>If you can already ssh into Oberon with an alias by doing
-<code class="docutils literal notranslate"><span class="pre">ssh</span> <span class="pre">foberon</span></code> or <code class="docutils literal notranslate"><span class="pre">ssh</span> <span class="pre">oberon</span></code> or similar, skip this step. Otherwise,
-follow these instructions to setup ssh properly:</p>
-<ol class="arabic simple">
-<li><p>Add the following lines to your <code class="docutils literal notranslate"><span class="pre">~/.ssh/config</span></code> file, replacing
-<code class="docutils literal notranslate"><span class="pre">&lt;username&gt;</span></code> by your actual username:</p></li>
-</ol>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Host</span> <span class="n">flores</span>
-   <span class="n">Hostname</span> <span class="n">cognitive</span><span class="o">-</span><span class="n">ml</span><span class="o">.</span><span class="n">fr</span>
-   <span class="n">User</span> <span class="o">&lt;</span><span class="n">username</span><span class="o">&gt;</span>
-
-<span class="n">Host</span> <span class="n">foberon</span>
-   <span class="n">Hostname</span> <span class="n">oberon</span>
-   <span class="n">User</span> <span class="o">&lt;</span><span class="n">username</span><span class="o">&gt;</span>
-   <span class="n">ProxyJump</span> <span class="n">flores</span>
-
-<span class="n">Host</span> <span class="o">*</span>
-<span class="n">ForwardX11</span> <span class="n">yes</span>
-<span class="n">UseKeychain</span> <span class="n">yes</span>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You can configure as many keys as necessary. This is useful when you
+need to access GIN from different locations with different SSH keys
+(e.g. from your lab cluster, or from your own laptop).</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You may consider enabling the Keychain
+(append <code class="docutils literal notranslate"><span class="pre">~/.ssh/config</span></code> with <code class="docutils literal notranslate"><span class="pre">UseKeychain</span> <span class="pre">yes</span></code>)
+if you are prompted for your SSH passphrase everytime.</p>
+</div>
+<div class="section" id="installing-a-dataset">
+<h3>Installing a dataset<a class="headerlink" href="#installing-a-dataset" title="Permalink to this headline">¶</a></h3>
+<p>Installing a dataset can be done with the <cite>datalad install</cite> command.
+The input is the SSH location of the dataset. It can be found on
+the page of the repository on GIN.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>datalad install git@gin.g-node.org:/LAAC-LSCP/vandam-data.git
+<span class="nb">cd</span> vandam-data
 </pre></div>
 </div>
-<ol class="arabic simple" start="2">
-<li><p>Try to SSH into oberon by typing <code class="docutils literal notranslate"><span class="pre">ssh</span> <span class="pre">foberon</span></code>. You will be
-prompted for your credentials.</p></li>
-</ol>
-</div>
-<div class="section" id="cloning-the-dataset">
-<h3>Cloning the dataset<a class="headerlink" href="#cloning-the-dataset" title="Permalink to this headline">¶</a></h3>
-<ol class="arabic simple">
-<li><p>The first step is to clone the dataset from github, for instance :</p></li>
-</ol>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">datalad</span> <span class="n">install</span> <span class="n">git</span><span class="nd">@github</span><span class="o">.</span><span class="n">com</span><span class="p">:</span><span class="n">LAAC</span><span class="o">-</span><span class="n">LSCP</span><span class="o">/</span><span class="n">namibia</span><span class="o">-</span><span class="n">data</span><span class="o">.</span><span class="n">git</span>
-<span class="n">cd</span> <span class="n">namibia</span><span class="o">-</span><span class="n">data</span>
+<p>Datasets that contain subdatasets can be installed recursively using the -r switch.
+This is the case of the EL1000 dataset:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>datalad install git@gin.g-node.org:/EL1000/EL1000.git
+<span class="nb">cd</span> EL1000
 </pre></div>
 </div>
-<ol class="arabic simple" start="2">
-<li><p>The next step is configure the access to the cluster (where large
-files are stored). If you are installing the dataset on oberon, you
-just have to type :</p></li>
-</ol>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">datalad</span> <span class="n">run</span><span class="o">-</span><span class="n">procedure</span> <span class="n">setup</span>
-</pre></div>
-</div>
-<p>Otherwise, you need to specify the SSH alias for Oberon on your system.
-If you followed the previous steps to setup your SSH access to Oberon,
-it should be <code class="docutils literal notranslate"><span class="pre">foberon</span></code> :</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">datalad</span> <span class="n">run</span><span class="o">-</span><span class="n">procedure</span> <span class="n">setup</span> <span class="n">foberon</span>
-</pre></div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Some datasets may require additional configuration steps.
+Pay attention to the README before you start using a dataset.</p>
 </div>
 <p>That’s it ! Your dataset is ready to go. By default, large files do not
 get downloaded automatically. See the next section for help with
@@ -358,17 +302,6 @@ with <code class="docutils literal notranslate"><span class="pre">dataset</span>
 </div>
 <div class="section" id="installing-all-our-datasets-at-once">
 <h2>Installing all our datasets at once<a class="headerlink" href="#installing-all-our-datasets-at-once" title="Permalink to this headline">¶</a></h2>
-<p>In order to install the superdataset, run the following commands :</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">datalad</span> <span class="n">install</span> <span class="o">-</span><span class="n">r</span> <span class="n">git</span><span class="nd">@github</span><span class="o">.</span><span class="n">com</span><span class="p">:</span><span class="n">LAAC</span><span class="o">-</span><span class="n">LSCP</span><span class="o">/</span><span class="n">datasets</span><span class="o">.</span><span class="n">git</span>
-<span class="n">cd</span> <span class="n">datasets</span>
-<span class="n">datalad</span> <span class="n">run</span><span class="o">-</span><span class="n">procedure</span> <span class="n">setup</span> <span class="o">&lt;</span><span class="n">oberon_alias</span><span class="o">&gt;</span>
-</pre></div>
-</div>
-<p>Make sure to replace <code class="docutils literal notranslate"><span class="pre">&lt;oberon_alias&gt;</span></code> with whatever alias you use to
-ssh into Oberon. If you have followed our instructions (<a class="reference internal" href="#reuse-oberon-ssh"><span class="std std-ref">Setting up your ssh access to Oberon</span></a>),
-it should be <code class="docutils literal notranslate"><span class="pre">foberon</span></code>.</p>
-<p>You’re good to go. You can download data from any dataset, e.g. by doing
-<code class="docutils literal notranslate"><span class="pre">datalad</span> <span class="pre">get</span> <span class="pre">solomon-data/annotations</span></code>.</p>
 </div>
 <div class="section" id="contributing">
 <h2>Contributing<a class="headerlink" href="#contributing" title="Permalink to this headline">¶</a></h2>
